@@ -156,7 +156,8 @@ class C_main_handle
 		{
 			try
 			{
-				_socket.F_create_socket(_config.F_get_ip_number(), _config.F_get_port_number());
+				_log.F_write_log(_socket.F_create_socket(_config.F_get_ip_number(), _config.F_get_port_number()));
+				_log.F_write_log(_socket.F_accept_socket());
 			}
 			catch(const char* _message)
 			{

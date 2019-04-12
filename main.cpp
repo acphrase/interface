@@ -82,6 +82,7 @@ class C_main_handle
 			{
 				/* 1. LOG File Open */
 				_log.F_open_log_file(_config.F_get_process_name(), _config.F_get_log_file_name());
+				
 				/* 2. MSG File Open */
 				_log.F_write_log(_msg.F_open_msg_file(_config.F_get_process_name(), _config.F_get_msg_file_name()));
 
@@ -152,12 +153,18 @@ class C_main_handle
 			}
 		}
 
-		void F_temp()
+		void F_create_socket()
 		{
 			try
 			{
-				_log.F_write_log(_socket.F_create_socket(_config.F_get_ip_number(), _config.F_get_port_number()));
-				_log.F_write_log(_socket.F_accept_socket());
+				memset(_message, 0x00, sizeof(_message));
+				sprintf(_message, _socket.F_create_socket(_config.F_get_ip_number(), _config.F_get_port_number()));
+				_log.F_write_log(_message);
+
+				memset(_message, 0x00, sizeof(_message));
+				sprintf(_message , _socket.F_accept_socket());
+				_log.F_write_log(_message);
+				_msg.F_write_msg(_message);
 			}
 			catch(const char* _message)
 			{
@@ -226,7 +233,7 @@ int main(int argc, char *argv[])
 	_control.F_get_jang();				/* JANG File을 읽어와서 Variable Setting */
 	//_control.F_stop_process(FAIL);
 	//_control.F_stop_process(SUCCESS);
-	_control.F_temp();
+	_control.F_create_socket();
 
 	return 0;
 }

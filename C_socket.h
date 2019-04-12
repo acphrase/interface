@@ -74,6 +74,7 @@ class C_socket
 			}
 
 			/* 4. Bind Socket */
+			/* server socket에 _server_address 구조체에 저장 한 정보를 할당 */
 			if(bind(_server_socket, (struct sockaddr*)&_server_address, sizeof(_server_address)) == -1)
 			{
 				memset(_message, 0x00, sizeof(_message));
@@ -82,6 +83,8 @@ class C_socket
 			}
 
 			/* 5. Listen Socket */
+			/* server socket에 connect를 요청하는지 대기 */
+			/* 대기는 2개의 client까지만 허용. 나머지는 거부 안내 송신 */
 			if(listen(_server_socket, 2) == -1)
 			{
 				memset(_message, 0x00, sizeof(_message));
@@ -100,6 +103,8 @@ class C_socket
 		char* F_accept_socket()
 		{
 			/* 1. Accept Socket */
+			/* server socket에 대기중인 client의 정보를 _client_address에 저장 */
+			/* 접속 허용하여 데이터 송수신 시작 */
 			_client_address_size = sizeof(_client_address);
 			_client_socket = accept(_server_socket, (struct sockaddr*)&_client_address, &_client_address_size);
 			if(_client_socket == -1)
@@ -109,6 +114,11 @@ class C_socket
 				throw _message;
 			}
 			else
-				return "connect";
+			{
+				memset(_message, 0x00, sizeof(_message));
+				sprintf(_message, "TCP/IP Connected ( IP:%s port:%d )", inet_ntoa(_client_address.sin_addr), ntohs(_client_address.sin_port));
+			}
+			
+			return _message;
 		}
 };

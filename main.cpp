@@ -153,7 +153,7 @@ class C_main_handle
 			}
 		}
 
-		void F_create_socket()
+		int F_create_socket()
 		{
 			try
 			{
@@ -165,6 +165,8 @@ class C_main_handle
 				sprintf(_message , _socket.F_accept_socket());
 				_log.F_write_log(_message);
 				_msg.F_write_msg(_message);
+
+                return SUCCESS;
 			}
 			catch(const char* _message)
 			{
@@ -233,7 +235,7 @@ int main(int argc, char *argv[])
 	_control.F_get_jang();				/* JANG File을 읽어와서 Variable Setting */
 	//_control.F_stop_process(FAIL);
 	//_control.F_stop_process(SUCCESS);
-	_control.F_create_socket();
+	while(_control.F_create_socket() == FAIL);
 
 	return 0;
 }

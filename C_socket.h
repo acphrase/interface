@@ -21,41 +21,40 @@ class C_socket
 
 		void F_create_socket(char *ip, char *port)
 		{
-			cout << ip << endl;
-			cout << *ip << endl;
-			cout << port << endl;
-			cout << *port << endl;
+			//cout << ip << endl;
+			//cout << port << endl;
 			/* 1. Socket에 할당 할 정보 Setting */
 			_server_address.sin_family = AF_INET;	/* 주소 체계 : IPv4 */
-			cout << _server_address.sin_family << endl;
-
 			_server_address.sin_addr.s_addr = inet_addr(ip);	/* server ip (Network bytes 주소로 변환) */
-			cout << inet_addr(ip) << endl;
-			cout << _server_address.sin_addr.s_addr << endl;
-
 			_server_address.sin_port = htons((unsigned short)atoi(port));	/* server port number */
-			cout << htons((unsigned short)atoi(port)) << endl;
-			cout << _server_address.sin_port << endl;
 
 			/* 2. Create Socket */
 			_server_socket = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
-			if(_server_socke == -1)
+			if(_server_socket == -1)
+			{
+				cout << "Error : " << strerror(errno) << endl;
 				throw "Socket Create Error..";
+			}
 
 			/* 3. Add Option Socket */
 
 			/* 4. Bind Socket */
-			if(bind(_server_socket, (struct sockaddr*)&_server_address, sizeof(_server_address)));
+			if(bind(_server_socket, (struct sockaddr*)&_server_address, sizeof(_server_address)) == -1)
 			{
-				cout << strerror(errno) << endl;
+				cout << "Error : " << strerror(errno) << endl;
 				throw "Socket Bind Error..";
 			}
 
 			/* 5. Listen Socket */
-			if(listen(_server_socket, 2))
+			if(listen(_server_socket, 2) == -1)
+			{
+				cout << "Error : " << strerror(errno) << endl;
 				throw "Socket Listen Error..";
+			}
 			else
+			{
 				cout << "Socket(NO = " << _server_socket << ") Listening.." << endl;
+			}
 
 			/* 6. Accept Socket */
 			_client_address_size = sizeof(_client_address);

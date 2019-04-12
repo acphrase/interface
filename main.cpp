@@ -166,7 +166,7 @@ class C_main_handle
 				_log.F_write_log(_message);
 				_msg.F_write_msg(_message);
 
-                return SUCCESS;
+                		return SUCCESS;
 			}
 			catch(const char* _message)
 			{

@@ -95,9 +95,8 @@ class C_socket
 			{
 				memset(_message, 0x00, sizeof(_message));
 				sprintf(_message, "Socket(NO = %d) Listening..", _server_socket);
+                return _message;
 			}
-
-			return _message;
 		}
 
 		char* F_accept_socket()
@@ -117,8 +116,7 @@ class C_socket
 			{
 				memset(_message, 0x00, sizeof(_message));
 				sprintf(_message, "TCP/IP Connected ( IP:%s port:%d )", inet_ntoa(_client_address.sin_addr), ntohs(_client_address.sin_port));
+                return _message;
 			}
-			
-			return _message;
 		}
 };

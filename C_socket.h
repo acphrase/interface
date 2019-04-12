@@ -39,7 +39,7 @@ class C_socket
 
 			/* 2. Create Socket */
 			_server_socket = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
-			if(_server_socke)
+			if(_server_socke == -1)
 				throw "Socket Create Error..";
 
 			/* 3. Add Option Socket */
@@ -60,7 +60,9 @@ class C_socket
 			/* 6. Accept Socket */
 			_client_address_size = sizeof(_client_address);
 			_client_socket = accept(_server_socket, (struct sockaddr*)&_client_address, &_client_address_size);
-			if(_client_socket)
+			if(_client_socket == -1)
 				throw "Socket Accept Error..";
+			else
+				cout << "connect" << endl;
 		}
 };

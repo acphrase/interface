@@ -27,5 +27,7 @@ using namespace std;
 /*----------------------------------------------------------------------------*/
 #define SUCCESS 0
 #define FAIL -1
+#define CONNECT 1
+#define DISCONNECT 0
 
 #endif

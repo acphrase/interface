@@ -166,7 +166,7 @@ class C_main_handle
 				_log.F_write_log(_message);
 				_msg.F_write_msg(_message);
 
-                return SUCCESS;
+                return CONNECT;
 			}
 			catch(const char* _message)
 			{
@@ -224,6 +224,8 @@ int main(int argc, char *argv[])
 	argv[1] = "999r1";
 	argv[2] = "tconfig";
 
+    int _connect_status = 0;
+
 	/* Parameter Check */
 	C_main_handle _control(&argc, argv);
 
@@ -235,7 +237,15 @@ int main(int argc, char *argv[])
 	_control.F_get_jang();				/* JANG File을 읽어와서 Variable Setting */
 	//_control.F_stop_process(FAIL);
 	//_control.F_stop_process(SUCCESS);
-	while(_control.F_create_socket() == FAIL);
+
+    while(1)
+    {
+        /* 0. Socket Create, Bind, Listen, Accept */
+        if(_connect_status != CONNECT)
+        {
+            while((_connect_status = _control.F_create_socket()) != CONNECT);
+        }
+    }
 
 	return 0;
 }

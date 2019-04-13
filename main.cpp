@@ -166,14 +166,14 @@ class C_main_handle
 				_log.F_write_log(_message);
 				_msg.F_write_msg(_message);
 
-                		return CONNECT;
+            	return CONNECT;
 			}
 			catch(const char* _message)
 			{
 				_log.F_write_log(_message);
 				_msg.F_write_msg(_message);
 				cout << _message << endl;
-				exit(1);
+                return DISCONNECT;
 			}
 		}
 
@@ -224,7 +224,7 @@ int main(int argc, char *argv[])
 	argv[1] = "999r1";
 	argv[2] = "tconfig";
 
-    int _connect_status = 0;
+    int _connect_status = DISCONNECT;            /* Socket 생성 유무 변수 */
 
 	/* Parameter Check */
 	C_main_handle _control(&argc, argv);
@@ -241,9 +241,10 @@ int main(int argc, char *argv[])
     while(1)
     {
         /* 0. Socket Create, Bind, Listen, Accept */
-        if(_connect_status != CONNECT)
+        if(!_connect_status)
         {
-            while((_connect_status = _control.F_create_socket()) != CONNECT);
+            _connect_status = _control.F_create_socket();
+            while(!_connect_status);
         }
     }
 

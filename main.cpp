@@ -25,6 +25,7 @@ class C_main_handle
 		int _data_fd;
 		int _jang_status;
 		C_socket _socket;
+        int _connect_status;            /* Socket 생성 유무 변수 */
 
 	public :
 		C_main_handle( int *argc, char *argv[]) : _key(&argv[1]), _config_path(&argv[2])
@@ -36,6 +37,8 @@ class C_main_handle
 				cout << "Usage : " << *argv << " <WhisaCode+TR> <Config File>" << endl;
 				exit(1);
 			}
+
+            _connect_status = DISCONNECT;
 		}
 
 		void F_get_date_time()
@@ -153,6 +156,15 @@ class C_main_handle
 			}
 		}
 
+        void F_start()
+        {
+            if(!_connect_status)
+            {
+                _connect_status = F_create_socket();
+                while(!_connect_status);
+            }
+        }
+
 		int F_create_socket()
 		{
 			try
@@ -224,7 +236,6 @@ int main(int argc, char *argv[])
 	argv[1] = "999r1";
 	argv[2] = "tconfig";
 
-    int _connect_status = DISCONNECT;            /* Socket 생성 유무 변수 */
 
 	/* Parameter Check */
 	C_main_handle _control(&argc, argv);
@@ -241,11 +252,7 @@ int main(int argc, char *argv[])
     while(1)
     {
         /* 0. Socket Create, Bind, Listen, Accept */
-        if(!_connect_status)
-        {
-            _connect_status = _control.F_create_socket();
-            while(!_connect_status);
-        }
+        _control.F_start();
     }
 
 	return 0;

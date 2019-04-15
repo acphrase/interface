@@ -1,5 +1,45 @@
 #include"main.h"
 
+struct RECV_MESSAGE_DEF
+{ /* 수신 메세지 definition */
+  char message_length           [4];
+  char tr_code                  [9];   /* TR-code : "N       " */
+  char gigwan_id                [3];   /* 기관 id : 999 */
+  char msg_type                 [4];   /* 전문 type : 0800,0810,0200,0210 */
+  char opr_type                 [3];   /* 운용 type : 000,001,002,040,301 */
+  char err_code                 [2];   /* 오류 code : 00:정상,기타:ERROR */
+  char time                     [12];  /* 날짜 및 시간 : yymmddhhmmss */
+  char retry_cnt                [2];   /* 재송횟수 */
+  char data_no                  [8];   /* (Header부)DATA 번호 */
+  char data_cnt                 [2];   /* DATA 갯수 */
+  char data_seq                 [8];   /* (Data부) DATA seq */
+  char data_tr_code             [2];   /* (Data부) TR code */
+  char data_sub_tr_code         [2];   /* (Data부) SUB TR code */
+  char rcv_data                 [3939];
+}; /* 수신 버퍼 총 4000 byte */
+
+struct SEND_MESSAGE_DEF
+{ /* 송신 메세지 definition */
+  char message_length           [4];
+  char tr_code                  [9];   /* TR-code : "N       " */
+  char gigwan_id                [3];   /* 기관 id : 999 */
+  char msg_type                 [4];   /* 전문 type : 0800,0810,0200,0210 */
+  char opr_type                 [3];   /* 운용 type : 000,001,002,040,301 */
+  char err_code                 [2];   /* 오류 code : 00:정상,기타:ERROR */
+  char time                     [12];  /* 날짜 및 시간 : yymmddhhmmss */
+  char retry_cnt                [2];   /* 재송횟수 */
+  char data_no                  [8];   /* DATA SEQ */
+  char data_cnt                 [2];   /* DATA 갯수 */
+  char snd_data              [3951];
+}; /* 송신 버퍼 총 4000 byte */
+
+struct SEND_MESSAGE_PB_DEF
+{ /* PB 송신 메세지 definition */
+  char snd_pb_header           [61];
+  char snd_pb_comp_id          [3];
+  char snd_pb_data             [3936];
+}; /* 송신 버퍼 총 4000 byte */
+
 class C_socket
 {
 	private :
@@ -9,6 +49,11 @@ class C_socket
 		int _client_socket;
 		char _message[150];
 		socklen_t _client_address_size;
+        char _recv_buffer[4000];
+        char _send_buffer[4000];
+        RECV_MESSAGE_DEF _recv_message;
+        SEND_MESSAGE_DEF _send_message;
+        SEND_MESSAGE_PB_DEF _send_message_pb;
 
 	public :
 		C_socket()
@@ -19,6 +64,11 @@ class C_socket
 			_server_socket = 0;
 			_client_socket = 0;
 			_client_address_size = 0;
+            memset(_recv_buffer, 0x00, sizeof(_recv_buffer));
+            memset(_send_buffer, 0x00, sizeof(_send_buffer));
+            memset(&_recv_message, 0x00, sizeof(_recv_message));
+            memset(&_send_message, 0x00, sizeof(_send_message));
+            memset(&_send_message_pb, 0x00, sizeof(_send_message_pb));
 		}
 
 		char* F_create_socket(char *ip, char *port)
@@ -119,4 +169,22 @@ class C_socket
 				return _message;
 			}
 		}
+
+        void F_read_socket(int _header_length)
+        {
+            int _recv_length = 0;
+            int _remain_length = _header_length - _recv_length;
+
+	        /* 1. Message length read */
+            while(_remain_length < _header_length)
+            {
+                _recv_length = recv(_client_socket, &_recv_buffer[_recv_length], _remain_length, 0);
+                if(_recv_length < 0)
+                {
+                    memset(_message, 0x00, sizeof(_message));
+                    sprintf(_message, "New Socket Message Length Read Error : %d", _recv_length);
+                    throw _message;
+                }
+            }
+        }
 };

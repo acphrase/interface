@@ -26,6 +26,7 @@ class C_main_handle
 		int _jang_status;
 		C_socket _socket;
         int _connect_status;            /* Socket 생성 유무 변수 */
+        int _retry_check;               /* 재전송 시도 횟수 변수 */
 
 	public :
 		C_main_handle( int *argc, char *argv[]) : _key(&argv[1]), _config_path(&argv[2])
@@ -39,6 +40,7 @@ class C_main_handle
 			}
 
             _connect_status = DISCONNECT;
+            _retry_check = 0;
 		}
 
 		void F_get_date_time()
@@ -253,6 +255,12 @@ int main(int argc, char *argv[])
     {
         /* 0. Socket Create, Bind, Listen, Accept */
         _control.F_start();
+
+        /* 1. Interface 수신 */
+
+        /* 2. Message Check, Message Set, Data Set */
+        
+        /* 3. Interface 송신 */
     }
 
 	return 0;

@@ -369,11 +369,11 @@ class C_socket
 			return _recv_length;
         }
 
-		void F_check_message()
+		int F_check_message()
 		{
-            char _recv_gubun[2] = RECV_GUBUN;
-            char _send_gubun[2] = SEND_GUBUN;
-            char _header_tr_code[2] = HEADER_TR_CODE;
+            char _recv_gubun = RECV_GUBUN;
+            char _send_gubun = SEND_GUBUN;
+            char _header_tr_code = HEADER_TR_CODE;
 			_recv_message_type = UNDEFINED;
 
 			/* 1. Message 유형 구분 */
@@ -632,16 +632,16 @@ class C_socket
 
 		char* F_put_log_message()
 		{
-            char _recv_gubun[2] = RECV_GUBUN;
+            char _recv_gubun = RECV_GUBUN;
 			memset(_message, 0x00, sizeof(_message));
 
 			if(strncmp(_communicate_type, _recv_gubun, 1) == 0)
 			{ /* 수신 상황일 경우 */
-				sprintf(_message, "RECV %4.4s %1.1s %3.3s %4.4s %3.3s %2.2s %12.12s %2.2s %8.8s %2.2s.%d", _recv_message.message_length, _recv_message.tr_code, _recv_message.gigwan_id, _recv_message.msg_type, _recv_message.opr_type, _recv_message.err_code, _recv_message.time, _recv_message.retry_cnt, _recv_message.data_no, _recv_message.data_cnt, strlen(_recv_buffer));
+				sprintf(_message, "RECV %4.4s %1.1s %3.3s %4.4s %3.3s %2.2s %12.12s %2.2s %8.8s %2.2s.%ld", _recv_message.message_length, _recv_message.tr_code, _recv_message.gigwan_id, _recv_message.msg_type, _recv_message.opr_type, _recv_message.err_code, _recv_message.time, _recv_message.retry_cnt, _recv_message.data_no, _recv_message.data_cnt, strlen(_recv_buffer));
 			}
 			else
 			{ /* 송신 상황일 경우 */
-				sprintf(_message, "RECV %4.4s %1.1s %3.3s %4.4s %3.3s %2.2s %12.12s %2.2s %8.8s %2.2s.%d", _send_message.message_length, _send_message.tr_code, _send_message.gigwan_id, _send_message.msg_type, _send_message.opr_type, _send_message.err_code, _send_message.time, _send_message.retry_cnt, _send_message.data_no, _send_message.data_cnt, strlen(_send_buffer));
+				sprintf(_message, "RECV %4.4s %1.1s %3.3s %4.4s %3.3s %2.2s %12.12s %2.2s %8.8s %2.2s.%ld", _send_message.message_length, _send_message.tr_code, _send_message.gigwan_id, _send_message.msg_type, _send_message.opr_type, _send_message.err_code, _send_message.time, _send_message.retry_cnt, _send_message.data_no, _send_message.data_cnt, strlen(_send_buffer));
 			}
 
 			return _message;

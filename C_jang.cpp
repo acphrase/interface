@@ -10,7 +10,7 @@ C_jang::C_jang() : _btris(UPMU_GUBUN), _upmu_gubun(UPMU_GUBUN)
 	_jang_status_num = -1;
 }
 
-~C_jang()
+C_jang::~C_jang()
 {
 	_jang.close();
 }

@@ -428,7 +428,7 @@ class C_socket
 			}
 
 			/* 4. HEADER TR-CODE CHECK */
-			if(strncmp(_recv_message.tr_code, _header_tr_code, 1) != 0)
+			if(strncmp(_recv_message.tr_code, &_header_tr_code, 1) != 0)
 			{
 				memset(_message, 0x00, sizeof(_message));
 				sprintf(_message, "[Header] TR_CODE error..%3.3s", _recv_message.tr_code);
@@ -446,7 +446,7 @@ class C_socket
 
 			/* 6. 전문 & 운용 type CHECK */
 			/* (1) 허용 MSG type CHECK */
-			if(strncmp(_communicate_type, _recv_gubun, 1) == 0)
+			if(strncmp(_communicate_type, &_recv_gubun, 1) == 0)
 			{ /* 수신 프로세스인 경우 허용 MSG type Filtering */
 				if((_recv_message_type == MSG_0810_001) || 
 				   (_recv_message_type == MSG_0810_301) ||
@@ -508,7 +508,7 @@ class C_socket
 
 			if((_recv_message_type != MSG_0800_301) && (_recv_message_type != MSG_0810_301))
 			{
-				if(strncmp(_communicate_type, _send_gubun, 1) == 0)
+				if(strncmp(_communicate_type, &_send_gubun, 1) == 0)
 				{ /* 송신 프로세스인 경우 */
 					if(_recv_data_no != _last_data_count)
 					{ /* 마지막 count와 같아야 함 */
@@ -635,7 +635,7 @@ class C_socket
             char _recv_gubun = RECV_GUBUN;
 			memset(_message, 0x00, sizeof(_message));
 
-			if(strncmp(_communicate_type, _recv_gubun, 1) == 0)
+			if(strncmp(_communicate_type, &_recv_gubun, 1) == 0)
 			{ /* 수신 상황일 경우 */
 				sprintf(_message, "RECV %4.4s %1.1s %3.3s %4.4s %3.3s %2.2s %12.12s %2.2s %8.8s %2.2s.%ld", _recv_message.message_length, _recv_message.tr_code, _recv_message.gigwan_id, _recv_message.msg_type, _recv_message.opr_type, _recv_message.err_code, _recv_message.time, _recv_message.retry_cnt, _recv_message.data_no, _recv_message.data_cnt, strlen(_recv_buffer));
 			}

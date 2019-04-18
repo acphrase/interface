@@ -331,8 +331,8 @@ class C_socket
                     			throw "Message Length Read Error From Socket..";
 				}
 
-				F_check_message();
-				F_put_log_message();
+				//F_check_message();
+				//F_put_log_message();
 
 				return SUCCESS;
 			}

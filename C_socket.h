@@ -294,7 +294,7 @@ class C_socket
 
 		
 		
-		void F_recv_message(int _time, int r_jang_status, long r_last_data_count)
+		int F_recv_message(int _time, int r_jang_status, long r_last_data_count)
 		{
 			_jang_status = r_jang_status;
 			_last_data_count = r_last_data_count;
@@ -401,11 +401,11 @@ class C_socket
 				if(strncmp(_tr_code, _recv_message.data_tr_code, 2) != 0)
 					throw "[Header] Parsing Error..";
 
-				char _length;
+				char _length[5];
 				sprintf(_length, _recv_message.message_length, HEADER_LENGTH);
 				int _header_message_length = atoi(_length);
 
-				if(strlen(_recv_message) != (HEADER_LENGTH + _header_message_length + _data_length))
+				if(strlen(_recv_buffer) != (HEADER_LENGTH + _header_message_length + _data_length))
 					throw "[Header] Format Error..";
 			}
 
@@ -420,12 +420,12 @@ class C_socket
 
 			if(_recv_message_type == MSG_0800_301)
 			{
-				if(jang_status == JANG_CLOSE)
+				if(_jang_status == JANG_CLOSE)
 					throw "[Header] Market is Aleady End..";
 			}
 
 			/* 4. HEADER TR-CODE CHECK */
-			if(strncmp(_recv_message.tr_code, HEADER_TR_CODE, 1) != 0)
+			if(strncmp(&_recv_message.tr_code[0], HEADER_TR_CODE, 1) != 0)
 			{
 				memset(_message, 0x00, sizeof(_message));
 				sprintf(_message, "[Header] TR_CODE error..%3.3s", _recv_message.tr_code);
@@ -443,7 +443,7 @@ class C_socket
 
 			/* 6. 전문 & 운용 type CHECK */
 			/* (1) 허용 MSG type CHECK */
-			if(strncmp(_communicate_type, RECV_GUBUN, 1) == 0)
+			if(strncmp(*_communicate_type, RECV_GUBUN, 1) == 0)
 			{ /* 수신 프로세스인 경우 허용 MSG type Filtering */
 				if((_recv_message_type == MSG_0810_001) || 
 				   (_recv_message_type == MSG_0810_301) ||
@@ -468,15 +468,15 @@ class C_socket
 				}
 
 				/* 0800/040(마감요청)을 보내지 않았는데 0810/040(마감요청응답)이 들어오는 경우 */
-				if(_recv_message_type == MSG_0810_040)
-				{
-					if(_send_message_type != MSG_0800_040)
-					{
-						memset(_message, 0x00, sizeof(_message));
-						sprintf(_message, "Invalid Recv[S] OPR TYPE : %4.4s.%3.3s", _recv_message.msg_type, _recv_message.opr_type);
-						throw _message;
-					}
-				}
+				//if(_recv_message_type == MSG_0810_040)
+				//{
+				//	if(_send_message_type != MSG_0800_040)
+				//	{
+				//		memset(_message, 0x00, sizeof(_message));
+				//		sprintf(_message, "Invalid Recv[S] OPR TYPE : %4.4s.%3.3s", _recv_message.msg_type, _recv_message.opr_type);
+				//		throw _message;
+				//	}
+				//}
 			}
 
 			/* (2) (개시 전) 전문/운용 type CHECK */
@@ -496,16 +496,16 @@ class C_socket
 			}
 
 			/* 7. (Header부) DATA Sequence Number Check */
+			char _data_no[9];
+			long _recv_data_no;
+
+			memset(_data_no, 0x00, sizeof(_data_no));
+			strncpy(_data_no, _recv_message.data_no, 8);
+			_recv_data_no = atol(_data_no);
+
 			if((_recv_message_type != MSG_0800_301) && (_recv_message_type != MSG_0810_301))
 			{
-				char _data_no[9];
-				long _recv_data_no;
-
-				memset(_data_no, 0x00, sizeof(_data_no));
-				strncpy(_data_no, _recv_message.data_no, 8);
-				_recv_data_no = atol(_data_no);
-
-				if(strncmp(_communicate_type, SEND_GUBUN, 1) == 0)
+				if(strncmp(*_communicate_type, SEND_GUBUN, 1) == 0)
 				{ /* 송신 프로세스인 경우 */
 					if(_recv_data_no != _last_data_count)
 					{ /* 마지막 count와 같아야 함 */
@@ -538,23 +538,17 @@ class C_socket
 			}
 			
 			/* 8. (Header부) DATA Count check */
-
-			memset(lc_data_cnt_string, 0x00, sizeof(lc_data_cnt_string));
-			strncpy(lc_data_cnt_string, (char*)&gst_rcv_buff.data_cnt, 2);
-			NUMIN(lc_data_cnt_string, &gs_rcv_data_cnt, 10, &ls_numin_status);
-
 			/* _recv_message.data_cnt = Data Block Count */ 
 			/* 데이터가 없을 경우 Block Count는 0, 있을 경우 1 */
+			char _data_cnt[3];
+			int _recv_data_cnt;
+
+			memset(_data_cnt, 0x00, sizeof(_data_cnt));
+			strncpy(_data_cnt, _recv_message.data_cnt, 2);
+			_recv_data_cnt = atoi(_data_cnt);
+
 			if((_recv_message_type != MSG_0200_000) && (_recv_message_type != MSG_0210_000))
 			{ /* 0200 이외에는 Block Count 는 '0' 이어야 함 */
-
-				char _data_cnt[3];
-				int _recv_data_cnt;
-
-				memset(_data_cnt, 0x00, sizeof(_data_cnt));
-				strncpy(_data_cnt, _recv_message.data_cnt, 2);
-				_recv_data_cnt = atoi(_data_cnt);
-
 				if(_recv_data_cnt != 0)
 				{
 					memset(_message, 0x00, sizeof(_message));
@@ -573,15 +567,15 @@ class C_socket
 			}
 
 			/* 9. INNER SEQUENCE CHECK */
+            char _data_seq[9];
+			long _recv_data_seq;
+
+			memset(_data_seq, 0x00, sizeof(_data_seq));
+			strncpy(_data_seq, _recv_message.data_seq, 8);
+			_recv_data_seq = atol(_data_seq);
+
 			if(_recv_message_type == MSG_0200_000)
 			{ /* 0200/000인 경우만 check */
-				char _data_seq[9];
-				long _recv_data_seq;
-
-				memset(_data_seq, 0x00, sizeof(_data_seq));
-				strncpy(_data_seq, _recv_message.data_seq, 8);
-				_recv_data_seq = atol(_data_seq);
-
 				if(_recv_data_no != _recv_data_seq)
 				{
 					memset(_message, 0x00, sizeof(_message));
@@ -637,13 +631,13 @@ class C_socket
 		{
 			memset(_message, 0x00, sizeof(_message));
 
-			if(strncmp(_communicate_type, RECV_GUBUN, 1) == 0)
+			if(strncmp(*_communicate_type, RECV_GUBUN, 1) == 0)
 			{ /* 수신 상황일 경우 */
-				sprintf(_message, "RECV %4.4s %1.1s %3.3s %4.4s %3.3s %2.2s %12.12s %2.2s %8.8s %2.2s.%d", _recv_message.message_length, _recv_message.tr_code, _recv_message.gigwan_id, _recv_message.msg_type, _recv_message.opr_type, _recv_message.err_code, _recv_message.time, _recv_message.retry_cnt, _recv_message.data_no, _recv_message.data_cnt, strlen(_recv_message));
+				sprintf(_message, "RECV %4.4s %1.1s %3.3s %4.4s %3.3s %2.2s %12.12s %2.2s %8.8s %2.2s.%d", _recv_message.message_length, _recv_message.tr_code, _recv_message.gigwan_id, _recv_message.msg_type, _recv_message.opr_type, _recv_message.err_code, _recv_message.time, _recv_message.retry_cnt, _recv_message.data_no, _recv_message.data_cnt, strlen(_recv_buffer));
 			}
 			else
 			{ /* 송신 상황일 경우 */
-				sprintf(_message, "RECV %4.4s %1.1s %3.3s %4.4s %3.3s %2.2s %12.12s %2.2s %8.8s %2.2s.%d", _send_message.message_length, _send_message.tr_code, _send_message.gigwan_id, _send_message.msg_type, _send_message.opr_type, _send_message.err_code, _send_message.time, _send_message.retry_cnt, _send_message.data_no, _send_message.data_cnt, strlen(_send_message));
+				sprintf(_message, "RECV %4.4s %1.1s %3.3s %4.4s %3.3s %2.2s %12.12s %2.2s %8.8s %2.2s.%d", _send_message.message_length, _send_message.tr_code, _send_message.gigwan_id, _send_message.msg_type, _send_message.opr_type, _send_message.err_code, _send_message.time, _send_message.retry_cnt, _send_message.data_no, _send_message.data_cnt, strlen(_send_buffer));
 			}
 
 			return _message;

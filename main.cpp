@@ -228,7 +228,7 @@ class C_main_handle
 			{
 				F_get_jang();
 				_socket.F_recv_message(_time, _jang_status, _cnt.F_get_last_data_count());
-                _log.F_write_log(_socket.F_put_log_message);
+                _log.F_write_log(_socket.F_put_log_message());
 			}
 			//catch(const int _message)
 			//{

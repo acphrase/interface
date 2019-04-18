@@ -637,7 +637,7 @@ class C_socket
 
 			if(strncmp(_communicate_type, &_recv_gubun, 1) == 0)
 			{ /* 수신 상황일 경우 */
-				sprintf(_message, "RECV %4.4s %1.1s %3.3s %4.4s %3.3s %2.2s %12.12s %2.2s %8.8s %2.2s.%ld", _recv_message.message_length, _recv_message.tr_code, _recv_message.gigwan_id, _recv_message.msg_type, _recv_message.opr_type, _recv_message.err_code, _recv_message.time, _recv_message.retry_cnt, _recv_message.data_no, _recv_message.data_cnt, strlen(_recv_buffer));
+				sprintf(_message, "RECV %4s %1s %3s %4s %3s %2s %12s %2s %8s %2s.%ld", _recv_message.message_length, _recv_message.tr_code, _recv_message.gigwan_id, _recv_message.msg_type, _recv_message.opr_type, _recv_message.err_code, _recv_message.time, _recv_message.retry_cnt, _recv_message.data_no, _recv_message.data_cnt, strlen(_recv_buffer));
 			}
 			else
 			{ /* 송신 상황일 경우 */

@@ -25,7 +25,6 @@ class C_main_handle
 		int _data_fd;
 		int _jang_status;
 		C_socket _socket;
-        int _connect_status;            /* Socket 생성 유무 변수 */
         int _retry_check;               /* 재전송 시도 횟수 변수 */
 
 	public :
@@ -39,7 +38,6 @@ class C_main_handle
 				exit(1);
 			}
 
-            _connect_status = DISCONNECT;
             _retry_check = 0;
 		}
 
@@ -124,14 +122,13 @@ class C_main_handle
 
 				/* CNT Status Check */
 				memset(_message, 0x00, sizeof(_message));
-				sprintf(_message, "Last Count : %ld", _cnt.F_get_last_data_count());
-				_log.F_write_log(_message);
+				_log.F_write_log(_cnt.F_get_last_data());
+
 				memset(_message, 0x00, sizeof(_message));
-				sprintf(_message, "Proc Status : %d", _cnt.F_get_process_status());
-				_log.F_write_log(_message);
+				_log.F_write_log(_cnt.F_get_process());
+
 				memset(_message, 0x00, sizeof(_message));
-				sprintf(_message, "Link Status : %d", _cnt.F_get_link_status());
-				_log.F_write_log(_message);
+				_log.F_write_log(_cnt.F_get_link());
 			}
 			catch(const char* _message)
 			{
@@ -160,10 +157,10 @@ class C_main_handle
 
         void F_start()
         {
-            if(!_connect_status)
+            if(!_socket.F_link_status())
             {
-                _connect_status = F_create_socket();
-                while(!_connect_status);
+                while(!_socket.F_link_status())
+					F_create_socket();
             }
         }
 
@@ -176,18 +173,73 @@ class C_main_handle
 				_log.F_write_log(_message);
 
 				memset(_message, 0x00, sizeof(_message));
-				sprintf(_message , _socket.F_accept_socket());
+				sprintf(_message, _socket.F_accept_socket());
 				_log.F_write_log(_message);
 				_msg.F_write_msg(_message);
 
-            	return CONNECT;
+				memset(_message, 0x00, sizeof(_message));
+				sprintf(_message, "Link 대기 중...");
+				_log.F_write_log(_message);
+				_msg.F_write_msg(_message);
 			}
 			catch(const char* _message)
 			{
 				_log.F_write_log(_message);
 				_msg.F_write_msg(_message);
 				cout << _message << endl;
-                return DISCONNECT;
+			}
+		}
+
+		int F_check_descriptor(int _time)
+		{
+			try
+			{
+				return _socket.F_check_descriptor(_time);
+			}
+			catch(const char* _message)
+			{
+				_log.F_write_log(_message);
+				_msg.F_write_msg(_message);
+				cout << _message << endl;
+			}
+		}
+
+		void F_set_check_socket_information()
+		{
+			int _data_length = 0;
+			_data_length = atoi(_config.F_get_message_length());
+
+			char* _company_id = _config.F_get_company_id();
+
+			char* _tr_code = _config.F_get_tr_code();
+
+			char* _communicate_type = _config.F_get_communication_type();
+
+			if(_socket.F_set_config_information(_data_length, _company_id, _tr_code, _communicate_type))
+			{
+				_log.F_write_log("Check Socket Setting Error..");
+				_msg.F_write_msg("Check Socket Setting Error..");
+			}
+		}
+
+		void F_read_message(int _time)
+		{
+			try
+			{
+				F_get_jang();
+				_socket.F_recv_message(_time, _jang_status, _cnt.F_get_last_data_count());
+			}
+			//catch(const int _message)
+			//{
+			//	_log.F_write_log(_message);
+			//	_msg.F_write_msg(_message);
+			//	cout << _message << endl;
+			//}
+			catch(const char* _message)
+			{
+				_log.F_write_log(_message);
+				_msg.F_write_msg(_message);
+				cout << _message << endl;
 			}
 		}
 
@@ -250,11 +302,12 @@ int main(int argc, char *argv[])
 	_control.F_get_jang();				/* JANG File을 읽어와서 Variable Setting */
 	//_control.F_stop_process(FAIL);
 	//_control.F_stop_process(SUCCESS);
-
+	
     while(1)
     {
         /* 0. Socket Create, Bind, Listen, Accept */
         _control.F_start();
+	_control.F_read_message(-1);
 
         /* 1. Interface 수신 */
 

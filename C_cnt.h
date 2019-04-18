@@ -53,7 +53,6 @@ class C_cnt
 		int _process_status_num;
 		char _link_status		[3];   /* Connect 여부 (00:미Link, 01:Link, 02:Link종료송신 03:Link종료수신(최종 종료)) */
 		int _link_status_num;
-		long _next_data_count_num;	   /* 다음 데이터 Count */
 		long _line_temp;			   /* 위치 지정자 임시 저장 */
 
 	public :
@@ -87,9 +86,13 @@ class C_cnt
 			//memset(date, 0x00, sizeof(date));
 			_process_status_num = -1;
 			_data_count_num = 0;
-			_next_data_count_num = 0;
 			_link_status_num = -1;
 			_line_temp = 0;
+		}
+
+		~C_cnt()
+		{
+			_cnt.close();
 		}
 
 		char* F_open_cnt_file(char* _cnt_file, char* _company_id, char* _cnt_gubun)
@@ -151,13 +154,14 @@ class C_cnt
 			/* 마지막 데이터 수신 및 송신 개수 (일련번호) */
 			strncpy(_data_count, _cnt_record.data_count, 8);
 			_data_count_num = atol(_data_count);
-			_next_data_count_num = _data_count_num + 1;		/* 다음 Count 수 Setting */
 			return _data_count_num;
 		}
 
-		long F_get_next_data_count()
+		char* F_get_last_data()
 		{
-			return _next_data_count_num;
+			memset(_write_message, 0x00, sizeof(_write_message));
+			sprintf(_message, "Last Count : %ld", F_get_last_data_count());
+			return _write_message;
 		}
 
 		int F_get_process_status()
@@ -173,6 +177,13 @@ class C_cnt
 			return _process_status_num;
 		}
 
+		char* F_get_process()
+		{
+			memset(_write_message, 0x00, sizeof(_write_message));
+			sprintf(_message, "Proc Status : %d", F_get_process_status());
+			return _write_message;
+		}
+
 		int F_get_link_status()
 		{
 			/* Connect 여부 (00:미Link, 01:Link, 02:Link종료송신 03:Link종료수신(최종 종료)) */
@@ -180,6 +191,14 @@ class C_cnt
 			_link_status_num = atoi(_link_status);
 			return _link_status_num;
 		}
+
+		char* F_get_link()
+		{
+			memset(_write_message, 0x00, sizeof(_write_message));
+			sprintf(_message, "Link Status : %d", F_get_link_status());
+			return _write_message;
+		}
+
 
 		int F_put_process_stop(int option)
 		{

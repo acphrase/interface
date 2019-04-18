@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS = -c -o
 OBJS = main.o time.o config.o log.o msg.o data.o cnt.o jang.o socket.o 
-TARGET = interface.out
+TARGET = tcpip_commuication_single_process.out
 
 $(TARGET): $(OBJS) 
 	$(CC) -o $@ $^
@@ -13,10 +13,10 @@ time.o: C_time.cpp
 config.o: C_config.cpp
 	$(CC) $(CFLAGS) $@ $^
 
-log.o: C_log.h
+log.o: C_log.cpp
 	$(CC) $(CFLAGS) $@ $^
 
-msg.o: C_msg.h
+msg.o: C_msg.cpp
 	$(CC) $(CFLAGS) $@ $^
 
 data.o: C_data.h
@@ -25,7 +25,7 @@ data.o: C_data.h
 cnt.o: C_cnt.h
 	$(CC) $(CFLAGS) $@ $^
 
-jang.o: C_jang.h
+jang.o: C_jang.cpp
 	$(CC) $(CFLAGS) $@ $^
 
 socket.o: C_socket.h

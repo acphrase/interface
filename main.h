@@ -6,10 +6,14 @@
 #include<cstring>
 #include<fstream>
 #include<cstdlib>
+#include<cerrno>
 #include<sys/socket.h>
 #include<sys/types.h>
 #include<arpa/inet.h>
+#include<fcntl.h>
 #include<unistd.h>
+#include<sys/epoll.h>
+#include<sys/time.h>
 
 using namespace std;
 
@@ -29,5 +33,6 @@ using namespace std;
 #define FAIL -1
 #define CONNECT 1
 #define DISCONNECT 0
+#define TIMEOUT 2
 
 #endif

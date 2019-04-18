@@ -1,5 +1,6 @@
 #ifndef __TIME_HEADER__
 #define __TIME_HEADER__
+
 #include"main.h"
 
 class C_time

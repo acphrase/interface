@@ -1,15 +1,15 @@
 #ifndef __OPEN_CONFIG_HEADER__
 #define __OPEN_CONFIG_HEADER__
 
-#define CONFIG_RECORD_LENGTH 267
-
 #include"main.h"
+
+#define CONFIG_RECORD_LENGTH 267
 
 class C_config
 {
 	private :
 		char _tconfig_temp		[CONFIG_RECORD_LENGTH];
-		char company_id			[5];		/* 회원사 코드 */
+		char company_id			[4];		/* 회원사 코드 */
 		char tr_code			[3];
 		char communicate_type	[2];
 		char process_name		[11];

@@ -161,13 +161,9 @@ class C_socket
 		int F_set_config_information(int r_data_length, char* r_company_id, char* r_tr_code, char* r_communicate_type)
 		{
 			_data_length = r_data_length;
-            cout << "_data_length : " << _data_length << endl;
 			_company_id = r_company_id;
-            cout << "_company_id : " << _company_id << endl;
 			_tr_code = r_tr_code;
-            cout << "_tr_code : " << _tr_code << endl;
 			_communicate_type = r_communicate_type;
-            cout << "_communicate_type : " << _communicate_type << endl;
 
 			return SUCCESS;
 		}
@@ -318,12 +314,9 @@ class C_socket
 					strncpy(_recv_message.message_length, _recv_buffer, HEADER_LENGTH);
 
 					_message_length = F_read_socket(atoi(_recv_buffer));
-					cout << "_message_length : " << _message_length << endl;
 					if(_message_length > 0)
 					{
 						strncpy(_recv_message.tr_code, _recv_buffer, sizeof(_recv_message) - HEADER_LENGTH);
-						cout << "_recv_buffer : " << _recv_buffer << endl;
-						cout << "_recv_message : " << _recv_message.message_length << endl;
 					}
 					else
 					{
@@ -398,7 +391,7 @@ class C_socket
 			else
 			{
 				memset(_message, 0x00, sizeof(_message));
-				sprintf(_message, "Rcv Message type error : %4.4s..%3.3s", _recv_message.msg_type, _recv_message.opr_type);
+				sprintf(_message, "Rcv Message type error : %.4s..%.3s", _recv_message.msg_type, _recv_message.opr_type);
 				throw _message;
 			}
 
@@ -435,7 +428,7 @@ class C_socket
 			if(strncmp(_recv_message.tr_code, &_header_tr_code, 1) != 0)
 			{
 				memset(_message, 0x00, sizeof(_message));
-				sprintf(_message, "[Header] TR_CODE error..%3.3s", _recv_message.tr_code);
+				sprintf(_message, "[Header] TR_CODE error..%.3s", _recv_message.tr_code);
 				throw _message;
 			}
 
@@ -444,7 +437,7 @@ class C_socket
 			{
 
 				memset(_message, 0x00, sizeof(_message));
-				sprintf(_message, "[Header] Gigwan ID error..%3.3s", _recv_message.gigwan_id);
+				sprintf(_message, "[Header] Gigwan ID error..%.3s", _recv_message.gigwan_id);
 				throw _message;
 			}
 
@@ -458,7 +451,7 @@ class C_socket
 			 	   (_recv_message_type == MSG_0210_000))
 				{
 					memset(_message, 0x00, sizeof(_message));
-					sprintf(_message, "Invalid Recv[R] MSG TYPE : %4.4s.%3.3s", _recv_message.msg_type, _recv_message.opr_type);
+					sprintf(_message, "Invalid Recv[R] MSG TYPE : %.4s.%.3s", _recv_message.msg_type, _recv_message.opr_type);
 					throw _message;
 				}
 			}
@@ -470,7 +463,7 @@ class C_socket
 				   (_recv_message_type == MSG_0200_000))
 				{
 					memset(_message, 0x00, sizeof(_message));
-					sprintf(_message, "Invalid Recv[S] MSG TYPE : %4.4s.%3.3s", _recv_message.msg_type, _recv_message.opr_type);
+					sprintf(_message, "Invalid Recv[S] MSG TYPE : %.4s.%.3s", _recv_message.msg_type, _recv_message.opr_type);
 					throw _message;
 				}
 
@@ -480,7 +473,7 @@ class C_socket
 				//	if(_send_message_type != MSG_0800_040)
 				//	{
 				//		memset(_message, 0x00, sizeof(_message));
-				//		sprintf(_message, "Invalid Recv[S] OPR TYPE : %4.4s.%3.3s", _recv_message.msg_type, _recv_message.opr_type);
+				//		sprintf(_message, "Invalid Recv[S] OPR TYPE : %.4s.%.3s", _recv_message.msg_type, _recv_message.opr_type);
 				//		throw _message;
 				//	}
 				//}
@@ -497,7 +490,7 @@ class C_socket
 				   (_recv_message_type == MSG_0210_000))
 				{
 					memset(_message, 0x00, sizeof(_message));
-					sprintf(_message, "RCV data before 0800/001 : %4.4s %3.3s", _recv_message.msg_type, _recv_message.opr_type);
+					sprintf(_message, "RCV data before 0800/001 : %.4s %.3s", _recv_message.msg_type, _recv_message.opr_type);
 					throw _message;
 				}
 			}
@@ -637,7 +630,6 @@ class C_socket
 		char* F_put_log_message()
 		{
             char _recv_gubun = RECV_GUBUN;
-            char _send_gubun = SEND_GUBUN;
 			memset(_message, 0x00, sizeof(_message));
 
 			if(strncmp(_communicate_type, &_recv_gubun, 1) == 0)

@@ -160,7 +160,7 @@ class C_cnt
 		char* F_get_last_data()
 		{
 			memset(_write_message, 0x00, sizeof(_write_message));
-			sprintf(_message, "Last Count : %ld", F_get_last_data_count());
+			sprintf(_write_message, "Last Count : %ld", F_get_last_data_count());
 			return _write_message;
 		}
 
@@ -180,7 +180,7 @@ class C_cnt
 		char* F_get_process()
 		{
 			memset(_write_message, 0x00, sizeof(_write_message));
-			sprintf(_message, "Proc Status : %d", F_get_process_status());
+			sprintf(_write_message, "Proc Status : %d", F_get_process_status());
 			return _write_message;
 		}
 
@@ -195,7 +195,7 @@ class C_cnt
 		char* F_get_link()
 		{
 			memset(_write_message, 0x00, sizeof(_write_message));
-			sprintf(_message, "Link Status : %d", F_get_link_status());
+			sprintf(_write_message, "Link Status : %d", F_get_link_status());
 			return _write_message;
 		}
 

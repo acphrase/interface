@@ -97,7 +97,7 @@ class C_cnt
 			_cnt.close();
 		}
 
-		char* F_open_cnt_file(char* _cnt_file, char* _company_id, char* _cnt_gubun)
+		char* F_open_cnt_file(char* _cnt_file, char* r_company_id, char* r_cnt_gubun)
 		{
 			/* 1. Count File Open */
 			_cnt.open(_cnt_file, ios::in | ios::out);

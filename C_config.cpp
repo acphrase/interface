@@ -45,11 +45,11 @@ void C_config::F_read_config(char *_key, char *_config_file)
 			sprintf(_error_message, "CONFIG File Read Error..%s", _config_file);
 			throw _error_message;
 		}
-		if(strncmp(_tconfig_temp, _key, 5) == 0)
+		if(strncasecmp(_tconfig_temp, _key, 5) == 0)
 			break;
 	}
 
-	if(strncmp(_tconfig_temp, _key, 5) != 0)
+	if(strncasecmp(_tconfig_temp, _key, 5) != 0)
 	{
 		memset(_error_message, 0x00, sizeof(_error_message));
 		sprintf(_error_message, "TCONFIG Key Positioning Error..%s", _key);

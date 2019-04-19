@@ -54,6 +54,8 @@ class C_cnt
 		char _link_status		[3];   /* Connect 여부 (00:미Link, 01:Link, 02:Link종료송신 03:Link종료수신(최종 종료)) */
 		int _link_status_num;
 		long _line_temp;			   /* 위치 지정자 임시 저장 */
+		char* _company_id;
+		char* _cnt_gubun;
 
 	public :
 		C_cnt()
@@ -97,6 +99,7 @@ class C_cnt
 
 		char* F_open_cnt_file(char* _cnt_file, char* _company_id, char* _cnt_gubun)
 		{
+			/* 1. Count File Open */
 			_cnt.open(_cnt_file, ios::in | ios::out);
 			if(!_cnt.is_open())
 			{
@@ -111,19 +114,21 @@ class C_cnt
 				sprintf(_write_message, "CNT File OPEN(%s)..", _cnt_file);
 				return _write_message;
 			}
-		}
 
-		void F_read_cnt(char* _company_id, char* _cnt_gubun)
-		{
-			/* 1. Key Buffer Init */ 
+			/* 2. config getting */
+			_company_id = r_company_id;
+			_cnt_gubun = r_cnt_gubun;
+
+			/* 3. Key Setting */ 
 			memset(_cnt_key, 0x00, sizeof(_cnt_key)); 
-
-			/* 2. Key Setting */ 
 			strncpy(_cnt_key, _company_id, 3); 
 			strncpy(&_cnt_key[3], _cnt_gubun, 2); 
+		}
 
-			/* 3. Key Positioning & Get Record To Buffer */ 
-			_cnt.seekg(0, ios::beg);			/* CNT File의 맨 처음에 위치 */ 
+		void F_read_cnt()
+		{
+			/* 1. Key Positioning & Get Record To Buffer */ 
+			_cnt.seekg(0, ios::beg); /* CNT File의 맨 처음에 위치 */ 
 			while(!_cnt.eof()) 
 			{ 
 				_line_temp = _cnt.tellg();
@@ -144,6 +149,21 @@ class C_cnt
 			{
 				memset(_write_message, 0x00, sizeof(_write_message));
 				sprintf(_write_message, "CNT File Key Positioning Error..%s", _cnt_key);
+				throw _write_message;
+			}
+		}
+
+		void F_write_cnt()
+		{
+			/* 1. Positioning */
+			_cnt.seekp(_line_temp, ios::beg); /* CNT File의 해당 회원사 Record 위치 */
+
+			/* 2. Buffer Write */
+			_cnt.write(_cnt_record.company_id, CNT_RECORD_LENGTH - 1);
+			if(_cnt.bad())
+			{
+				memset(_write_message, 0x00, sizeof(_write_message));
+				sprintf(_write_message, "CNT File Write Error..%s", _cnt_key);
 				throw _write_message;
 			}
 		}
@@ -202,12 +222,15 @@ class C_cnt
 
 		int F_put_process_stop(int option)
 		{
-			/* 1. Buffer Time Setting */
+			/* 1. Read Record */
+			F_read_cnt();
+
+			/* 2. Buffer Time Setting */
 			strncpy(_cnt_record.date, _date_time.F_get_date(), sizeof(_cnt_record.date));
 			strncpy(_cnt_record.time, _date_time.F_get_time(), sizeof(_cnt_record.time));
 			strncpy(_cnt_record.stop_time, _date_time.F_get_time(), sizeof(_cnt_record.time));
 
-			/* 2. Buffer Status Setting */
+			/* 3. Buffer Status Setting */
 			if(option == SUCCESS)
 			{ /* 정상 종료 */
 				strncpy(_cnt_record.process_status, NORMAL_STATUS, sizeof(_cnt_record.process_status));
@@ -219,20 +242,15 @@ class C_cnt
 				strncpy(_cnt_record.process_status, ABNORMAL_STATUS, sizeof(_cnt_record.process_status));
 				strncpy(_cnt_record.stop_gubun, ABNORMAL_STOP, sizeof(_cnt_record.stop_gubun));
 			}
-			
-			/* 3. Buffer Write */
-			_cnt.seekp(_line_temp, ios::beg);							/* CNT File의 해당 회원사 Record 위치 */
-			_cnt.write(_cnt_record.company_id, CNT_RECORD_LENGTH - 1);
-			if(_cnt.bad())
-			{
-				memset(_write_message, 0x00, sizeof(_write_message));
-				sprintf(_write_message, "CNT File Write Error..%s", _cnt_key);
-				throw _write_message;
-			}
+
+			/* 4. Write Record */
+			F_write_cnt();
 
 			if(option == SUCCESS)
 				return SUCCESS;
+			else if(option == FAIL)
+				return FAIL;
 			else
-				throw FAIL;
+				throw "Process Stop Error";
 		}
 };

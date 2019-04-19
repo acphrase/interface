@@ -34,3 +34,34 @@
 [$r999x-11:32:27] Socket Bind Error..
 [$r999x-11:36:34] Interface PROGRAM STARTING                          
 [$r999x-11:36:34] Socket Create Error..
+[$r999x-22:10:10] Interface PROGRAM STARTING                          
+[$r999x-22:10:34] TCP/IP Connected ( IP:127.0.0.1 port:41506 )
+[$r999x-22:10:34] Link 대기 중...
+[$r999x-22:18:14] Interface PROGRAM STARTING                          
+[$r999x-22:18:17] TCP/IP Connected ( IP:127.0.0.1 port:41512 )
+[$r999x-22:18:17] Link 대기 중...
+[$r999x-22:25:11] Interface PROGRAM STARTING                          
+[$r999x-22:25:14] TCP/IP Connected ( IP:127.0.0.1 port:41516 )
+[$r999x-22:25:14] Link 대기 중...
+[$r999x-22:29:02] Interface PROGRAM STARTING                          
+[$r999x-22:29:05] TCP/IP Connected ( IP:127.0.0.1 port:41520 )
+[$r999x-22:29:05] Link 대기 중...
+[$r999x-22:40:35] Interface PROGRAM STARTING                          
+[$r999x-22:40:38] TCP/IP Connected ( IP:127.0.0.1 port:41524 )
+[$r999x-22:40:38] Link 대기 중...
+[$r999x-22:50:08] Interface PROGRAM STARTING                          
+[$r999x-22:50:11] TCP/IP Connected ( IP:127.0.0.1 port:41530 )
+[$r999x-22:50:11] Link 대기 중...
+[$r999x-22:57:40] Interface PROGRAM STARTING                          
+[$r999x-22:57:42] TCP/IP Connected ( IP:127.0.0.1 port:41534 )
+[$r999x-22:57:42] Link 대기 중...
+[$r999x-22:57:45] Message Read Error From Socket..
+[$r999x-22:57:54] Message Read Error From Socket..
+[$r999x-23:01:47] Interface PROGRAM STARTING                          
+[$r999x-23:01:49] TCP/IP Connected ( IP:127.0.0.1 port:41536 )
+[$r999x-23:01:49] Link 대기 중...
+[$r999x-23:01:52] Message Read Error From Socket..
+[$r999x-23:01:58] Message Read Error From Socket..
+[$r999x-23:06:53] Interface PROGRAM STARTING                          
+[$r999x-23:06:55] TCP/IP Connected ( IP:127.0.0.1 port:41538 )
+[$r999x-23:06:55] Link 대기 중...

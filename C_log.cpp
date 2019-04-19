@@ -28,17 +28,9 @@ void C_log::F_open_log_file(char* _process, char* _log_file)
 	else
 	{
 		/* Start Log Message */
-		memset(_start_message, 0x00, sizeof(_start_message));
-		sprintf(_start_message, "====================================================");
-		F_write_log(_start_message);
-
-		memset(_start_message, 0x00, sizeof(_start_message));
-		sprintf(_start_message, "Interface PROGRAM                                   ");
-		F_write_log(_start_message);
-
-		memset(_start_message, 0x00, sizeof(_start_message));
-		sprintf(_start_message, "====================================================");
-		F_write_log(_start_message);
+		F_write_log("====================================================");
+		F_write_log("TCP/IP PROGRAM");
+		F_write_log("====================================================");
 
 		memset(_start_message, 0x00, sizeof(_start_message));
 		sprintf(_start_message, "Log File OPEN(%s)..", _log_file);

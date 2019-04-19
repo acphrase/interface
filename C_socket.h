@@ -34,6 +34,7 @@
 /*----------------------------------------------------------------------------*/
 #define BUF_SIZE			4000
 #define EPOLL_SIZE			5
+#define RETRY				4
 
 struct RECV_MESSAGE_DEF
 { /* 수신 메세지 definition */
@@ -274,33 +275,32 @@ class C_socket
 				throw "Socket Check Error..";
 			}
 		}
-		
-		int F_recv_message(int r_jang_status, long r_last_data_count)
+
+		void F_put_retry_init()
 		{
-			/* 1. 장시간 확인 및 마지막 수신 데이터 확인 */
-			_jang_status = r_jang_status;
-			_last_data_count = r_last_data_count;
-
-			/* 2. 재송횟수 초기화 */
 			_retry_check = 0;
-
+		}
+		
+		int F_recv_message()
+		{
 			while(1)
 			{
-				/* 3. 재송횟수 3번 이하인지 확인 */
+				/* 1. 재송횟수 확인 */
+				/* 재송횟수 3번 이하 일 경우 */
 				if(_retry_check < 3) 
 				{
 					int _header_length = 0;
 					int _message_length = 0;
 					int _check_result = 0;
 
-					/* 4. 수신 가능한 상태인지 _client_socket 확인 */
+					/* 2. 수신 가능한 상태인지 _client_socket 확인 */
 					/* 개시 전 일 경우 수신 무한 대기, 개시 이 후는 설정 Time에 따른 대기 */
 					if(_link_status == CONNECT && _connect_status == DISCONNECT)
 						_check_result = F_check_socket(WAIT_TIMEOUT);	/* 데이터 수신 될 때 까지 무한 대기 */ 
 					else if(_link_status == CONNECT && _connect_status == CONNECT)
 						_check_result = F_check_socket(RECV_TIMEOUT);	/* TIMEOUT 설정 */
 
-					/* 5. _client_socket status check */
+					/* 3. _client_socket 상태에 따른 행동 */
 					switch(_check_result)
 					{
 						/* "SUCCESS"는 수신 할 데이터가 존재 */
@@ -360,26 +360,30 @@ class C_socket
 					delete _ep_events;
 					close(_server_socket);
 					close(_client_socket);
+					F_put_retry_init();
 
-					int _retry_num = 0;
-					_retry_num = _retry_check;
-					_retry_check = 0;
-					return _retry_num;
+					return FAIL;
 				}
 			}
 		}
 
 		int F_send_message()
 		{
-			/* 1. Variable Setting */
+			/* 1. Variable Init */
 			int _send_length = 0;
 			int _send_message_length = 0;
 			_send_message_length = strlen(_send_message.message_length);
 
-			/* 2. Buffer Setting */
-			strncpy(_send_buffer, _send_message.message_length, _send_message_length);
+			/* 2. Time Setting */
+			_date_time.F_update_date_time();
+			_date = _date_time.F_get_date();
+			_time = _date_time.F_get_time();
 
-			/* 3. Send Message from Buffer */
+			/* 3. Send Meassage Time Setting */
+			strncpy(_send_message.time, &_date[2], 6);
+			strncpy(&_send_message.time[6], _time, 6);
+
+			/* 4. Send Message from Buffer */
 			_send_length = F_write_socket();
 			if(_send_length == _send_message_length)
 				return SUCCESS;
@@ -393,23 +397,16 @@ class C_socket
 		{
 			if(strncasecmp(_communicate_type, &_send_gubun, 1) == 0)
 			{
-				/* 1. Variable 초기화 */
+				/* 1. Variable Init */
 				int _result = FAIL;
 				memset(&_send_message, 0x00, sizeof(_send_message));
 
-				/* 2. Time Setting */
-				_date_time.F_update_date_time();
-				_date = _date_time.F_get_date();
-				_time = _date_time.F_get_time();
-
-				/* 3. Send Meassage Setting */
-				strncpy(_send_message.time, &_date[2], 6);
-				strncpy(&_send_message.time[6], _time, 6);
+				/* 2. Retry Setting to Buffer */
 				char temp[3];
 				sprintf(temp, "%2.2d", _retry_check); 
 				strncpy(_send_message.retry_cnt, temp, 2);
-
-				/* 4. Send Message */
+				
+				/* 3. Send Message */
 				_result = F_send_message();
 				if(_result != SUCCESS)
 				{
@@ -429,7 +426,7 @@ class C_socket
 
         int F_read_socket(int _message_length)
         {
-			/* 1. Buffer 초기화 */
+			/* 1. Buffer Init */
 			memset(_recv_buffer, 0x00, sizeof(_recv_buffer));
 			int _recv_length = 0;
 			int _remain_length = 0;
@@ -451,7 +448,7 @@ class C_socket
 
 		int F_write_socket()
         {
-			/* 1. Buffer 초기화 */
+			/* 1. Buffer Init */
 			memset(_send_buffer, 0x00, sizeof(_send_buffer));
 			int _send_message_length = 0;
 			_send_message_length = strlen(_send_message.message_length);
@@ -459,7 +456,10 @@ class C_socket
 			int _remain_length = 0;
 			_remain_length = _send_message_length - _send_length;
 
-		    /* 2. Message write to Socket */
+			/* 2. Buffer Setting */
+			strncpy(_send_buffer, _send_message.message_length, _send_message_length);
+
+		    /* 3. Message write to Socket */
 			while(_send_length < _send_message_length)
 			{
 				_send_length = send(_client_socket, &_send_buffer[_send_length], _remain_length, 0);
@@ -473,13 +473,16 @@ class C_socket
 			return _send_length;
         }
 
-		
-
-		int F_check_message()
+		int F_check_message(int r_jang_status, long r_last_data_count)
 		{
+
+			/* 1. 장시간 확인 및 마지막 수신 데이터 확인 */
+			_jang_status = r_jang_status;
+			_last_data_count = r_last_data_count;
+
+			/* 2. Message 유형 구분 */
 			_recv_message_type = UNDEFINED;
 
-			/* 1. Message 유형 구분 */
 			if((strncmp(_recv_message.msg_type, "0800", 4) == 0) && (strncmp(_recv_message.opr_type, "001", 3) == 0))
 				_recv_message_type = MSG_0800_001;
 			else if((strncmp(_recv_message.msg_type, "0800", 4) == 0) && (strncmp(_recv_message.opr_type, "301", 3) == 0))
@@ -501,7 +504,7 @@ class C_socket
 				throw _message;
 			}
 
-			/* 2. Parsing & 포맷 Error CHECK */
+			/* 3. Parsing & 포맷 Error CHECK */
 			if(_recv_message_type == MSG_0200_000)
 			{
 				if(strncmp(_tr_code, _recv_message.data_tr_code, 2) != 0)
@@ -515,7 +518,7 @@ class C_socket
 					throw "[Header] Format Error..";
 			}
 
-			/* 3. JANG File CHECK(0200/000, 0800/301 수신만) */
+			/* 4. JANG File CHECK(0200/000, 0800/301 수신만) */
 			if(_recv_message_type == MSG_0200_000)
 			{
 				if(_jang_status == JANG_BEFORE)
@@ -530,7 +533,7 @@ class C_socket
 					throw "[Header] Market is Aleady End..";
 			}
 
-			/* 4. HEADER TR-CODE CHECK */
+			/* 5. HEADER TR-CODE CHECK */
 			if(strncasecmp(_recv_message.tr_code, &_header_tr_code, 1) != 0)
 			{
 				memset(_message, 0x00, sizeof(_message));
@@ -538,7 +541,7 @@ class C_socket
 				throw _message;
 			}
 
-			/* 5. 기관 ID CHECK */
+			/* 6. 기관 ID CHECK */
 			if(strncmp(_recv_message.gigwan_id, _company_id, 3) != 0)
 			{
 
@@ -547,7 +550,7 @@ class C_socket
 				throw _message;
 			}
 
-			/* 6. 전문 & 운용 type CHECK */
+			/* 7. 전문 & 운용 type CHECK */
 			/* (1) 허용 MSG type CHECK */
 			if(strncasecmp(_communicate_type, &_recv_gubun, 1) == 0)
 			{ /* 수신 프로세스인 경우 허용 MSG type Filtering */
@@ -601,7 +604,7 @@ class C_socket
 				}
 			}
 
-			/* 7. (Header부) DATA Sequence Number Check */
+			/* 8. (Header부) DATA Sequence Number Check */
 			char _data_no[9];
 			long _recv_data_no;
 
@@ -643,7 +646,7 @@ class C_socket
 				}
 			}
 			
-			/* 8. (Header부) DATA Count check */
+			/* 9. (Header부) DATA Count check */
 			/* _recv_message.data_cnt = Data Block Count */ 
 			/* 데이터가 없을 경우 Block Count는 0, 있을 경우 1 */
 			char _data_cnt[3];
@@ -672,7 +675,7 @@ class C_socket
 				}
 			}
 
-			/* 9. INNER SEQUENCE CHECK */
+			/* 10. INNER SEQUENCE CHECK */
             char _data_seq[9];
 			long _recv_data_seq;
 
@@ -690,8 +693,7 @@ class C_socket
 				}
 			}
 
-
-			/* 10. 개시 응답일 경우 Connect 상태 변수 변경 */
+			/* 11. 개시 응답일 경우 Connect 상태 변수 변경 */
 			if(_recv_message_type == MSG_0800_001)
 			{
 				_connect_status = CONNECT;
@@ -760,11 +762,11 @@ class C_socket
 
 			if(strncasecmp(_communicate_type, &_recv_gubun, 1) == 0)
 			{ /* 수신 상황일 경우 */
-				sprintf(_message, "RECV %.4s %.1s %.3s %.4s %.3s %.2s %.12s %.2s %.8s %.2s.%ld", _recv_message.message_length, _recv_message.tr_code, _recv_message.gigwan_id, _recv_message.msg_type, _recv_message.opr_type, _recv_message.err_code, _recv_message.time, _recv_message.retry_cnt, _recv_message.data_no, _recv_message.data_cnt, strlen(_recv_buffer));
+				sprintf(_message, "RECV %.4s %.1s %.3s %.4s %.3s %.2s %.12s %.2s %.8s %.2s.%ld", _recv_message.message_length, _recv_message.tr_code, _recv_message.gigwan_id, _recv_message.msg_type, _recv_message.opr_type, _recv_message.err_code, _recv_message.time, _recv_message.retry_cnt, _recv_message.data_no, _recv_message.data_cnt, strlen(_recv_message.message_length));
 			}
 			else
 			{ /* 송신 상황일 경우 */
-				sprintf(_message, "RECV %.4s %.1s %.3s %.4s %.3s %.2s %.12s %.2s %.8s %.2s.%ld", _send_message.message_length, _send_message.tr_code, _send_message.gigwan_id, _send_message.msg_type, _send_message.opr_type, _send_message.err_code, _send_message.time, _send_message.retry_cnt, _send_message.data_no, _send_message.data_cnt, strlen(_send_buffer));
+				sprintf(_message, "RECV %.4s %.1s %.3s %.4s %.3s %.2s %.12s %.2s %.8s %.2s.%ld", _send_message.message_length, _send_message.tr_code, _send_message.gigwan_id, _send_message.msg_type, _send_message.opr_type, _send_message.err_code, _send_message.time, _send_message.retry_cnt, _send_message.data_no, _send_message.data_cnt, strlen(_send_message.message_length));
 			}
 
 			return _message;
@@ -779,8 +781,11 @@ class C_socket
 			return _link_status;
 		}
 
-		int F_connect_status()
+		int F_get_msg_type()
 		{
-			return _connect_status;
+			if(strncasecmp(_communicate_type, &_recv_gubun, 1) == 0)
+				return _recv_message_type;
+			else
+				return _send_message_type;
 		}
 };

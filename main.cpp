@@ -15,7 +15,6 @@ class C_main_handle
 		char **_key;
 		char **_config_path;
 		char _message[150];
-		C_time _date_time;
 		C_config _config;
 		C_log _log;
 		C_msg _msg;
@@ -36,15 +35,6 @@ class C_main_handle
 				cout << "Usage : " << *argv << " <WhisaCode+TR> <Config File>" << endl;
 				exit(1);
 			}
-		}
-
-		void F_get_date_time()
-		{
-			_date_time.F_update_date_time();
-			//cout << _date_time.F_get_time() << endl;
-			//cout << _date_time.F_get_date() << endl;
-			//cout << _date_time.F_get_time_edit() << endl;
-			//cout << _date_time.F_get_date_edit() << endl;
 		}
 
 		void F_get_config()
@@ -107,10 +97,8 @@ class C_main_handle
 				_log.F_write_log(_msg.F_open_msg_file(_config.F_get_process_name(), _config.F_get_msg_file_name()));
 
 				/* 3. Program Start Message */
-				memset(_message, 0x00, sizeof(_message));
-				sprintf(_message, "Interface PROGRAM STARTING                          ");
-				_log.F_write_log(_message);
-				_msg.F_write_msg(_message);
+				_log.F_write_log("TCP/IP PROGRAM STARTING");
+				_msg.F_write_msg("TCP/IP PROGRAM STARTING");
 
 				/* 4. Data File Open */
 				_log.F_write_log(_data.F_open_data_file(_config.F_get_data_file_name()));
@@ -153,7 +141,7 @@ class C_main_handle
 			{
 				_log.F_write_log(_message);
 				_msg.F_write_msg(_message);
-				exit(1);
+				F_stop_process(FAIL);
 			}
 		}
 
@@ -168,7 +156,7 @@ class C_main_handle
 			{
 				_log.F_write_log(_message);
 				_msg.F_write_msg(_message);
-				exit(1);
+				F_stop_process(FAIL);
 			}
 		}
 
@@ -186,13 +174,11 @@ class C_main_handle
 			try
 			{
 				/* 1. Socket Create, Bind, Listen */
-				memset(_message, 0x00, sizeof(_message));
-				sprintf(_message, _socket.F_create_socket());
-				_log.F_write_log(_message);
+				_log.F_write_log(_socket.F_create_socket());
 
 				/* 2. Socket Accept */
 				memset(_message, 0x00, sizeof(_message));
-				sprintf(_message, _socket.F_accept_socket());
+				sprintf(_message, "%s", _socket.F_accept_socket());
 				_log.F_write_log(_message);
 				_msg.F_write_msg(_message);
 
@@ -206,29 +192,30 @@ class C_main_handle
 			{
 				_log.F_write_log(_message);
 				_msg.F_write_msg(_message);
+				F_stop_process(FAIL);
 			}
 		}
 
 		void F_read_message()
 		{
+			/* Variable Init */
 			int _result = FAIL;
+			_socket.F_put_retry_init();
 
 			while(1)
 			{
 				try
 				{
-					long _last_data_count = 0;
-					_last_data_count = _cnt.F_get_last_data_count();
-					F_get_jang();
+					/* 1. Read Message */
+					_result = _socket.F_recv_message();
 
-					_result = _socket.F_recv_message(_jang_status, _last_data_count);
-
+					/* 2. Message Status Check */
 					/* 정상 수신 */
 					if(_result == SUCCESS) 
 						break;
 
 					/* 재송횟수 3회 초과 */
-					else
+					else if(_result == FAIL)
 					{
 						memset(_message, 0x00, sizeof(_message));
 						sprintf(_message, "RECV RETRY %d Times Error..", _result);
@@ -255,12 +242,22 @@ class C_main_handle
 		{
 			try
 			{
-				_socket.F_check_message();
+
+				/* 1. 마지막 데이터 갯수 확인 */
+				long _last_data_count = 0;
+				_last_data_count = _cnt.F_get_last_data_count();
+
+				/* 2. 장 상태 확인 */
+				F_get_jang();
+
+				/* 3. Check Message */
+				_socket.F_check_message(_jang_status, _last_data_count);
 			}
 			catch(const char* _message)
 			{
 				_log.F_write_log(_message);
 				_msg.F_write_msg(_message);
+				F_stop_process(FAIL);
 			}
 		}
 
@@ -292,6 +289,11 @@ class C_main_handle
 				exit(1);
 			}
 		}
+
+		void F_log()
+		{
+			_log.F_write_log(_socket.F_put_log_message());
+		}
 };
 
 int main(int argc, char *argv[])
@@ -306,7 +308,6 @@ int main(int argc, char *argv[])
 	C_main_handle _control(&argc, argv);
 
 	/* 사전 처리 */
-	_control.F_get_date_time();			/* 현재 시스템 날짜와 시간으로 Update */
 	_control.F_get_config();			/* CONFIG에서 정보 가져오기 */ 
 	_control.F_open_file();				/* CONFIG에서 가져 온 정보로 관련파일들 Open */
 	_control.F_get_cnt();				/* Process상태, Link여부, 마지막 데이터 개수 */
@@ -324,6 +325,7 @@ int main(int argc, char *argv[])
 
         /* 2. Message Check, Message Set, Data Set */
 		_control.F_check_message();
+		_control.F_log();
         
         /* 3. 송신 */
     }

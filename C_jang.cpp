@@ -47,14 +47,14 @@ void C_jang::F_read_jang()
 	}
 
 	/* 3. Systemp Check */
-	if(strncmp(_jang_bnd.upmu_gubun, &_btris, 1) != 0)
+	if(strnicmp(_jang_bnd.upmu_gubun, &_btris, 1) != 0)
 	{ /* 상속인 금융거래 일 경우 */
 		strncpy(_jang_fts.upmu_gubun, _jang_bnd.upmu_gubun, JANG_RECORD_LENGTH);
 		_upmu_gubun = 'K';
 	}
 
 	/* 4. Variable Parsing */
-	if(_upmu_gubun == UPMU_GUBUN)
+	if(strnicmp(&_upmu_gubun, UPMU_GUBUN, 1) == 0)
 	{ /* B-TRIS 일 경우 (From BMMJANG) */
 		strncpy(_start_time, _jang_bnd.start_time, 6);
 		strncpy(_end_time, _jang_bnd.end_time, 6);
@@ -94,7 +94,7 @@ int C_jang::F_get_jang_status()
   /* (전일장) 0:접수 전, 1:접수 중, 9:종료 */
   /* (당일장) 0:접수 전, 1:접수 중, 9:종료 */
 	/* Status Check & Setting */
-	if(_upmu_gubun == UPMU_GUBUN)
+	if(strnicmp(&_upmu_gubun, UPMU_GUBUN, 1) == 0)
 	{
 		if(_lastmarket_status_num == 0 && _jang_status_num == 0)
 			return JANG_BEFORE; /* B-TRIS(장외채권공시) 접수 전 */

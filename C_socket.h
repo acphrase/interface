@@ -1,46 +1,39 @@
 #include"main.h"
+#include"C_time.h"
 
 /*----------------------------------------------------------------------------*/
 /*----------------------------- 1. Message 구분 ------------------------------*/
 /*----------------------------------------------------------------------------*/
-#define SND_RCV_CHK           500    /* 500: 송신시 recv 있음 */
-#define UNDEFINED             -1
-#define MESSAGE_LENGTH        4      /* 전문길이정보 */
-#define BLOCK_COUNT           1      /* 전문블록 갯수 */
-#define MSG_0800_001          8001
-#define MSG_0810_001          8101
-#define MSG_0800_301          8031
-#define MSG_0810_301          8131
-#define MSG_0800_040          8040
-#define MSG_0810_040          8140
-#define MSG_0200_000          2000
-#define MSG_0210_000          2100
-#define MSG_START             11
-#define MSG_ERR               99
-#define HEADER_LENGTH		  4
-#define BUF_SIZE			  4000
-#define EPOLL_SIZE			  5
-#define RECV_GUBUN			  'r'
-#define SEND_GUBUN			  's'
-#define HEADER_TR_CODE		  'N'
+#define RECV_GUBUN			'R'
+#define SEND_GUBUN			'S'
+#define HEADER_TR_CODE		'N'
+#define SND_RCV_CHK			500		/* 500: 송신시 recv 있음 */
+#define UNDEFINED			-1
+#define HEADER_LENGTH		4		/* 전문길이정보 */
+#define BLOCK_COUNT			1		/* 전문블록 갯수 */
+#define MSG_0800_001		8001
+#define MSG_0810_001		8101
+#define MSG_0800_301		8031
+#define MSG_0810_301		8131
+#define MSG_0800_040		8040
+#define MSG_0810_040		8140
+#define MSG_0200_000		2000
+#define MSG_0210_000		2100
+#define MSG_START			11
+#define MSG_ERR				99
 
 /*----------------------------------------------------------------------------*/
-/*----------------------------- 2. Message error 구분 ------------------------*/
+/*----------------------------- 2. TIMEOUT 구분 ------------------------------*/
 /*----------------------------------------------------------------------------*/
-#define NO_ERROR              0
-#define SEQ_ERROR             1
-#define CNT_ERROR             2
-#define MARKET_BEF_ERROR      3
-#define MARKET_AFT_ERROR      4
-#define FORMAT_ERROR          14
-#define PARSING_ERROR         18
-#define TR_CODE_INVALID       91
-#define GIGWAN_ID_INVALID     92
-#define MSG_TYPE_INVALID      93
-#define OPR_TYPE_INVALID      94
-#define DATA_NO_INVALID       98
-#define DATA_CNT_INVALID      99
+#define WAIT_TIMEOUT		-1
+#define RECV_TIMEOUT		30000
+#define SEND_TIMEOUT		30000
 
+/*----------------------------------------------------------------------------*/
+/*----------------------------- 3. ETC ---------------------------------------*/
+/*----------------------------------------------------------------------------*/
+#define BUF_SIZE			4000
+#define EPOLL_SIZE			5
 
 struct RECV_MESSAGE_DEF
 { /* 수신 메세지 definition */
@@ -72,7 +65,7 @@ struct SEND_MESSAGE_DEF
   char retry_cnt                [2];   /* 재송횟수 */
   char data_no                  [8];   /* DATA SEQ */
   char data_cnt                 [2];   /* DATA 갯수 */
-  char snd_data              [3951];
+  char snd_data					[3951];
 }; /* 송신 버퍼 총 4000 byte */
 
 struct SEND_MESSAGE_PB_DEF
@@ -107,6 +100,7 @@ class C_socket
         SEND_MESSAGE_PB_DEF _send_message_pb;
 		int _recv_length;
 		int _recv_message_type;
+		int _send_message_type;
 
 		/* 5. EPOLL Variable */
 		struct epoll_event *_ep_events;
@@ -120,9 +114,22 @@ class C_socket
 		/* 7. Config Status Variable */
 		int _data_length;
 		long _last_data_count;
+		char* _ip_number;
+		char* _port_number;
 		char* _company_id;
 		char* _tr_code;
 		char* _communicate_type;
+
+		/* 8. Time Class */
+		C_time _date_time;
+		char* _date;
+		char* _time;
+
+		/* 9. ETC */
+        char _recv_gubun = RECV_GUBUN;
+        char _send_gubun = SEND_GUBUN;
+        char _header_tr_code = HEADER_TR_CODE;
+		int	_retry_check = 0; /* 재전송 시도 횟수 변수 */
 		
 	public :
 		C_socket()
@@ -145,6 +152,7 @@ class C_socket
             memset(&_send_message_pb, 0x00, sizeof(_send_message_pb));
 			_recv_length = 0;
 			_recv_message_type = UNDEFINED;
+			_send_message_type = UNDEFINED;
 
 			_ep_events = new struct epoll_event;
 			_epfd = epoll_create(EPOLL_SIZE);
@@ -158,9 +166,11 @@ class C_socket
 			close(_client_socket);
 		}
 
-		int F_set_config_information(int r_data_length, char* r_company_id, char* r_tr_code, char* r_communicate_type)
+		int F_set_config_information(int r_data_length, char* r_ip_number, char* r_port_number, char* r_company_id, char* r_tr_code, char* r_communicate_type)
 		{
 			_data_length = r_data_length;
+			_ip_number = r_ip_number;
+			_port_number = r_port_number;
 			_company_id = r_company_id;
 			_tr_code = r_tr_code;
 			_communicate_type = r_communicate_type;
@@ -168,7 +178,7 @@ class C_socket
 			return SUCCESS;
 		}
 
-		char* F_create_socket(char *ip, char *port)
+		char* F_create_socket()
 		{
 			int state = 0;
 			int _option = 0;
@@ -177,9 +187,9 @@ class C_socket
 			socklen_t _check_length;
 
 			/* 1. Socket에 할당 할 정보 Setting */
-			_server_address.sin_family = AF_INET;	/* 주소 체계 : IPv4 */
-			_server_address.sin_addr.s_addr = inet_addr(ip);	/* server ip (Network bytes 주소로 변환) */
-			_server_address.sin_port = htons((unsigned short)atoi(port));	/* server port number */
+			_server_address.sin_family = AF_INET; /* 주소 체계 : IPv4 */
+			_server_address.sin_addr.s_addr = inet_addr(_ip_number); /* server ip(Network bytes 주소로 변환) */
+			_server_address.sin_port = htons((unsigned short)atoi(_port_number)); /* server port number */
 
 			/* 2. Create Socket */
 			/* _server_socket : descriptor(handle). */
@@ -253,101 +263,174 @@ class C_socket
 			_event.data.fd = _server_socket;
 			epoll_ctl(_epfd, EPOLL_CTL_ADD, _server_socket, &_event);
 
-			_event_cnt = epoll_wait(_epfd, _ep_events, EPOLL_SIZE, -1); /* 연결 될 때 까지 무한 대기 */ 
-			if(_event_cnt < 0)
+			if(F_check_socket(WAIT_TIMEOUT) == SUCCESS) /* 연결 될 때 까지 무한 대기 */ 
 			{
 				memset(_message, 0x00, sizeof(_message));
-				sprintf(_message, "Socket EPOLL Error : %s", strerror(errno));
-				throw _message;
-			}
-			else if(_event_cnt > 0)
-			{
-				for(int i = 0; i < _event_cnt; i++)
-				{
-					if(_ep_events[i].data.fd == _server_socket)
-					{
-						_client_address_size = sizeof(_client_address);
-						_client_socket = accept(_server_socket, (struct sockaddr*)&_client_address, &_client_address_size);
-						if(_client_socket == -1)
-						{
-							memset(_message, 0x00, sizeof(_message));
-							sprintf(_message, "Server Socket Accept Error : %s", strerror(errno));
-							throw _message;
-						}
-						else
-						{
-							memset(_message, 0x00, sizeof(_message));
-							sprintf(_message, "TCP/IP Connected ( IP:%s port:%d )", inet_ntoa(_client_address.sin_addr), ntohs(_client_address.sin_port));
-
-							F_set_non_blocking_mode(_client_socket);
-							_event.events = EPOLLIN | EPOLLET;
-							_event.data.fd = _client_socket;
-							epoll_ctl(_epfd, EPOLL_CTL_ADD, _client_socket, &_event);
-							_link_status = CONNECT;
-
-							return _message;
-						}
-					}
-				}
-			}
-		}
-
-		
-		
-		int F_recv_message(int _time, int r_jang_status, long r_last_data_count)
-		{
-			_jang_status = r_jang_status;
-			_last_data_count = r_last_data_count;
-			int _header_length = 0;
-			int _message_length = 0;
-			int _check_result = 0;
-
-			/* 수신 가능한 상태인지 _client_socket 확인 */
-			/* 수신 할 데이터가 존재 할 경우 "SUCCESS" 반환 */
-			/* 전달한 시간을 초과 할 경우 "TIMEOUT" 반환 */
-			_check_result = F_check_descriptor(_time);
-			if(_check_result == SUCCESS)
-			{	
-				_header_length = F_read_socket(HEADER_LENGTH);
-				if(_header_length > 0)
-				{
-					strncpy(_recv_message.message_length, _recv_buffer, HEADER_LENGTH);
-
-					_message_length = F_read_socket(atoi(_recv_buffer));
-					if(_message_length > 0)
-					{
-						strncpy(_recv_message.tr_code, _recv_buffer, sizeof(_recv_message) - HEADER_LENGTH);
-					}
-					else
-					{
-                    				throw	"Message Read Error From Socket..";
-					}
-				}
-				else
-				{
-                    			throw "Message Length Read Error From Socket..";
-				}
-
-				//F_check_message();
-				//F_put_log_message();
-
-				return SUCCESS;
-			}
-			else if(_check_result == TIMEOUT)
-			{
-				return TIMEOUT;
+				sprintf(_message, "TCP/IP Connected ( IP:%s port:%d )", inet_ntoa(_client_address.sin_addr), ntohs(_client_address.sin_port));
+				return _message;
 			}
 			else
 			{
-				throw "Socket Status Error..";
+				throw "Socket Check Error..";
+			}
+		}
+		
+		int F_recv_message(int r_jang_status, long r_last_data_count)
+		{
+			/* 1. 장시간 확인 및 마지막 수신 데이터 확인 */
+			_jang_status = r_jang_status;
+			_last_data_count = r_last_data_count;
+
+			/* 2. 재송횟수 초기화 */
+			_retry_check = 0;
+
+			while(1)
+			{
+				/* 3. 재송횟수 3번 이하인지 확인 */
+				if(_retry_check < 3) 
+				{
+					int _header_length = 0;
+					int _message_length = 0;
+					int _check_result = 0;
+
+					/* 4. 수신 가능한 상태인지 _client_socket 확인 */
+					/* 개시 전 일 경우 수신 무한 대기, 개시 이 후는 설정 Time에 따른 대기 */
+					if(_link_status == CONNECT && _connect_status == DISCONNECT)
+						_check_result = F_check_socket(WAIT_TIMEOUT);	/* 데이터 수신 될 때 까지 무한 대기 */ 
+					else if(_link_status == CONNECT && _connect_status == CONNECT)
+						_check_result = F_check_socket(RECV_TIMEOUT);	/* TIMEOUT 설정 */
+
+					/* 5. _client_socket status check */
+					switch(_check_result)
+					{
+						/* "SUCCESS"는 수신 할 데이터가 존재 */
+						case SUCCESS :
+							_header_length = F_read_socket(HEADER_LENGTH);
+							if(_header_length > 0)
+							{
+								strncpy(_recv_message.message_length, _recv_buffer, HEADER_LENGTH);
+
+								_message_length = F_read_socket(atoi(_recv_buffer));
+								if(_message_length > 0)
+								{
+									strncpy(_recv_message.tr_code, _recv_buffer, sizeof(_recv_message) - HEADER_LENGTH);
+									if(strncmp(_recv_message.err_code, "00", 2) != 0)
+									{
+										memset(_message, 0x00, sizeof(_message));
+										sprintf(_message, "RECV Error Code : %.2s", _recv_message.err_code);
+										throw _message;
+									}
+								}
+								else
+								{
+            		    	    				throw	"Message Read Error From Socket..";
+								}
+							}
+							else
+							{
+            		    	    			throw "Message Length Read Error From Socket..";
+							}
+
+							_retry_check = 0;
+
+							return SUCCESS;
+
+						/* "TIMEOUT"은 설정 시간 초과 */
+						case TIMEOUT :
+							/* 재송횟수 카운트 후 TIMEOUT에 따른 이벤트 진행 */
+							_retry_check++;
+							F_event_timeout();
+							break;
+
+						/* "TIMEOUT" 이외의 Error */
+						default :
+							memset(_message, 0x00, sizeof(_message));
+							sprintf(_message, "RECV Socket EPOLL Error..%d", _result);
+							throw _message;
+					}
+				}
+				/* 재송횟수 3번 초과 일 경우 */
+				else
+				{
+					/* Socket Close */
+					_link_status == DISCONNECT;
+					_connect_status == DISCONNECT;
+					epoll_ctl(_epfd, EPOLL_CTL_DEL, _server_socket, NULL);
+					epoll_ctl(_epfd, EPOLL_CTL_DEL, _client_socket, NULL);
+					delete _ep_events;
+					close(_server_socket);
+					close(_client_socket);
+
+					int _retry_num = 0;
+					_retry_num = _retry_check;
+					_retry_check = 0;
+					return _retry_num;
+				}
 			}
 		}
 
+		int F_send_message()
+		{
+			/* 1. Variable Setting */
+			int _send_length = 0;
+			int _send_message_length = 0;
+			_send_message_length = strlen(_send_message.message_length);
+
+			/* 2. Buffer Setting */
+			strncpy(_send_buffer, _send_message.message_length, _send_message_length);
+
+			/* 3. Send Message from Buffer */
+			_send_length = F_write_socket();
+			if(_send_length == _send_message_length)
+				return SUCCESS;
+			else
+			{
+				throw	"Message Send Error To Socket..";
+			}
+		}
+
+		void F_event_timeout()
+		{
+			if(strnicmp(_communicate_type, &_send_gubun, 1) == 0)
+			{
+				/* 1. Variable 초기화 */
+				int _result = FAIL;
+				memset(&_send_message, 0x00, sizeof(_send_message));
+
+				/* 2. Time Setting */
+				_date_time.F_update_date_time();
+				_date = _date_time.F_get_date();
+				_time = _date_time.F_get_time();
+
+				/* 3. Send Meassage Setting */
+				strncpy(_send_message.time, &_date[2], 6);
+				strncpy(&_send_message.time[6], _time, 6);
+				char temp[3];
+				sprintf(temp, "%2.2d", _retry_check); 
+				strncpy(_send_message.retry_cnt, temp, 2);
+
+				/* 4. Send Message */
+				_result = F_send_message();
+				if(_result != SUCCESS)
+				{
+					char error_code[3];
+					int error_no;
+					error_no = atoi(strncpy(error_code, _send_message.err_code, 2));
+					throw error_no;
+				}
+			}
+			else
+			{
+				memset(_message, 0x00, sizeof(_message));
+				sprintf(_message, "RECV Time Out...Keep..%d", _retry_check);
+				throw _message;
+			}
+		}
 
         int F_read_socket(int _message_length)
         {
 			/* 1. Buffer 초기화 */
-			memset(&_recv_buffer, 0x00, sizeof(_recv_buffer));
+			memset(_recv_buffer, 0x00, sizeof(_recv_buffer));
 			int _recv_length = 0;
 			int _remain_length = 0;
 			_remain_length = _message_length - _recv_length;
@@ -362,15 +445,38 @@ class C_socket
 						break;
 			}
 
-			/* 3. Message Length Return */
+			/* 3. Recv Message Length Return */
 			return _recv_length;
         }
 
+		int F_write_socket()
+        {
+			/* 1. Buffer 초기화 */
+			memset(_send_buffer, 0x00, sizeof(_send_buffer));
+			int _send_message_length = 0;
+			_send_message_length = strlen(_send_message.message_length);
+			int _send_length = 0;
+			int _remain_length = 0;
+			_remain_length = _send_message_length - _send_length;
+
+		    /* 2. Message write to Socket */
+			while(_send_length < _send_message_length)
+			{
+				_send_length = send(_client_socket, &_send_buffer[_send_length], _remain_length, 0);
+
+				if(_send_length < 0)
+					if(errno = EAGAIN)
+						break;
+			}
+
+			/* 3. Send Message Length Return */
+			return _send_length;
+        }
+
+		
+
 		int F_check_message()
 		{
-            char _recv_gubun = RECV_GUBUN;
-            char _send_gubun = SEND_GUBUN;
-            char _header_tr_code = HEADER_TR_CODE;
 			_recv_message_type = UNDEFINED;
 
 			/* 1. Message 유형 구분 */
@@ -425,7 +531,7 @@ class C_socket
 			}
 
 			/* 4. HEADER TR-CODE CHECK */
-			if(strncmp(_recv_message.tr_code, &_header_tr_code, 1) != 0)
+			if(strnicmp(_recv_message.tr_code, &_header_tr_code, 1) != 0)
 			{
 				memset(_message, 0x00, sizeof(_message));
 				sprintf(_message, "[Header] TR_CODE error..%.3s", _recv_message.tr_code);
@@ -443,7 +549,7 @@ class C_socket
 
 			/* 6. 전문 & 운용 type CHECK */
 			/* (1) 허용 MSG type CHECK */
-			if(strncmp(_communicate_type, &_recv_gubun, 1) == 0)
+			if(strnicmp(_communicate_type, &_recv_gubun, 1) == 0)
 			{ /* 수신 프로세스인 경우 허용 MSG type Filtering */
 				if((_recv_message_type == MSG_0810_001) || 
 				   (_recv_message_type == MSG_0810_301) ||
@@ -468,15 +574,15 @@ class C_socket
 				}
 
 				/* 0800/040(마감요청)을 보내지 않았는데 0810/040(마감요청응답)이 들어오는 경우 */
-				//if(_recv_message_type == MSG_0810_040)
-				//{
-				//	if(_send_message_type != MSG_0800_040)
-				//	{
-				//		memset(_message, 0x00, sizeof(_message));
-				//		sprintf(_message, "Invalid Recv[S] OPR TYPE : %.4s.%.3s", _recv_message.msg_type, _recv_message.opr_type);
-				//		throw _message;
-				//	}
-				//}
+				if(_recv_message_type == MSG_0810_040)
+				{
+					if(_send_message_type != MSG_0800_040)
+					{
+						memset(_message, 0x00, sizeof(_message));
+						sprintf(_message, "Invalid Recv[S] OPR TYPE : %.4s.%.3s", _recv_message.msg_type, _recv_message.opr_type);
+						throw _message;
+					}
+				}
 			}
 
 			/* (2) (개시 전) 전문/운용 type CHECK */
@@ -505,7 +611,7 @@ class C_socket
 
 			if((_recv_message_type != MSG_0800_301) && (_recv_message_type != MSG_0810_301))
 			{
-				if(strncmp(_communicate_type, &_send_gubun, 1) == 0)
+				if(strnicmp(_communicate_type, &_send_gubun, 1) == 0)
 				{ /* 송신 프로세스인 경우 */
 					if(_recv_data_no != _last_data_count)
 					{ /* 마지막 count와 같아야 함 */
@@ -586,7 +692,7 @@ class C_socket
 
 
 			/* 10. 개시 응답일 경우 Connect 상태 변수 변경 */
-			if(_recv_message_type == MSG_0810_001)
+			if(_recv_message_type == MSG_0800_001)
 			{
 				_connect_status = CONNECT;
 			}
@@ -594,7 +700,7 @@ class C_socket
 			return SUCCESS;
 		}
 
-		int F_check_descriptor(int _time)
+		int F_check_socket(int _time)
 		{
 			/* Buffer status 확인 */
 			/* _time이 -1일 경우 Event 발생 시점까지 대기, 30000일 경우 30초 대기 */
@@ -602,7 +708,7 @@ class C_socket
 			if(_event_cnt < 0) /* EPOLL Error */
 			{
 				memset(_message, 0x00, sizeof(_message));
-				sprintf(_message, "Client Socket EPOLL Error : %s", strerror(errno));
+				sprintf(_message, "Socket EPOLL Error : %s", strerror(errno));
 				throw _message;
 			}
 			else if(_event_cnt == 0) /* Time Out */
@@ -613,7 +719,28 @@ class C_socket
 			{
 				for(int i = 0; i < _event_cnt; i++)
 				{
-					if(_ep_events[i].data.fd == _client_socket)
+					if(_ep_events[i].data.fd == _server_socket)
+					{
+						_client_address_size = sizeof(_client_address);
+						_client_socket = accept(_server_socket, (struct sockaddr*)&_client_address, &_client_address_size);
+						if(_client_socket == -1)
+						{
+							memset(_message, 0x00, sizeof(_message));
+							sprintf(_message, "Server Socket Accept Error : %s", strerror(errno));
+							throw _message;
+						}
+						else
+						{
+							F_set_non_blocking_mode(_client_socket);
+							_event.events = EPOLLIN | EPOLLET;
+							_event.data.fd = _client_socket;
+							epoll_ctl(_epfd, EPOLL_CTL_ADD, _client_socket, &_event);
+							_link_status = CONNECT;
+
+							return SUCCESS;
+						}
+					}
+					else if(_ep_events[i].data.fd == _client_socket)
 					{
 						return SUCCESS;
 					}
@@ -629,10 +756,9 @@ class C_socket
 
 		char* F_put_log_message()
 		{
-            char _recv_gubun = RECV_GUBUN;
 			memset(_message, 0x00, sizeof(_message));
 
-			if(strncmp(_communicate_type, &_recv_gubun, 1) == 0)
+			if(strnicmp(_communicate_type, &_recv_gubun, 1) == 0)
 			{ /* 수신 상황일 경우 */
 				sprintf(_message, "RECV %.4s %.1s %.3s %.4s %.3s %.2s %.12s %.2s %.8s %.2s.%ld", _recv_message.message_length, _recv_message.tr_code, _recv_message.gigwan_id, _recv_message.msg_type, _recv_message.opr_type, _recv_message.err_code, _recv_message.time, _recv_message.retry_cnt, _recv_message.data_no, _recv_message.data_cnt, strlen(_recv_buffer));
 			}

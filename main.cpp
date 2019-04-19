@@ -25,7 +25,6 @@ class C_main_handle
 		int _data_fd;
 		int _jang_status;
 		C_socket _socket;
-        int _retry_check;               /* 재전송 시도 횟수 변수 */
 
 	public :
 		C_main_handle( int *argc, char *argv[]) : _key(&argv[1]), _config_path(&argv[2])
@@ -37,8 +36,6 @@ class C_main_handle
 				cout << "Usage : " << *argv << " <WhisaCode+TR> <Config File>" << endl;
 				exit(1);
 			}
-
-            _retry_check = 0;
 		}
 
 		void F_get_date_time()
@@ -54,6 +51,7 @@ class C_main_handle
 		{
 			try
 			{
+				/* 1. read config */
 				_config.F_read_config(*_key, *_config_path);
 				//cout << _config.F_get_company_id() << endl; 
 				//cout << _config.F_get_tr_code() << endl; 
@@ -71,11 +69,30 @@ class C_main_handle
 				//cout << _config.F_get_message_length() << endl;
 				//cout << _config.F_get_msg_file_name() << endl;
 				//cout << _config.F_get_header_tr_code() << endl;
+
+				/* 2. check socket infrom to socket */
+                F_set_check_socket_information();
 			}
 			catch(const char* _message)
 			{
 				cout << _message << endl;
 				exit(1);
+			}
+		}
+
+		void F_set_check_socket_information()
+		{
+			int _data_length = 0;
+			_data_length = atoi(_config.F_get_message_length());
+			char* _ip_number = _config.F_get_ip_number();
+			char* _port_number = _config.F_get_port_number();
+			char* _company_id = _config.F_get_company_id();
+			char* _tr_code = _config.F_get_tr_code();
+			char* _communicate_type = _config.F_get_communication_type();
+
+			if(_socket.F_set_config_information(_data_length, _ip_number, _port_number, _company_id, _tr_code, _communicate_type) == SUCCESS)
+			{
+				throw "Check Socket Setting Error..";
 			}
 		}
 
@@ -109,7 +126,6 @@ class C_main_handle
 			{
 				_log.F_write_log(_message);
 				_msg.F_write_msg(_message);
-				cout << _message << endl;
 				exit(1);
 			}
 		}
@@ -118,15 +134,18 @@ class C_main_handle
 		{
 			try
 			{
-				_cnt.F_read_cnt(_config.F_get_company_id(), _config.F_get_cnt_gubun());
+				/* 1. 해당 회원사 Record Read */
+				_cnt.F_read_cnt();
 
-				/* CNT Status Check */
+				/* 2. Last Data Count Status Check */
 				memset(_message, 0x00, sizeof(_message));
 				_log.F_write_log(_cnt.F_get_last_data());
 
+				/* 3. Process Status Check */
 				memset(_message, 0x00, sizeof(_message));
 				_log.F_write_log(_cnt.F_get_process());
 
+				/* 4. Link Status Check */
 				memset(_message, 0x00, sizeof(_message));
 				_log.F_write_log(_cnt.F_get_link());
 			}
@@ -134,7 +153,6 @@ class C_main_handle
 			{
 				_log.F_write_log(_message);
 				_msg.F_write_msg(_message);
-				cout << _message << endl;
 				exit(1);
 			}
 		}
@@ -150,7 +168,6 @@ class C_main_handle
 			{
 				_log.F_write_log(_message);
 				_msg.F_write_msg(_message);
-				cout << _message << endl;
 				exit(1);
 			}
 		}
@@ -168,15 +185,18 @@ class C_main_handle
 		{
 			try
 			{
+				/* 1. Socket Create, Bind, Listen */
 				memset(_message, 0x00, sizeof(_message));
-				sprintf(_message, _socket.F_create_socket(_config.F_get_ip_number(), _config.F_get_port_number()));
+				sprintf(_message, _socket.F_create_socket());
 				_log.F_write_log(_message);
 
+				/* 2. Socket Accept */
 				memset(_message, 0x00, sizeof(_message));
 				sprintf(_message, _socket.F_accept_socket());
 				_log.F_write_log(_message);
 				_msg.F_write_msg(_message);
 
+				/* 3. Status Message */
 				memset(_message, 0x00, sizeof(_message));
 				sprintf(_message, "Link 대기 중...");
 				_log.F_write_log(_message);
@@ -186,62 +206,61 @@ class C_main_handle
 			{
 				_log.F_write_log(_message);
 				_msg.F_write_msg(_message);
-				cout << _message << endl;
 			}
 		}
 
-		int F_check_descriptor(int _time)
+		void F_read_message()
+		{
+			_result = FAIL;
+
+			while(1)
+			{
+				try
+				{
+					long _last_data_count = 0;
+					_last_data_count = _cnt.F_get_last_data_count();
+					F_get_jang();
+
+					_result = _socket.F_recv_message(_jang_status, _last_data_count);
+
+					/* 정상 수신 */
+					if(_result == SUCCESS) 
+						break;
+
+					/* 재송횟수 3회 초과 */
+					else
+					{
+						memset(_message, 0x00, sizeof(_message));
+						sprintf(_message, "RECV RETRY %d Times Error..", _result);
+
+						/* Socket recreate */
+						F_start();
+					}
+				}
+				catch(const char* _message)
+				{
+					_log.F_write_log(_message);
+					_msg.F_write_msg(_message);
+				}
+				catch(const int _fail)
+				{
+					memset(_message, 0x00, sizeof(_message));
+					sprintf(_message, "SEND Retry Error..%d", _fail);
+					F_stop_process(FAIL);
+				}
+			}
+		}
+
+		void F_check_message()
 		{
 			try
 			{
-				return _socket.F_check_descriptor(_time);
+				_socket.F_check_message();
 			}
 			catch(const char* _message)
 			{
 				_log.F_write_log(_message);
 				_msg.F_write_msg(_message);
-				cout << _message << endl;
-			}
-		}
-
-		void F_set_check_socket_information()
-		{
-			int _data_length = 0;
-			_data_length = atoi(_config.F_get_message_length());
-
-			char* _company_id = _config.F_get_company_id();
-
-			char* _tr_code = _config.F_get_tr_code();
-
-			char* _communicate_type = _config.F_get_communication_type();
-
-			if(_socket.F_set_config_information(_data_length, _company_id, _tr_code, _communicate_type))
-			{
-				_log.F_write_log("Check Socket Setting Error..");
-				_msg.F_write_msg("Check Socket Setting Error..");
-			}
-		}
-
-		void F_read_message(int _time)
-		{
-			try
-			{
-                F_set_check_socket_information();
-				F_get_jang();
-				_socket.F_recv_message(_time, _jang_status, _cnt.F_get_last_data_count());
-                _log.F_write_log(_socket.F_put_log_message());
-			}
-			//catch(const int _message)
-			//{
-			//	_log.F_write_log(_message);
-			//	_msg.F_write_msg(_message);
-			//	cout << _message << endl;
-			//}
-			catch(const char* _message)
-			{
-				_log.F_write_log(_message);
-				_msg.F_write_msg(_message);
-				cout << _message << endl;
 			}
 		}
 
@@ -260,29 +279,19 @@ class C_main_handle
 				else
 				{
 					memset(_message, 0x00, sizeof(_message));
-					sprintf(_message, "Process Stop Error..");
+					sprintf(_message, "Interface PROGRAM ABNORMAL STOP");
 					_log.F_write_log(_message);
 					_msg.F_write_msg(_message);
 					exit(1);
 				}
 			}
-			catch(const int _FAIL)
-			{
-				memset(_message, 0x00, sizeof(_message));
-				sprintf(_message, "Interface PROGRAM ABNORMAL STOP");
-				_log.F_write_log(_message);
-				_msg.F_write_msg(_message);
-				exit(1);
-			}
 			catch(const char* _message)
 			{
 				_log.F_write_log(_message);
 				_msg.F_write_msg(_message);
-				cout << _message << endl;
 				exit(1);
 			}
 		}
-
 };
 
 int main(int argc, char *argv[])
@@ -309,13 +318,14 @@ int main(int argc, char *argv[])
     {
         /* 0. Socket Create, Bind, Listen, Accept */
         _control.F_start();
-	_control.F_read_message(-1);
 
-        /* 1. Interface 수신 */
+        /* 1. 수신 */
+		_control.F_read_message();
 
         /* 2. Message Check, Message Set, Data Set */
+		_control.F_check_message();
         
-        /* 3. Interface 송신 */
+        /* 3. 송신 */
     }
 
 	return 0;

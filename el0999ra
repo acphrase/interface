@@ -496,3 +496,807 @@
 [$r999x-23:07:01] RECV 0045 N 999 0800 001 00 190417141700 11 22222222 33.45
 [$r999x-23:07:04] RECV 0045 N 999 0800 001 00 190417141700 11 22222222 33.45
 [$r999x-23:07:07] RECV 0045 N 999 0800 001 00 190417141700 11 22222222 33.45
+[$r999x-22:47:58] ====================================================
+[$r999x-22:47:58] Interface PROGRAM                                   
+[$r999x-22:47:58] ====================================================
+[$r999x-22:47:58] Log File OPEN(el0999ra)..
+[$r999x-22:47:58] MSG File OPEN(bmsgf99)..
+[$r999x-22:47:58] Interface PROGRAM STARTING                          
+[$r999x-22:47:58] Data File OPEN(bsnd999)..
+[$r999x-22:47:58] CNT File OPEN(bsqifrv)..
+[$r999x-22:47:58] Jang File OPEN(bmmjang)..
+[$r999x-22:47:58] Last Count : 22
+[$r999x-22:47:58] Proc Status : 4
+[$r999x-22:47:58] Link Status : 33
+[$r999x-22:47:58] Socket(NO = 9) Listening..
+[$r999x-22:48:00] TCP/IP Connected ( IP:127.0.0.1 port:41586 )
+[$r999x-22:48:00] Link 대기 중...
+[$r999x-22:48:00] RCV [R header] data no : 22222222..22
+[$r999x-22:48:03] RCV [R header] data no : 22222222..22
+[$r999x-22:48:06] RCV [R header] data no : 22222222..22
+[$r999x-22:48:09] RCV [R header] data no : 22222222..22
+[$r999x-22:48:12] RCV [R header] data no : 22222222..22
+[$r999x-23:11:00] ====================================================
+[$r999x-23:11:00] Interface PROGRAM                                   
+[$r999x-23:11:00] ====================================================
+[$r999x-23:11:00] Log File OPEN(el0999ra)..
+[$r999x-23:11:00] MSG File OPEN(bmsgf99)..
+[$r999x-23:11:00] Interface PROGRAM STARTING                          
+[$r999x-23:11:00] Data File OPEN(bsnd999)..
+[$r999x-23:11:00] CNT File OPEN(bsqifrv)..
+[$r999x-23:11:00] Jang File OPEN(bmmjang)..
+[$r999x-23:11:00] Last Count : 22
+[$r999x-23:11:00] Proc Status : 4
+[$r999x-23:11:00] Link Status : 33
+[$r999x-23:11:00] Socket(NO = 9) Listening..
+[$r999x-23:11:37] TCP/IP Connected ( IP:127.0.0.1 port:41590 )
+[$r999x-23:11:37] Link 대기 중...
+[$r999x-23:11:37] RCV Data Block Cnt Error : 33..
+[$r999x-23:11:40] RCV Data Block Cnt Error : 33..
+[$r999x-23:11:43] RCV Data Block Cnt Error : 33..
+[$r999x-23:11:46] RCV Data Block Cnt Error : 33..
+[$r999x-23:11:49] RCV Data Block Cnt Error : 33..
+[$r999x-23:14:35] ====================================================
+[$r999x-23:14:35] Interface PROGRAM                                   
+[$r999x-23:14:35] ====================================================
+[$r999x-23:14:35] Log File OPEN(el0999ra)..
+[$r999x-23:14:35] MSG File OPEN(bmsgf99)..
+[$r999x-23:14:35] Interface PROGRAM STARTING                          
+[$r999x-23:14:35] Data File OPEN(bsnd999)..
+[$r999x-23:14:35] CNT File OPEN(bsqifrv)..
+[$r999x-23:14:35] Jang File OPEN(bmmjang)..
+[$r999x-23:14:35] Last Count : 22
+[$r999x-23:14:35] Proc Status : 4
+[$r999x-23:14:35] Link Status : 33
+[$r999x-23:14:35] Socket(NO = 9) Listening..
+[$r999x-23:14:37] TCP/IP Connected ( IP:127.0.0.1 port:41592 )
+[$r999x-23:14:37] Link 대기 중...
+[$r999x-00:24:23] ====================================================
+[$r999x-00:24:23] Interface PROGRAM                                   
+[$r999x-00:24:23] ====================================================
+[$r999x-00:24:23] Log File OPEN(el0999ra)..
+[$r999x-00:24:23] MSG File OPEN(bmsgf99)..
+[$r999x-00:24:23] Interface PROGRAM STARTING                          
+[$r999x-00:24:23] Data File OPEN(bsnd999)..
+[$r999x-00:24:23] CNT File OPEN(bsqifrv)..
+[$r999x-00:24:23] Jang File OPEN(bmmjang)..
+[$r999x-00:24:23] Last Count : 22
+[$r999x-00:24:23] Proc Status : 4
+[$r999x-00:24:23] Link Status : 33
+[$r999x-00:24:23] Socket(NO = 9) Listening..
+[$r999x-00:24:45] TCP/IP Connected ( IP:127.0.0.1 port:41600 )
+[$r999x-00:24:45] Link 대기 중...
+[$r999x-00:24:45] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.45
+[$r999x-00:24:48] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.45
+[$r999x-00:24:51] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.45
+[$r999x-00:24:54] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.45
+[$r999x-00:24:57] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.45
+[$r999x-00:29:00] ====================================================
+[$r999x-00:29:00] Interface PROGRAM                                   
+[$r999x-00:29:00] ====================================================
+[$r999x-00:29:00] Log File OPEN(el0999ra)..
+[$r999x-00:29:00] MSG File OPEN(bmsgf99)..
+[$r999x-00:29:00] Interface PROGRAM STARTING                          
+[$r999x-00:29:00] Data File OPEN(bsnd999)..
+[$r999x-00:29:00] CNT File OPEN(bsqifrv)..
+[$r999x-00:29:00] Jang File OPEN(bmmjang)..
+[$r999x-00:29:00] Last Count : 22
+[$r999x-00:29:00] Proc Status : 4
+[$r999x-00:29:00] Link Status : 33
+[$r999x-00:29:00] Socket(NO = 9) Listening..
+[$r999x-00:29:07] ====================================================
+[$r999x-00:29:07] Interface PROGRAM                                   
+[$r999x-00:29:07] ====================================================
+[$r999x-00:29:07] Log File OPEN(el0999ra)..
+[$r999x-00:29:07] MSG File OPEN(bmsgf99)..
+[$r999x-00:29:07] Interface PROGRAM STARTING                          
+[$r999x-00:29:07] Data File OPEN(bsnd999)..
+[$r999x-00:29:07] CNT File OPEN(bsqifrv)..
+[$r999x-00:29:07] Jang File OPEN(bmmjang)..
+[$r999x-00:29:07] Last Count : 22
+[$r999x-00:29:07] Proc Status : 4
+[$r999x-00:29:07] Link Status : 33
+[$r999x-00:29:07] Socket(NO = 9) Listening..
+[$r999x-00:29:22] TCP/IP Connected ( IP:127.0.0.1 port:41602 )
+[$r999x-00:29:22] Link 대기 중...
+[$r999x-00:29:22] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-00:29:25] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-00:29:28] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-00:29:31] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-00:29:34] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-01:11:15] ====================================================
+[$r999x-01:11:15] Interface PROGRAM                                   
+[$r999x-01:11:15] ====================================================
+[$r999x-01:11:15] Log File OPEN(el0999ra)..
+[$r999x-01:11:15] MSG File OPEN(bmsgf99)..
+[$r999x-01:11:15] Interface PROGRAM STARTING                          
+[$r999x-01:11:15] Data File OPEN(bsnd999)..
+[$r999x-01:11:15] CNT File OPEN(bsqifrv)..
+[$r999x-01:11:15] Jang File OPEN(bmmjang)..
+[$r999x-01:11:15] Last Count : 22
+[$r999x-01:11:15] Proc Status : 4
+[$r999x-01:11:15] Link Status : 33
+[$r999x-01:11:15] Socket(NO = 9) Listening..
+[$r999x-01:11:30] TCP/IP Connected ( IP:127.0.0.1 port:41606 )
+[$r999x-01:11:30] Link 대기 중...
+[$r999x-01:11:30] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-01:11:33] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-01:11:36] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-01:11:39] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-01:11:42] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-01:17:44] ====================================================
+[$r999x-01:17:44] Interface PROGRAM                                   
+[$r999x-01:17:44] ====================================================
+[$r999x-01:17:44] Log File OPEN(el0999ra)..
+[$r999x-01:17:44] MSG File OPEN(bmsgf99)..
+[$r999x-01:17:44] Interface PROGRAM STARTING                          
+[$r999x-01:17:44] Data File OPEN(bsnd999)..
+[$r999x-01:17:44] CNT File OPEN(bsqifrv)..
+[$r999x-01:17:44] Jang File OPEN(bmmjang)..
+[$r999x-01:17:44] Last Count : 22
+[$r999x-01:17:44] Proc Status : 4
+[$r999x-01:17:44] Link Status : 33
+[$r999x-01:17:44] Socket(NO = 9) Listening..
+[$r999x-01:18:18] TCP/IP Connected ( IP:127.0.0.1 port:41608 )
+[$r999x-01:18:18] Link 대기 중...
+[$r999x-01:18:18] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-01:18:48] RECV Time Out...Keep..1
+[$r999x-01:19:18] RECV Time Out...Keep..1
+[$r999x-01:19:48] RECV Time Out...Keep..1
+[$r999x-01:19:58] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-01:20:28] RECV Time Out...Keep..1
+[$r999x-01:20:58] RECV Time Out...Keep..1
+[$r999x-01:21:28] RECV Time Out...Keep..1
+[$r999x-01:21:38] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-01:22:08] RECV Time Out...Keep..1
+[$r999x-01:22:38] RECV Time Out...Keep..1
+[$r999x-01:23:08] RECV Time Out...Keep..1
+[$r999x-01:23:18] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-01:23:48] RECV Time Out...Keep..1
+[$r999x-01:24:18] RECV Time Out...Keep..1
+[$r999x-01:24:48] RECV Time Out...Keep..1
+[$r999x-01:24:58] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-01:25:28] RECV Time Out...Keep..1
+[$r999x-01:25:58] RECV Time Out...Keep..1
+[$r999x-01:26:28] RECV Time Out...Keep..1
+[$r999x-01:30:29] ====================================================
+[$r999x-01:30:29] Interface PROGRAM                                   
+[$r999x-01:30:29] ====================================================
+[$r999x-01:30:29] Log File OPEN(el0999ra)..
+[$r999x-01:30:29] MSG File OPEN(bmsgf99)..
+[$r999x-01:30:29] Interface PROGRAM STARTING                          
+[$r999x-01:30:29] Data File OPEN(bsnd999)..
+[$r999x-01:30:29] CNT File OPEN(bsqifrv)..
+[$r999x-01:30:29] Jang File OPEN(bmmjang)..
+[$r999x-01:30:29] Last Count : 22
+[$r999x-01:30:29] Proc Status : 4
+[$r999x-01:30:29] Link Status : 33
+[$r999x-01:30:29] Socket(NO = 9) Listening..
+[$r999x-01:30:46] TCP/IP Connected ( IP:127.0.0.1 port:41610 )
+[$r999x-01:30:46] Link 대기 중...
+[$r999x-01:30:46] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-01:31:16] RECV Time Out...Keep..1
+[$r999x-01:31:46] RECV Time Out...Keep..2
+[$r999x-01:32:16] RECV Time Out...Keep..3
+[$r999x-01:32:46] RECV Time Out...Keep..1
+[$r999x-01:33:16] RECV Time Out...Keep..2
+[$r999x-01:33:46] RECV Time Out...Keep..3
+[$r999x-01:34:16] RECV Time Out...Keep..1
+[$r999x-01:34:46] RECV Time Out...Keep..2
+[$r999x-01:35:16] RECV Time Out...Keep..3
+[$r999x-01:35:46] RECV Time Out...Keep..1
+[$r999x-01:36:16] RECV Time Out...Keep..2
+[$r999x-01:37:42] ====================================================
+[$r999x-01:37:42] TCP/IP PROGRAM
+[$r999x-01:37:42] ====================================================
+[$r999x-01:37:42] Log File OPEN(el0999ra)..
+[$r999x-01:37:42] MSG File OPEN(bmsgf99)..
+[$r999x-01:37:42] TCP/IP PROGRAM STARTING
+[$r999x-01:37:42] Data File OPEN(bsnd999)..
+[$r999x-01:37:42] CNT File OPEN(bsqifrv)..
+[$r999x-01:37:42] Jang File OPEN(bmmjang)..
+[$r999x-01:37:42] Last Count : 22
+[$r999x-01:37:42] Proc Status : 4
+[$r999x-01:37:42] Link Status : 33
+[$r999x-01:37:42] Socket(NO = 9) Listening..
+[$r999x-01:37:54] TCP/IP Connected ( IP:127.0.0.1 port:41612 )
+[$r999x-01:37:54] Link 대기 중...
+[$r999x-01:37:54] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-01:38:24] RECV Time Out...Keep..1
+[$r999x-01:38:54] RECV Time Out...Keep..2
+[$r999x-01:39:24] RECV Time Out...Keep..3
+[$r999x-01:39:54] RECV Time Out...Keep..1
+[$r999x-01:40:24] RECV Time Out...Keep..2
+[$r999x-01:40:54] RECV Time Out...Keep..3
+[$r999x-01:41:24] RECV Time Out...Keep..1
+[$r999x-01:41:54] RECV Time Out...Keep..2
+[$r999x-01:42:24] RECV Time Out...Keep..3
+[$r999x-01:42:54] RECV Time Out...Keep..1
+[$r999x-01:43:24] RECV Time Out...Keep..2
+[$r999x-01:43:54] RECV Time Out...Keep..3
+[$r999x-01:44:24] RECV Time Out...Keep..1
+[$r999x-01:55:38] ====================================================
+[$r999x-01:55:38] TCP/IP PROGRAM
+[$r999x-01:55:38] ====================================================
+[$r999x-01:55:38] Log File OPEN(el0999ra)..
+[$r999x-01:55:38] MSG File OPEN(bmsgf99)..
+[$r999x-01:55:38] TCP/IP PROGRAM STARTING
+[$r999x-01:55:38] Data File OPEN(bsnd999)..
+[$r999x-01:55:38] CNT File OPEN(bsqifrv)..
+[$r999x-01:55:38] Jang File OPEN(bmmjang)..
+[$r999x-01:55:38] Last Count : 22
+[$r999x-01:55:38] Proc Status : 4
+[$r999x-01:55:38] Link Status : 33
+[$r999x-01:55:38] Socket(NO = 9) Listening..
+[$r999x-01:55:43] ====================================================
+[$r999x-01:55:43] TCP/IP PROGRAM
+[$r999x-01:55:43] ====================================================
+[$r999x-01:55:43] Log File OPEN(el0999ra)..
+[$r999x-01:55:43] MSG File OPEN(bmsgf99)..
+[$r999x-01:55:43] TCP/IP PROGRAM STARTING
+[$r999x-01:55:43] Data File OPEN(bsnd999)..
+[$r999x-01:55:43] CNT File OPEN(bsqifrv)..
+[$r999x-01:55:43] Jang File OPEN(bmmjang)..
+[$r999x-01:55:43] Last Count : 22
+[$r999x-01:55:43] Proc Status : 4
+[$r999x-01:55:43] Link Status : 33
+[$r999x-01:55:43] Socket(NO = 9) Listening..
+[$r999x-01:55:55] TCP/IP Connected ( IP:127.0.0.1 port:41614 )
+[$r999x-01:55:55] Link 대기 중...
+[$r999x-01:55:55] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-01:56:25] RECV Time Out...Keep..1
+[$r999x-01:56:55] RECV Time Out...Keep..2
+[$r999x-01:57:25] RECV Time Out...Keep..3
+[$r999x-01:57:55] RECV Time Out...Keep..1
+[$r999x-01:58:25] RECV Time Out...Keep..2
+[$r999x-01:58:55] RECV Time Out...Keep..3
+[$r999x-01:59:25] RECV Time Out...Keep..1
+[$r999x-01:59:55] RECV Time Out...Keep..2
+[$r999x-02:00:25] RECV Time Out...Keep..3
+[$r999x-02:00:55] RECV Time Out...Keep..1
+[$r999x-02:01:25] RECV Time Out...Keep..2
+[$r999x-02:01:55] RECV Time Out...Keep..3
+[$r999x-02:02:25] RECV Time Out...Keep..1
+[$r999x-02:03:27] ====================================================
+[$r999x-02:03:27] TCP/IP PROGRAM
+[$r999x-02:03:27] ====================================================
+[$r999x-02:03:27] Log File OPEN(el0999ra)..
+[$r999x-02:03:27] MSG File OPEN(bmsgf99)..
+[$r999x-02:03:27] TCP/IP PROGRAM STARTING
+[$r999x-02:03:27] Data File OPEN(bsnd999)..
+[$r999x-02:03:27] CNT File OPEN(bsqifrv)..
+[$r999x-02:03:27] Jang File OPEN(bmmjang)..
+[$r999x-02:03:27] Last Count : 22
+[$r999x-02:03:27] Proc Status : 4
+[$r999x-02:03:27] Link Status : 33
+[$r999x-02:03:27] Socket(NO = 9) Listening..
+[$r999x-02:03:35] TCP/IP Connected ( IP:127.0.0.1 port:41616 )
+[$r999x-02:03:35] Link 대기 중...
+[$r999x-02:03:35] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-02:04:05] RECV Time Out...Keep..1
+[$r999x-02:04:35] RECV Time Out...Keep..2
+[$r999x-02:05:05] RECV Time Out...Keep..3
+[$r999x-02:05:35] RECV Time Out...Keep..1
+[$r999x-02:06:05] RECV Time Out...Keep..2
+[$r999x-02:06:35] RECV Time Out...Keep..3
+[$r999x-02:07:05] RECV Time Out...Keep..1
+[$r999x-02:08:11] ====================================================
+[$r999x-02:08:11] TCP/IP PROGRAM
+[$r999x-02:08:11] ====================================================
+[$r999x-02:08:11] Log File OPEN(el0999ra)..
+[$r999x-02:08:11] MSG File OPEN(bmsgf99)..
+[$r999x-02:08:11] TCP/IP PROGRAM STARTING
+[$r999x-02:08:11] Data File OPEN(bsnd999)..
+[$r999x-02:08:11] CNT File OPEN(bsqifrv)..
+[$r999x-02:08:11] Jang File OPEN(bmmjang)..
+[$r999x-02:08:11] Last Count : 22
+[$r999x-02:08:11] Proc Status : 4
+[$r999x-02:08:11] Link Status : 33
+[$r999x-02:08:11] Socket(NO = 9) Listening..
+[$r999x-02:10:44] TCP/IP Connected ( IP:127.0.0.1 port:41620 )
+[$r999x-02:10:44] Link 대기 중...
+[$r999x-02:10:44] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-02:19:25] ====================================================
+[$r999x-02:19:25] TCP/IP PROGRAM
+[$r999x-02:19:25] ====================================================
+[$r999x-02:19:25] Log File OPEN(el0999ra)..
+[$r999x-02:19:25] MSG File OPEN(bmsgf99)..
+[$r999x-02:19:25] TCP/IP PROGRAM STARTING
+[$r999x-02:19:25] Data File OPEN(bsnd999)..
+[$r999x-02:19:25] CNT File OPEN(bsqifrv)..
+[$r999x-02:19:25] Jang File OPEN(bmmjang)..
+[$r999x-02:19:25] Last Count : 22
+[$r999x-02:19:25] Proc Status : 4
+[$r999x-02:19:25] Link Status : 33
+[$r999x-02:19:25] Socket(NO = 9) Listening..
+[$r999x-02:19:30] TCP/IP Connected ( IP:127.0.0.1 port:41622 )
+[$r999x-02:19:30] Link 대기 중...
+[$r999x-02:19:30] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-02:24:55] ====================================================
+[$r999x-02:24:55] TCP/IP PROGRAM
+[$r999x-02:24:55] ====================================================
+[$r999x-02:24:55] Log File OPEN(el0999ra)..
+[$r999x-02:24:55] MSG File OPEN(bmsgf99)..
+[$r999x-02:24:55] TCP/IP PROGRAM STARTING
+[$r999x-02:24:55] Data File OPEN(bsnd999)..
+[$r999x-02:24:55] CNT File OPEN(bsqifrv)..
+[$r999x-02:24:55] Jang File OPEN(bmmjang)..
+[$r999x-02:24:55] Last Count : 22
+[$r999x-02:24:55] Proc Status : 4
+[$r999x-02:24:55] Link Status : 33
+[$r999x-02:24:55] Socket(NO = 9) Listening..
+[$r999x-02:25:00] TCP/IP Connected ( IP:127.0.0.1 port:41624 )
+[$r999x-02:25:00] Link 대기 중...
+[$r999x-02:25:00] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-02:25:30] RECV Time Out...Keep..1
+[$r999x-02:26:00] RECV Time Out...Keep..2
+[$r999x-02:26:30] RECV Time Out...Keep..3
+[$r999x-02:27:00] RECV Time Out...Keep..1
+[$r999x-02:27:30] RECV Time Out...Keep..2
+[$r999x-02:28:00] RECV Time Out...Keep..3
+[$r999x-02:28:30] RECV Time Out...Keep..1
+[$r999x-02:29:00] RECV Time Out...Keep..2
+[$r999x-02:29:30] RECV Time Out...Keep..3
+[$r999x-02:30:00] RECV Time Out...Keep..1
+[$r999x-02:30:30] RECV Time Out...Keep..2
+[$r999x-02:31:00] RECV Time Out...Keep..3
+[$r999x-02:31:30] RECV Time Out...Keep..1
+[$r999x-02:32:00] RECV Time Out...Keep..2
+[$r999x-02:32:30] RECV Time Out...Keep..3
+[$r999x-02:33:00] RECV Time Out...Keep..1
+[$r999x-02:33:30] RECV Time Out...Keep..2
+[$r999x-02:34:00] RECV Time Out...Keep..3
+[$r999x-02:34:30] RECV Time Out...Keep..1
+[$r999x-02:35:01] RECV Time Out...Keep..2
+[$r999x-02:35:31] RECV Time Out...Keep..3
+[$r999x-02:36:01] RECV Time Out...Keep..1
+[$r999x-02:36:31] RECV Time Out...Keep..2
+[$r999x-02:37:01] RECV Time Out...Keep..3
+[$r999x-02:37:31] RECV Time Out...Keep..1
+[$r999x-02:38:01] RECV Time Out...Keep..2
+[$r999x-02:38:31] RECV Time Out...Keep..3
+[$r999x-08:14:23] ====================================================
+[$r999x-08:14:23] TCP/IP PROGRAM
+[$r999x-08:14:23] ====================================================
+[$r999x-08:14:23] Log File OPEN(el0999ra)..
+[$r999x-08:14:23] MSG File OPEN(bmsgf99)..
+[$r999x-08:14:23] TCP/IP PROGRAM STARTING
+[$r999x-08:14:23] Data File OPEN(bsnd999)..
+[$r999x-08:14:23] CNT File OPEN(bsqifrv)..
+[$r999x-08:14:23] Jang File OPEN(bmmjang)..
+[$r999x-08:14:24] Last Count : 22
+[$r999x-08:14:24] Proc Status : 4
+[$r999x-08:14:24] Link Status : 33
+[$r999x-08:14:29] Socket(NO = 9) Listening..
+[$r999x-08:16:51] ====================================================
+[$r999x-08:16:51] TCP/IP PROGRAM
+[$r999x-08:16:51] ====================================================
+[$r999x-08:16:51] Log File OPEN(el0999ra)..
+[$r999x-08:16:51] MSG File OPEN(bmsgf99)..
+[$r999x-08:16:51] TCP/IP PROGRAM STARTING
+[$r999x-08:16:51] Data File OPEN(bsnd999)..
+[$r999x-08:16:51] CNT File OPEN(bsqifrv)..
+[$r999x-08:16:51] Jang File OPEN(bmmjang)..
+[$r999x-08:16:53] Last Count : 22
+[$r999x-08:16:53] Proc Status : 4
+[$r999x-08:16:53] Link Status : 33
+[$r999x-08:18:25] ====================================================
+[$r999x-08:18:25] TCP/IP PROGRAM
+[$r999x-08:18:25] ====================================================
+[$r999x-08:18:25] Log File OPEN(el0999ra)..
+[$r999x-08:18:25] MSG File OPEN(bmsgf99)..
+[$r999x-08:18:25] TCP/IP PROGRAM STARTING
+[$r999x-08:18:25] Data File OPEN(bsnd999)..
+[$r999x-08:18:25] CNT File OPEN(bsqifrv)..
+[$r999x-08:18:25] Jang File OPEN(bmmjang)..
+[$r999x-08:18:25] Last Count : 22
+[$r999x-08:18:25] Proc Status : 4
+[$r999x-08:18:25] Link Status : 33
+[$r999x-08:18:27] Socket(NO = 9) Listening..
+[$r999x-08:18:33] TCP/IP Connected ( IP:127.0.0.1 port:41630 )
+[$r999x-08:18:33] Link 대기 중...
+[$r999x-08:20:01] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-08:25:01] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-08:27:00] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-08:27:19] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-08:29:31] ====================================================
+[$r999x-08:29:31] TCP/IP PROGRAM
+[$r999x-08:29:31] ====================================================
+[$r999x-08:29:31] Log File OPEN(el0999ra)..
+[$r999x-08:29:31] MSG File OPEN(bmsgf99)..
+[$r999x-08:29:31] TCP/IP PROGRAM STARTING
+[$r999x-08:29:31] Data File OPEN(bsnd999)..
+[$r999x-08:29:31] CNT File OPEN(bsqifrv)..
+[$r999x-08:29:31] Jang File OPEN(bmmjang)..
+[$r999x-08:29:33] Last Count : 22
+[$r999x-08:29:33] Proc Status : 4
+[$r999x-08:29:33] Link Status : 33
+[$r999x-08:29:36] Socket(NO = 9) Listening..
+[$r999x-08:29:39] TCP/IP Connected ( IP:127.0.0.1 port:41632 )
+[$r999x-08:29:39] Link 대기 중...
+[$r999x-08:29:49] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-08:32:30] RECV Time Out...Keep..1
+[$r999x-08:33:00] RECV Time Out...Keep..2
+[$r999x-08:33:30] RECV Time Out...Keep..3
+[$r999x-08:34:00] RECV Time Out...Keep..1
+[$r999x-08:34:30] RECV Time Out...Keep..2
+[$r999x-08:35:00] RECV Time Out...Keep..3
+[$r999x-08:35:30] RECV Time Out...Keep..1
+[$r999x-08:48:33] ====================================================
+[$r999x-08:48:33] TCP/IP PROGRAM
+[$r999x-08:48:33] ====================================================
+[$r999x-08:48:33] Log File OPEN(el0999ra)..
+[$r999x-08:48:33] MSG File OPEN(bmsgf99)..
+[$r999x-08:48:33] TCP/IP PROGRAM STARTING
+[$r999x-08:48:33] Data File OPEN(bsnd999)..
+[$r999x-08:48:33] CNT File OPEN(bsqifrv)..
+[$r999x-08:48:33] Jang File OPEN(bmmjang)..
+[$r999x-08:48:33] Last Count : 22
+[$r999x-08:48:33] Proc Status : 4
+[$r999x-08:48:33] Link Status : 33
+[$r999x-08:48:33] Socket(NO = 9) Listening..
+[$r999x-08:48:36] TCP/IP Connected ( IP:127.0.0.1 port:41634 )
+[$r999x-08:48:36] Link 대기 중...
+[$r999x-08:48:36] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-08:49:06] RECV Time Out...Keep..1
+[$r999x-08:49:36] RECV Time Out...Keep..2
+[$r999x-08:50:06] RECV Time Out...Keep..3
+[$r999x-08:50:06] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-08:50:36] RECV Time Out...Keep..1
+[$r999x-08:51:06] RECV Time Out...Keep..2
+[$r999x-08:51:36] RECV Time Out...Keep..3
+[$r999x-08:51:36] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-08:52:06] RECV Time Out...Keep..1
+[$r999x-08:52:36] RECV Time Out...Keep..2
+[$r999x-08:53:06] RECV Time Out...Keep..3
+[$r999x-08:53:06] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-08:53:36] RECV Time Out...Keep..1
+[$r999x-08:56:50] ====================================================
+[$r999x-08:56:50] TCP/IP PROGRAM
+[$r999x-08:56:50] ====================================================
+[$r999x-08:56:50] Log File OPEN(el0999ra)..
+[$r999x-08:56:50] MSG File OPEN(bmsgf99)..
+[$r999x-08:56:50] TCP/IP PROGRAM STARTING
+[$r999x-08:56:50] Data File OPEN(bsnd999)..
+[$r999x-08:56:50] CNT File OPEN(bsqifrv)..
+[$r999x-08:56:50] Jang File OPEN(bmmjang)..
+[$r999x-08:56:50] Last Count : 22
+[$r999x-08:56:50] Proc Status : 4
+[$r999x-08:56:50] Link Status : 33
+[$r999x-08:56:50] Socket(NO = 9) Listening..
+[$r999x-08:56:56] TCP/IP Connected ( IP:127.0.0.1 port:41636 )
+[$r999x-08:56:56] Link 대기 중...
+[$r999x-08:56:56] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-08:57:26] RECV Time Out...Keep..1
+[$r999x-08:57:56] RECV Time Out...Keep..2
+[$r999x-08:58:26] RECV Time Out...Keep..3
+[$r999x-08:58:26] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-08:58:56] RECV Time Out...Keep..1
+[$r999x-08:59:26] RECV Time Out...Keep..2
+[$r999x-08:59:56] RECV Time Out...Keep..3
+[$r999x-08:59:56] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-09:00:26] RECV Time Out...Keep..1
+[$r999x-09:00:56] RECV Time Out...Keep..2
+[$r999x-09:01:26] RECV Time Out...Keep..3
+[$r999x-09:01:26] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-09:01:56] RECV Time Out...Keep..1
+[$r999x-09:02:26] RECV Time Out...Keep..2
+[$r999x-09:02:56] RECV Time Out...Keep..3
+[$r999x-09:02:56] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-09:03:26] RECV Time Out...Keep..1
+[$r999x-09:03:56] RECV Time Out...Keep..2
+[$r999x-09:04:26] RECV Time Out...Keep..3
+[$r999x-09:04:26] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-09:04:56] RECV Time Out...Keep..1
+[$r999x-09:05:26] RECV Time Out...Keep..2
+[$r999x-09:05:56] RECV Time Out...Keep..3
+[$r999x-09:05:56] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-09:06:26] RECV Time Out...Keep..1
+[$r999x-09:06:56] RECV Time Out...Keep..2
+[$r999x-09:07:26] RECV Time Out...Keep..3
+[$r999x-09:07:26] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-09:07:56] RECV Time Out...Keep..1
+[$r999x-09:08:26] RECV Time Out...Keep..2
+[$r999x-09:08:56] RECV Time Out...Keep..3
+[$r999x-09:08:56] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-09:09:26] RECV Time Out...Keep..1
+[$r999x-09:09:56] RECV Time Out...Keep..2
+[$r999x-09:10:26] RECV Time Out...Keep..3
+[$r999x-09:10:26] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-09:10:56] RECV Time Out...Keep..1
+[$r999x-09:11:26] RECV Time Out...Keep..2
+[$r999x-09:11:56] RECV Time Out...Keep..3
+[$r999x-09:11:56] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-09:12:26] RECV Time Out...Keep..1
+[$r999x-09:12:56] RECV Time Out...Keep..2
+[$r999x-09:13:26] RECV Time Out...Keep..3
+[$r999x-09:13:26] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-09:13:56] RECV Time Out...Keep..1
+[$r999x-09:14:26] RECV Time Out...Keep..2
+[$r999x-09:14:56] RECV Time Out...Keep..3
+[$r999x-09:14:56] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-09:15:26] RECV Time Out...Keep..1
+[$r999x-09:15:56] RECV Time Out...Keep..2
+[$r999x-09:16:27] RECV Time Out...Keep..3
+[$r999x-09:16:27] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-09:16:57] RECV Time Out...Keep..1
+[$r999x-09:17:27] RECV Time Out...Keep..2
+[$r999x-09:17:57] RECV Time Out...Keep..3
+[$r999x-09:17:57] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-09:18:27] RECV Time Out...Keep..1
+[$r999x-09:18:57] RECV Time Out...Keep..2
+[$r999x-09:19:27] RECV Time Out...Keep..3
+[$r999x-09:19:27] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-09:19:57] RECV Time Out...Keep..1
+[$r999x-09:20:27] RECV Time Out...Keep..2
+[$r999x-09:20:57] RECV Time Out...Keep..3
+[$r999x-09:20:57] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-09:21:27] RECV Time Out...Keep..1
+[$r999x-09:21:57] RECV Time Out...Keep..2
+[$r999x-09:22:27] RECV Time Out...Keep..3
+[$r999x-09:22:27] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-09:22:57] RECV Time Out...Keep..1
+[$r999x-09:23:27] RECV Time Out...Keep..2
+[$r999x-09:23:57] RECV Time Out...Keep..3
+[$r999x-09:23:57] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-09:25:23] ====================================================
+[$r999x-09:25:23] TCP/IP PROGRAM
+[$r999x-09:25:23] ====================================================
+[$r999x-09:25:23] Log File OPEN(el0999ra)..
+[$r999x-09:25:23] MSG File OPEN(bmsgf99)..
+[$r999x-09:25:23] TCP/IP PROGRAM STARTING
+[$r999x-09:25:23] Data File OPEN(bsnd999)..
+[$r999x-09:25:23] CNT File OPEN(bsqifrv)..
+[$r999x-09:25:23] Jang File OPEN(bmmjang)..
+[$r999x-09:25:23] Last Count : 22
+[$r999x-09:25:23] Proc Status : 4
+[$r999x-09:25:23] Link Status : 33
+[$r999x-09:25:23] Socket(NO = 9) Listening..
+[$r999x-09:26:30] TCP/IP Connected ( IP:127.0.0.1 port:41638 )
+[$r999x-09:26:30] Link 대기 중...
+[$r999x-09:26:30] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-09:27:00] RECV Time Out...Keep..1
+[$r999x-09:27:30] RECV Time Out...Keep..2
+[$r999x-09:28:00] RECV Time Out...Keep..3
+[$r999x-09:28:00] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-09:28:30] RECV Time Out...Keep..1
+[$r999x-09:29:00] RECV Time Out...Keep..2
+[$r999x-09:29:30] RECV Time Out...Keep..3
+[$r999x-09:29:30] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-09:30:00] RECV Time Out...Keep..1
+[$r999x-09:30:30] RECV Time Out...Keep..2
+[$r999x-09:31:00] RECV Time Out...Keep..3
+[$r999x-09:31:00] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-09:36:34] ====================================================
+[$r999x-09:36:34] TCP/IP PROGRAM
+[$r999x-09:36:34] ====================================================
+[$r999x-09:36:34] Log File OPEN(el0999ra)..
+[$r999x-09:36:34] MSG File OPEN(bmsgf99)..
+[$r999x-09:36:34] TCP/IP PROGRAM STARTING
+[$r999x-09:36:34] Data File OPEN(bsnd999)..
+[$r999x-09:36:34] CNT File OPEN(bsqifrv)..
+[$r999x-09:36:34] Jang File OPEN(bmmjang)..
+[$r999x-09:36:34] Last Count : 22
+[$r999x-09:36:34] Proc Status : 4
+[$r999x-09:36:34] Link Status : 33
+[$r999x-09:36:34] Socket(NO = 9) Listening..
+[$r999x-09:36:39] TCP/IP Connected ( IP:127.0.0.1 port:41640 )
+[$r999x-09:36:39] Link 대기 중...
+[$r999x-09:36:39] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-09:37:09] RECV Time Out...Keep..1
+[$r999x-09:37:39] RECV Time Out...Keep..2
+[$r999x-09:38:09] RECV Time Out...Keep..3
+[$r999x-09:38:09] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-09:38:39] RECV Time Out...Keep..1
+[$r999x-09:39:09] RECV Time Out...Keep..2
+[$r999x-09:39:39] RECV Time Out...Keep..3
+[$r999x-09:39:39] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-09:40:09] RECV Time Out...Keep..1
+[$r999x-09:40:39] RECV Time Out...Keep..2
+[$r999x-09:41:09] RECV Time Out...Keep..3
+[$r999x-09:41:09] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-09:41:39] RECV Time Out...Keep..1
+[$r999x-09:54:17] ====================================================
+[$r999x-09:54:17] TCP/IP PROGRAM
+[$r999x-09:54:17] ====================================================
+[$r999x-09:54:17] Log File OPEN(el0999ra)..
+[$r999x-09:54:17] MSG File OPEN(bmsgf99)..
+[$r999x-09:54:17] TCP/IP PROGRAM STARTING
+[$r999x-09:54:17] Data File OPEN(bsnd999)..
+[$r999x-09:54:17] CNT File OPEN(bsqifrv)..
+[$r999x-09:54:17] Jang File OPEN(bmmjang)..
+[$r999x-09:54:17] Last Count : 22
+[$r999x-09:54:17] Proc Status : 4
+[$r999x-09:54:17] Link Status : 33
+[$r999x-09:54:17] Socket(NO = 8) Listening..
+[$r999x-09:57:19] ====================================================
+[$r999x-09:57:19] TCP/IP PROGRAM
+[$r999x-09:57:19] ====================================================
+[$r999x-09:57:19] Log File OPEN(el0999ra)..
+[$r999x-09:57:19] MSG File OPEN(bmsgf99)..
+[$r999x-09:57:19] TCP/IP PROGRAM STARTING
+[$r999x-09:57:19] Data File OPEN(bsnd999)..
+[$r999x-09:57:19] CNT File OPEN(bsqifrv)..
+[$r999x-09:57:19] Jang File OPEN(bmmjang)..
+[$r999x-09:57:19] Last Count : 22
+[$r999x-09:57:19] Proc Status : 4
+[$r999x-09:57:19] Link Status : 33
+[$r999x-09:57:19] Socket(NO = 8) Listening..
+[$r999x-09:57:24] TCP/IP Connected ( IP:127.0.0.1 port:41642 )
+[$r999x-09:57:24] Link 대기 중...
+[$r999x-09:57:24] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-09:57:54] RECV Time Out...Keep..1
+[$r999x-09:58:24] RECV Time Out...Keep..2
+[$r999x-09:58:54] RECV Time Out...Keep..3
+[$r999x-09:58:54] RECV RETRY 3 Times Error..
+[$r999x-09:59:24] RECV Time Out...Keep..1
+[$r999x-09:59:54] RECV Time Out...Keep..2
+[$r999x-10:00:24] RECV Time Out...Keep..3
+[$r999x-10:00:24] RECV RETRY 3 Times Error..
+[$r999x-10:00:54] RECV Time Out...Keep..1
+[$r999x-10:01:24] RECV Time Out...Keep..2
+[$r999x-10:01:54] RECV Time Out...Keep..3
+[$r999x-10:01:54] RECV RETRY 3 Times Error..
+[$r999x-10:02:24] RECV Time Out...Keep..1
+[$r999x-10:02:54] RECV Time Out...Keep..2
+[$r999x-10:03:24] RECV Time Out...Keep..3
+[$r999x-10:03:24] RECV RETRY 3 Times Error..
+[$r999x-10:03:54] RECV Time Out...Keep..1
+[$r999x-10:04:24] RECV Time Out...Keep..2
+[$r999x-10:05:21] ====================================================
+[$r999x-10:05:21] TCP/IP PROGRAM
+[$r999x-10:05:21] ====================================================
+[$r999x-10:05:21] Log File OPEN(el0999ra)..
+[$r999x-10:05:21] MSG File OPEN(bmsgf99)..
+[$r999x-10:05:21] TCP/IP PROGRAM STARTING
+[$r999x-10:05:21] Data File OPEN(bsnd999)..
+[$r999x-10:05:21] CNT File OPEN(bsqifrv)..
+[$r999x-10:05:21] Jang File OPEN(bmmjang)..
+[$r999x-10:05:21] Last Count : 22
+[$r999x-10:05:21] Proc Status : 4
+[$r999x-10:05:21] Link Status : 33
+[$r999x-10:05:21] Socket(NO = 8) Listening..
+[$r999x-10:05:25] TCP/IP Connected ( IP:127.0.0.1 port:41644 )
+[$r999x-10:05:25] Link 대기 중...
+[$r999x-10:05:25] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-10:05:28] RECV Time Out...Keep..1
+[$r999x-10:05:31] RECV Time Out...Keep..2
+[$r999x-10:05:34] RECV Time Out...Keep..3
+[$r999x-10:05:34] RECV RETRY 3 Times Error..
+[$r999x-10:05:37] RECV Time Out...Keep..1
+[$r999x-10:05:40] RECV Time Out...Keep..2
+[$r999x-10:05:43] RECV Time Out...Keep..3
+[$r999x-10:05:43] RECV RETRY 3 Times Error..
+[$r999x-10:05:46] RECV Time Out...Keep..1
+[$r999x-10:05:49] RECV Time Out...Keep..2
+[$r999x-10:05:52] RECV Time Out...Keep..3
+[$r999x-10:05:52] RECV RETRY 3 Times Error..
+[$r999x-10:05:55] RECV Time Out...Keep..1
+[$r999x-10:05:58] RECV Time Out...Keep..2
+[$r999x-10:06:01] RECV Time Out...Keep..3
+[$r999x-10:06:01] RECV RETRY 3 Times Error..
+[$r999x-10:06:04] RECV Time Out...Keep..1
+[$r999x-10:06:07] RECV Time Out...Keep..2
+[$r999x-10:06:10] RECV Time Out...Keep..3
+[$r999x-10:06:10] RECV RETRY 3 Times Error..
+[$r999x-10:10:33] ====================================================
+[$r999x-10:10:33] TCP/IP PROGRAM
+[$r999x-10:10:33] ====================================================
+[$r999x-10:10:33] Log File OPEN(el0999ra)..
+[$r999x-10:10:33] MSG File OPEN(bmsgf99)..
+[$r999x-10:10:33] TCP/IP PROGRAM STARTING
+[$r999x-10:10:33] Data File OPEN(bsnd999)..
+[$r999x-10:10:33] CNT File OPEN(bsqifrv)..
+[$r999x-10:10:33] Jang File OPEN(bmmjang)..
+[$r999x-10:10:33] Last Count : 22
+[$r999x-10:10:33] Proc Status : 4
+[$r999x-10:10:33] Link Status : 33
+[$r999x-10:10:33] Socket(NO = 8) Listening..
+[$r999x-10:10:54] TCP/IP Connected ( IP:127.0.0.1 port:41646 )
+[$r999x-10:10:54] Link 대기 중...
+[$r999x-10:10:54] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-10:10:57] RECV Time Out...Keep..1
+[$r999x-10:11:00] RECV Time Out...Keep..2
+[$r999x-10:11:03] RECV Time Out...Keep..3
+[$r999x-10:11:03] RECV RETRY 3 Times Error..
+[$r999x-10:11:06] RECV Time Out...Keep..1
+[$r999x-10:11:09] RECV Time Out...Keep..2
+[$r999x-10:11:12] RECV Time Out...Keep..3
+[$r999x-10:11:12] RECV RETRY 3 Times Error..
+[$r999x-10:11:15] RECV Time Out...Keep..1
+[$r999x-10:11:18] RECV Time Out...Keep..2
+[$r999x-10:11:21] RECV Time Out...Keep..3
+[$r999x-10:11:21] RECV RETRY 3 Times Error..
+[$r999x-10:11:24] RECV Time Out...Keep..1
+[$r999x-10:11:27] RECV Time Out...Keep..2
+[$r999x-10:11:30] RECV Time Out...Keep..3
+[$r999x-10:11:30] RECV RETRY 3 Times Error..
+[$r999x-10:11:33] RECV Time Out...Keep..1
+[$r999x-10:11:36] RECV Time Out...Keep..2
+[$r999x-10:11:39] RECV Time Out...Keep..3
+[$r999x-10:11:39] RECV RETRY 3 Times Error..
+[$r999x-10:11:42] RECV Time Out...Keep..1
+[$r999x-10:11:45] RECV Time Out...Keep..2
+[$r999x-10:16:56] ====================================================
+[$r999x-10:16:56] TCP/IP PROGRAM
+[$r999x-10:16:56] ====================================================
+[$r999x-10:16:56] Log File OPEN(el0999ra)..
+[$r999x-10:16:56] MSG File OPEN(bmsgf99)..
+[$r999x-10:16:56] TCP/IP PROGRAM STARTING
+[$r999x-10:16:56] Data File OPEN(bsnd999)..
+[$r999x-10:16:56] CNT File OPEN(bsqifrv)..
+[$r999x-10:16:56] Jang File OPEN(bmmjang)..
+[$r999x-10:16:56] Last Count : 22
+[$r999x-10:16:56] Proc Status : 4
+[$r999x-10:16:56] Link Status : 33
+[$r999x-10:16:56] Socket(NO = 9) Listening..
+[$r999x-10:17:02] TCP/IP Connected ( IP:127.0.0.1 port:41648 )
+[$r999x-10:17:02] Link 대기 중...
+[$r999x-10:17:02] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-10:17:05] RECV Time Out...Keep..1
+[$r999x-10:17:08] RECV Time Out...Keep..2
+[$r999x-10:17:11] RECV Time Out...Keep..3
+[$r999x-10:17:11] RECV RETRY 3 Times Error..
+[$r999x-10:17:14] RECV Time Out...Keep..1
+[$r999x-10:17:17] RECV Time Out...Keep..2
+[$r999x-10:17:20] RECV Time Out...Keep..3
+[$r999x-10:17:20] RECV RETRY 3 Times Error..
+[$r999x-10:17:23] RECV Time Out...Keep..1
+[$r999x-10:17:26] RECV Time Out...Keep..2
+[$r999x-10:17:29] RECV Time Out...Keep..3
+[$r999x-10:17:29] RECV RETRY 3 Times Error..
+[$r999x-10:17:32] RECV Time Out...Keep..1
+[$r999x-10:17:35] RECV Time Out...Keep..2
+[$r999x-10:17:38] RECV Time Out...Keep..3
+[$r999x-10:17:38] RECV RETRY 3 Times Error..
+[$r999x-10:22:11] ====================================================
+[$r999x-10:22:11] TCP/IP PROGRAM
+[$r999x-10:22:11] ====================================================
+[$r999x-10:22:11] Log File OPEN(el0999ra)..
+[$r999x-10:22:11] MSG File OPEN(bmsgf99)..
+[$r999x-10:22:11] TCP/IP PROGRAM STARTING
+[$r999x-10:22:11] Data File OPEN(bsnd999)..
+[$r999x-10:22:11] CNT File OPEN(bsqifrv)..
+[$r999x-10:22:11] Jang File OPEN(bmmjang)..
+[$r999x-10:22:11] Last Count : 22
+[$r999x-10:22:11] Proc Status : 4
+[$r999x-10:22:11] Link Status : 33
+[$r999x-10:22:11] Socket(NO = 9) Listening..
+[$r999x-10:22:17] TCP/IP Connected ( IP:127.0.0.1 port:41650 )
+[$r999x-10:22:17] Link 대기 중...
+[$r999x-10:22:17] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-10:22:20] RECV Time Out...Keep..1
+[$r999x-10:22:23] RECV Time Out...Keep..2
+[$r999x-10:22:26] RECV Time Out...Keep..3
+[$r999x-10:22:26] RECV RETRY 3 Times Error..
+[$r999x-10:22:26] Socket(NO = 9) Listening..
+[$r999x-10:23:37] TCP/IP Connected ( IP:127.0.0.1 port:41652 )
+[$r999x-10:23:37] Link 대기 중...
+[$r999x-10:23:37] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-10:23:40] RECV Time Out...Keep..1
+[$r999x-10:23:43] RECV Time Out...Keep..2
+[$r999x-10:23:46] RECV Time Out...Keep..3
+[$r999x-10:23:46] RECV RETRY 3 Times Error..
+[$r999x-10:23:46] Socket(NO = 9) Listening..
+[$r999x-10:27:51] ====================================================
+[$r999x-10:27:51] TCP/IP PROGRAM
+[$r999x-10:27:51] ====================================================
+[$r999x-10:27:51] Log File OPEN(el0999ra)..
+[$r999x-10:27:51] MSG File OPEN(bmsgf99)..
+[$r999x-10:27:51] TCP/IP PROGRAM STARTING
+[$r999x-10:27:51] Data File OPEN(bsnd999)..
+[$r999x-10:27:51] CNT File OPEN(bsqifrv)..
+[$r999x-10:27:51] Jang File OPEN(bmmjang)..
+[$r999x-10:27:51] Last Count : 22
+[$r999x-10:27:51] Proc Status : 4
+[$r999x-10:27:51] Link Status : 33
+[$r999x-10:27:51] Socket(NO = 9) Listening..
+[$r999x-10:27:53] TCP/IP Connected ( IP:127.0.0.1 port:41658 )
+[$r999x-10:27:53] Link 대기 중...
+[$r999x-10:27:53] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-10:27:56] RECV Time Out...Keep..1
+[$r999x-10:27:59] RECV Time Out...Keep..2
+[$r999x-10:28:02] RECV Time Out...Keep..3
+[$r999x-10:28:02] RECV RETRY 3 Times Error..
+[$r999x-10:28:02] TRY TCP/IP RECONNECT..
+[$r999x-10:28:02] Socket(NO = 9) Listening..

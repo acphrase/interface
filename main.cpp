@@ -210,15 +210,16 @@ class C_main_handle
 					_result = _socket.F_recv_message();
 
 					/* 2. Message Status Check */
-					/* 정상 수신 */
 					if(_result == SUCCESS) 
+					{ /* 정상 수신 */
 						break;
-
-					/* 재송횟수 3회 초과 */
-					else if(_result == FAIL)
-					{
+					}
+					else
+					{ /* 재송횟수 3회 초과 */
 						memset(_message, 0x00, sizeof(_message));
 						sprintf(_message, "RECV RETRY %d Times Error..", _result);
+						_log.F_write_log(_message);
+						_log.F_write_log("TRY TCP/IP RECONNECT..");
 
 						/* Socket recreate */
 						F_start();

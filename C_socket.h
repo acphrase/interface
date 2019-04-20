@@ -28,13 +28,14 @@
 #define WAIT_TIMEOUT		-1
 #define RECV_TIMEOUT		30000
 #define SEND_TIMEOUT		30000
+//#define RECV_TIMEOUT		3000
+//#define SEND_TIMEOUT		3000
 
 /*----------------------------------------------------------------------------*/
 /*----------------------------- 3. ETC ---------------------------------------*/
 /*----------------------------------------------------------------------------*/
 #define BUF_SIZE			4000
 #define EPOLL_SIZE			5
-#define RETRY				4
 
 struct RECV_MESSAGE_DEF
 { /* 수신 메세지 definition */
@@ -154,7 +155,8 @@ class C_socket
 			_recv_length = 0;
 			_recv_message_type = UNDEFINED;
 			_send_message_type = UNDEFINED;
-
+			
+			/* 1. EPOLL Init Setting */
 			_ep_events = new struct epoll_event;
 			_epfd = epoll_create(EPOLL_SIZE);
 			_event_cnt = 0;
@@ -259,7 +261,7 @@ class C_socket
 			/* 1. Accept Socket */
 			/* server socket에 대기중인 client의 정보를 _client_address에 저장 */
 			/* 접속 허용하여 데이터 송수신 시작 */
-			F_set_non_blocking_mode(_server_socket);
+			F_set_non_blocking_mode(_server_socket); /* non-blocking socket 설정 */
 			_event.events = EPOLLIN;
 			_event.data.fd = _server_socket;
 			epoll_ctl(_epfd, EPOLL_CTL_ADD, _server_socket, &_event);
@@ -353,16 +355,17 @@ class C_socket
 				else
 				{
 					/* Socket Close */
-					_link_status == DISCONNECT;
-					_connect_status == DISCONNECT;
+					_link_status = DISCONNECT;
+					_connect_status = DISCONNECT;
 					epoll_ctl(_epfd, EPOLL_CTL_DEL, _server_socket, NULL);
 					epoll_ctl(_epfd, EPOLL_CTL_DEL, _client_socket, NULL);
-					delete _ep_events;
-					close(_server_socket);
 					close(_client_socket);
+					close(_server_socket);
+					int _retry_temp = 0;
+					_retry_temp = _retry_check;
 					F_put_retry_init();
 
-					return FAIL;
+					return _retry_temp;
 				}
 			}
 		}

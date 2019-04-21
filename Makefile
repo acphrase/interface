@@ -22,13 +22,13 @@ msg.o: C_msg.cpp
 data.o: C_data.h
 	$(CC) $(CFLAGS) $@ $^
 
-cnt.o: C_cnt.h
+cnt.o: C_cnt.cpp
 	$(CC) $(CFLAGS) $@ $^
 
 jang.o: C_jang.cpp
 	$(CC) $(CFLAGS) $@ $^
 
-socket.o: C_socket.h
+socket.o: C_socket.cpp
 	$(CC) $(CFLAGS) $@ $^
 
 clean:

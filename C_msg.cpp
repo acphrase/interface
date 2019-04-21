@@ -43,12 +43,18 @@ void C_msg::F_write_msg(const char* _message)
 	/* 3. Write Message Setting */
 	sprintf(_write_message, "[%6.6s-%8.8s] %s", _process_name, _time, _message);
 
-	/* 4. Write Msg File */
+	/* 4. Mutual Exclusion Lock */
+	lock_func.lock();
+
+	/* 5. Write Msg File */
 	_msg.seekp(0, ios::end);			/* Msg File의 맨 마지막에 위치 */
 	_msg << _write_message << endl;		/* Msg File에 Setting 한 Message Write */
-	if(_msg.bad())
+	if(_msg.sync() == -1)
 	{
 		sprintf(_write_message, "[%6.6s-%8.8s] MSG File Write Error..", _process_name, _time);
 		throw _write_message;
 	}
+
+	/* 6. Mutual Exclusion Unlock */
+	lock_func.unlock();
 }

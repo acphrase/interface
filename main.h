@@ -14,6 +14,7 @@
 #include<unistd.h>
 #include<sys/epoll.h>
 #include<sys/time.h>
+#include<mutex>
 
 using namespace std;
 
@@ -40,6 +41,9 @@ using namespace std;
 /*----------------------------------------------------------------------------*/
 #define RECV_GUBUN			'R'
 #define SEND_GUBUN			'S'
+#define NORMAL				0
+#define START				11
+#define ERROR				99
 #define MSG_0800_001		8001
 #define MSG_0810_001		8101
 #define MSG_0800_301		8031
@@ -48,8 +52,6 @@ using namespace std;
 #define MSG_0810_040		8140
 #define MSG_0200_000		2000
 #define MSG_0210_000		2100
-#define MSG_START			11
-#define MSG_ERR				99
 
 /*----------------------------------------------------------------------------*/
 /*----------------------------- 7. Message error 구분 ------------------------*/

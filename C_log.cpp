@@ -49,14 +49,19 @@ void C_log::F_write_log(const char* _message)
 	/* 3. Write Message Setting */
 	sprintf(_write_message, "[%6.6s-%8.8s] %s", _process_name, _time, _message);
 
-	/* 4. Write Log File */
+	/* 4. Mutual Exclusion Lock */
+	lock_func.lock();
+
+	/* 5. Write Log File */
 	_log.seekp(0, ios::end);		/* Log File의 맨 마지막에 위치 */
 	_log << _write_message << endl;	/* Log File에 Setting 한 Message Write */
-	if(_log.bad())
+	if(_log.sync() == -1)
 	{
 		sprintf(_write_message, "[%6.6s-%8.8s] Log File Write Error..", _process_name, _time);
 		cout << _write_message << endl;
 		exit(1);
 	}
-}
 
+	/* 6. Mutual Exclusion Unlock */
+	lock_func.unlock();
+}

@@ -3,10 +3,10 @@
 class C_data
 {
 	private :
-		FILE *_data;
+		FILE *_data = NULL;
 		int _data_fd;
 		char _write_message[150];
-		char _write_buffer[150];
+		mutex lock_func;
 
 	public :
 		C_data()
@@ -27,7 +27,6 @@ class C_data
 			{
 				memset(_write_message, 0x00, sizeof(_write_message));
 				sprintf(_write_message, "Data File Open Error(%s)..", _data_file);
-				cout << _write_message << endl;
 				throw _write_message;
 			}
 			else
@@ -44,19 +43,22 @@ class C_data
 
 		void F_write_data(const char* r_data)
 		{
-			/* 1. Write Buffer Init */
-			memset(_write_data, 0x00, sizeof(_write_data));
-		
-			/* 2. Write Message Setting */
-			sprintf(_write_data, r_data);
-		
-			/* 3. Write Data To File */
-			_data.seekp(0, ios::end);		/* Data File의 맨 마지막에 위치 */
-			_data << _write_data << endl;	/* Data Buffer에 Setting 한 Data Write */
-			if(_data.bad())
+			/* 1. Mutual Exclosion Lock */
+			lock_func.lock();
+
+			/* 2. Write Data To File */
+			if(fprintf(_data, "%s\n", r_data) == EOF);
 			{
-				throw _write_data;
+				memset(_write_message, 0x00, sizeof(_write_message));
+				sprintf(_write_message, "Data File Write Error..");
+				throw _write_message;
 			}
+
+			//fwrite(r_data, size_t size, size_t n, _data);
+			//fputc('\n', _data);
+
+			/* 3. Mutual Exclosion Unlock */
+			lock_func.unlock();
 		}
 
 		int F_get_data_fd()

@@ -12,6 +12,7 @@ class C_log
 		char _write_message[150];
 		char* _time;
 		char* _process_name;
+		mutex lock_func;
 
 	public :
 		C_log();

@@ -103,7 +103,6 @@ class C_main_handle
 
 				/* 4. Data File Open */
 				_log.F_write_log(_data.F_open_data_file(_config.F_get_data_file_name()));
-				_data_fd = _data.F_get_data_fd();
 
 				/* 5. CNT File Open */
 				_log.F_write_log(_cnt.F_open_cnt_file(_config.F_get_cnt_file_name(), _config.F_get_company_id(), _config.F_get_cnt_gubun()));
@@ -268,7 +267,7 @@ class C_main_handle
 					sprintf(_message, "Interface Error Code..%d", _error_code);
 					_log.F_write_log(_message);
 					_msg.F_write_msg(_message);
-					F_update_cnt(MSG_ERR);
+					F_update_cnt(ERROR);
 				}
 				else
 				{
@@ -282,7 +281,23 @@ class C_main_handle
 		{
 			try
 			{
-				_cnt.F_update_cnt(msg_type);
+				switch(msg_type)
+				{
+					case START :
+						_cnt.F_update_cnt(START);
+						break;
+					case ERROR :
+						_cnt.F_update_cnt(ERROR);
+						break;
+					case NORMAL :
+						_cnt.F_update_cnt(_socket.F_get_message_type());
+						break;
+					default :
+						memset(_message, 0x00, sizeof(_message));
+						sprintf(_message, "Invalid Message Type..%d (in message_set)", msg_type);
+						F_stop_process(FAIL);
+						break;
+				}
 			}
 			catch(const char* r_message)
 			{
@@ -298,6 +313,7 @@ class C_main_handle
 			{
 				if(_cnt.F_put_process_stop(option) == SUCCESS)
 				{
+					F_update_cnt(NORMAL);
 					memset(_message, 0x00, sizeof(_message));
 					sprintf(_message, "Interface PROGRAM NORMAL STOP");
 					_log.F_write_log(_message);
@@ -306,6 +322,7 @@ class C_main_handle
 				}
 				else
 				{
+					F_update_cnt(ERROR);
 					memset(_message, 0x00, sizeof(_message));
 					sprintf(_message, "Interface PROGRAM ABNORMAL STOP");
 					_log.F_write_log(_message);
@@ -345,7 +362,7 @@ int main(int argc, char *argv[])
 	_control.F_get_jang();				/* JANG File을 읽어와서 Variable Setting */
 	//_control.F_stop_process(FAIL);
 	//_control.F_stop_process(SUCCESS);
-	_control.F_update_cnt(MSG_START);
+	_control.F_update_cnt(START);
 	
     while(1)
     {

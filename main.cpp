@@ -24,6 +24,7 @@ class C_main_handle
 		int _data_fd;
 		int _jang_status;
 		C_socket _socket;
+		int _error_code;
 
 	public :
 		C_main_handle( int *argc, char *argv[]) : _key(&argv[1]), _config_path(&argv[2])
@@ -110,10 +111,10 @@ class C_main_handle
 				/* 6. Jang File Open */
 				_log.F_write_log(_jang.F_open_jang_file(_config.F_get_jang_file_name()));
 			}
-			catch(const char* _message)
+			catch(const char* r_message)
 			{
-				_log.F_write_log(_message);
-				_msg.F_write_msg(_message);
+				_log.F_write_log(r_message);
+				_msg.F_write_msg(r_message);
 				exit(1);
 			}
 		}
@@ -137,10 +138,10 @@ class C_main_handle
 				memset(_message, 0x00, sizeof(_message));
 				_log.F_write_log(_cnt.F_get_link());
 			}
-			catch(const char* _message)
+			catch(const char* r_message)
 			{
-				_log.F_write_log(_message);
-				_msg.F_write_msg(_message);
+				_log.F_write_log(r_message);
+				_msg.F_write_msg(r_message);
 				F_stop_process(FAIL);
 			}
 		}
@@ -152,12 +153,13 @@ class C_main_handle
 				_jang.F_read_jang();
 				_jang_status = _jang.F_get_jang_status();
 			}
-			catch(const char* _message)
+			catch(const char* r_message)
 			{
-				_log.F_write_log(_message);
-				_msg.F_write_msg(_message);
+				_log.F_write_log(r_message);
+				_msg.F_write_msg(r_message);
 				F_stop_process(FAIL);
 			}
+
 		}
 
         void F_start()
@@ -188,10 +190,10 @@ class C_main_handle
 				_log.F_write_log(_message);
 				_msg.F_write_msg(_message);
 			}
-			catch(const char* _message)
+			catch(const char* r_message)
 			{
-				_log.F_write_log(_message);
-				_msg.F_write_msg(_message);
+				_log.F_write_log(r_message);
+				_msg.F_write_msg(r_message);
 				F_stop_process(FAIL);
 			}
 		}
@@ -225,10 +227,10 @@ class C_main_handle
 						F_start();
 					}
 				}
-				catch(const char* _message)
+				catch(const char* r_message)
 				{
-					_log.F_write_log(_message);
-					_msg.F_write_msg(_message);
+					_log.F_write_log(r_message);
+					_msg.F_write_msg(r_message);
 				}
 				catch(const int _fail)
 				{
@@ -254,10 +256,38 @@ class C_main_handle
 				/* 3. Check Message */
 				_socket.F_check_message(_jang_status, _last_data_count);
 			}
-			catch(const char* _message)
+			catch(const char* r_message)
 			{
-				_log.F_write_log(_message);
-				_msg.F_write_msg(_message);
+				_log.F_write_log(r_message);
+				_msg.F_write_msg(r_message);
+				_error_code = _socket.F_get_message_error_code();
+				if( _error_code != FAIL)
+				{
+					_cnt.F_setting_tcpip_error_code(_error_code);
+					memset(_message, 0x00, sizeof(_message));
+					sprintf(_message, "Interface Error Code..%d", _error_code);
+					_log.F_write_log(_message);
+					_msg.F_write_msg(_message);
+					F_update_cnt(MSG_ERR);
+				}
+				else
+				{
+					_log.F_write_log("TCPIP Error Code Check!!");
+					_msg.F_write_msg("TCPIP Error Code Check!!");
+				}
+			}
+		}
+
+		void F_update_cnt(int msg_type)
+		{
+			try
+			{
+				_cnt.F_update_cnt(msg_type);
+			}
+			catch(const char* r_message)
+			{
+				_log.F_write_log(r_message);
+				_msg.F_write_msg(r_message);
 				F_stop_process(FAIL);
 			}
 		}
@@ -315,20 +345,27 @@ int main(int argc, char *argv[])
 	_control.F_get_jang();				/* JANG File을 읽어와서 Variable Setting */
 	//_control.F_stop_process(FAIL);
 	//_control.F_stop_process(SUCCESS);
+	_control.F_update_cnt(MSG_START);
 	
     while(1)
     {
         /* 0. Socket Create, Bind, Listen, Accept */
         _control.F_start();
 
-        /* 1. 수신 */
+        /* 1. Recv Message */
 		_control.F_read_message();
 
-        /* 2. Message Check, Message Set, Data Set */
+        /* 2. Message Check */
 		_control.F_check_message();
+
+		/* 3. Send Message Set */
+
+		/* 4. Data Set */
+
+        /* 5. Send Message */
+
+
 		_control.F_log();
-        
-        /* 3. 송신 */
     }
 
 	return 0;

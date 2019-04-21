@@ -3,7 +3,6 @@
 C_log::C_log()
 {
 	memset(_write_message, 0x00, sizeof(_write_message));
-	_log_fd = 0;
 }
 
 C_log::~C_log()

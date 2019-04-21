@@ -8,7 +8,6 @@ class C_log
 {
 	private :
 		fstream _log;
-		int _log_fd;
 		C_time _date_time;
 		char _write_message[150];
 		char* _time;

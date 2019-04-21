@@ -1,7 +1,7 @@
 #include"main.h"
 #include"C_time.h"
 
-#define CNT_RECORD_LENGTH 101
+#define CNT_RECORD_LENGTH 100
 #define INCOMPLETE "0"
 #define COMPLETE "1"
 #define ABNORMAL_STATUS "2"
@@ -36,7 +36,7 @@ struct CNT_DEF{
 	char complete_yn	[1];   /* Interface 완료 여부 (0:미완료, 1:완료) */
 	char date			[8];   /* Data 송수신 일자 */
 	char filler			[11];  /* -- 미사용 (여분) */
-	char end			[1];   /* NULL */
+	//char end			[1];   /* NULL */
 };
 
 class C_cnt
@@ -47,13 +47,13 @@ class C_cnt
 		C_time _date_time;
 		char _write_message		[150];
 		char _cnt_key			[6];
-		char _data_count		[9];   /* 마지막 데이터 수신 및 송신 개수 (일련번호) */
+		char _data_count		[9];	/* 마지막 데이터 수신 및 송신 개수 (일련번호) */
 		long _data_count_num;
-		char _process_status	[2];   /* Main Process 상태 (0:미기동, 1:정상기동, 2:비정상STOP, 3:정상STOP) */
+		char _process_status	[2];	/* Main Process 상태 (0:미기동, 1:정상기동, 2:비정상STOP, 3:정상STOP) */
 		int _process_status_num;
-		char _link_status		[3];   /* Connect 여부 (00:미Link, 01:Link, 02:Link종료송신 03:Link종료수신(최종 종료)) */
+		char _link_status		[3];	/* Connect 여부 (00:미Link, 01:Link, 02:Link종료송신 03:Link종료수신(최종 종료)) */
 		int _link_status_num;
-		long _line_temp;			   /* 위치 지정자 임시 저장 */
+		long _line_temp;				/* 위치 지정자 임시 저장 */
 		char* _company_id;
 		char* _cnt_gubun;
 
@@ -101,6 +101,7 @@ class C_cnt
 		{
 			/* 1. Count File Open */
 			_cnt.open(_cnt_file, ios::in | ios::out);
+			cout << _cnt_file << endl;
 			if(!_cnt.is_open())
 			{
 				memset(_write_message, 0x00, sizeof(_write_message));
@@ -109,47 +110,50 @@ class C_cnt
 			}
 			else
 			{
+			
+				memset(_cnt_key, 0x00, sizeof(_cnt_key)); 
+				strncpy(_cnt_key, r_company_id, 3); 
+				strncpy(&_cnt_key[3], r_cnt_gubun, 2); 
+
 				/* Start CNT File Open Message */
 				memset(_write_message, 0x00, sizeof(_write_message));
 				sprintf(_write_message, "CNT File OPEN(%s)..", _cnt_file);
 				return _write_message;
 			}
-
-			/* 2. config getting */
-			_company_id = r_company_id;
-			_cnt_gubun = r_cnt_gubun;
-
-			/* 3. Key Setting */ 
-			memset(_cnt_key, 0x00, sizeof(_cnt_key)); 
-			strncpy(_cnt_key, _company_id, 3); 
-			strncpy(&_cnt_key[3], _cnt_gubun, 2); 
 		}
 
 		void F_read_cnt()
 		{
-			/* 1. Key Positioning & Get Record To Buffer */ 
-			_cnt.seekg(0, ios::beg); /* CNT File의 맨 처음에 위치 */ 
-			while(!_cnt.eof()) 
-			{ 
-				_line_temp = _cnt.tellg();
-				_cnt.getline(_cnt_record.company_id, CNT_RECORD_LENGTH); 
-				//_cnt.read(_cnt_record.company_id, CNT_RECORD_LENGTH);
-				if(_cnt.bad())
-				{
-					memset(_write_message, 0x00, sizeof(_write_message));
-					sprintf(_write_message, "CNT File Read Error..%s", _cnt_key);
-					throw _write_message;
-				}
+			/* 1. Get Record To Buffer */ 
+			_cnt.seekg(_line_temp, ios::beg);
+			_cnt.read(_cnt_record.company_id, CNT_RECORD_LENGTH + 1);
+			cout << _cnt_record.company_id << endl;
 
-				if(strncmp(_cnt_record.company_id, _cnt_key, 5) == 0)
-					break;
-			}
-
+			/* 2. Key Positioning & Get Record To Buffer */ 
 			if(strncmp(_cnt_record.company_id, _cnt_key, 5) != 0)
 			{
-				memset(_write_message, 0x00, sizeof(_write_message));
-				sprintf(_write_message, "CNT File Key Positioning Error..%s", _cnt_key);
-				throw _write_message;
+				_cnt.seekg(0, ios::beg); /* CNT File의 맨 처음에 위치 */ 
+				while(!_cnt.eof()) 
+				{ 
+					_line_temp = _cnt.tellg();
+					_cnt.read(_cnt_record.company_id, CNT_RECORD_LENGTH + 1);
+					if(_cnt.bad())
+					{
+						memset(_write_message, 0x00, sizeof(_write_message));
+						sprintf(_write_message, "CNT File Read Error..%s", _cnt_key);
+						throw _write_message;
+					}
+
+					if(strncmp(_cnt_record.company_id, _cnt_key, 5) == 0)
+						break;
+				}
+
+				if(strncmp(_cnt_record.company_id, _cnt_key, 5) != 0)
+				{
+					memset(_write_message, 0x00, sizeof(_write_message));
+					sprintf(_write_message, "CNT File Key Positioning Error..%s", _cnt_key);
+					throw _write_message;
+				}
 			}
 		}
 
@@ -159,7 +163,9 @@ class C_cnt
 			_cnt.seekp(_line_temp, ios::beg); /* CNT File의 해당 회원사 Record 위치 */
 
 			/* 2. Buffer Write */
-			_cnt.write(_cnt_record.company_id, CNT_RECORD_LENGTH - 1);
+			cout << _cnt_record.company_id << endl;
+			//_cnt.write(_cnt_record.company_id, CNT_RECORD_LENGTH);
+			_cnt << _cnt_record.company_id;
 			if(_cnt.bad())
 			{
 				memset(_write_message, 0x00, sizeof(_write_message));
@@ -184,41 +190,97 @@ class C_cnt
 			return _write_message;
 		}
 
-		int F_get_process_status()
-		{
-			/* Main Process 상태 (0:미기동, 1:정상기동, 2:비정상STOP, 3:정상STOP) */
-			strncpy(_process_status, _cnt_record.process_status, 1);
-			_process_status_num = atoi(_process_status);
-			if(_process_status_num < 0)
-			{
-				cout << "Process Status atoi() Error.." << endl;
-				throw "Process Status atoi() Error..";
-			}
-			return _process_status_num;
-		}
-
 		char* F_get_process()
 		{
 			memset(_write_message, 0x00, sizeof(_write_message));
-			sprintf(_write_message, "Proc Status : %d", F_get_process_status());
+			//sprintf(_write_message, "Proc Status : %d", F_get_process_status());
+			sprintf(_write_message, "Proc Status : %.1s", _cnt_record.process_status);
 			return _write_message;
-		}
-
-		int F_get_link_status()
-		{
-			/* Connect 여부 (00:미Link, 01:Link, 02:Link종료송신 03:Link종료수신(최종 종료)) */
-			strncpy(_link_status, _cnt_record.link_status, 2);
-			_link_status_num = atoi(_link_status);
-			return _link_status_num;
 		}
 
 		char* F_get_link()
 		{
 			memset(_write_message, 0x00, sizeof(_write_message));
-			sprintf(_write_message, "Link Status : %d", F_get_link_status());
+			sprintf(_write_message, "Link Status : %.2s", _cnt_record.link_status);
 			return _write_message;
 		}
 
+		void F_setting_tcpip_error_code(int r_error_code)
+		{
+			char temp[3];
+			sprintf(temp, "%.2d", r_error_code);
+			strncpy(_cnt_record.error_code, temp, 2); /* TCPIP Error Code Set */
+		}
+
+		void F_update_cnt(int msg_type)
+		{
+			/* 1. Read Record */
+			F_read_cnt();
+
+			/* 2. Buffer Time Setting */
+			strncpy(&_cnt_record.date[0], _date_time.F_get_date(), 8);
+			strncpy(&_cnt_record.time[0], _date_time.F_get_time(), 6);
+
+			/* 3. Update Variable Setting */
+			switch(msg_type)
+			{
+				case MSG_START :
+					strncpy(&_cnt_record.restart_time[0], _date_time.F_get_time(), 6); /* 재시작 시간 Set */
+					strncpy(&_cnt_record.process_status[0], "1", 1); /* "1"은 정상 기동 Set */
+					break;
+				case MSG_ERR :
+					break;
+				default :
+    		        strncpy(&_cnt_record.error_code[0], "00", 2); /* TCPIP Error Code Set */
+
+					switch(msg_type)
+					{
+						case MSG_0810_001 :
+							strncpy(&_cnt_record.process_status[0], "1", 1);		/* 비정상 Stop 후 재기동 시 반영 */
+							strncpy(&_cnt_record.link_status[0], "01", 2);			/* 01은 link 됨 */
+							strncpy(&_cnt_record.link_time[0], _date_time.F_get_time(), 6);	/* link 시간 기재 */
+							strncpy(&_cnt_record.complete_yn[0], "0", 1);			/* 0 : 사용중, 1 : 사용완료 */
+							break;
+
+						case MSG_0800_301 :
+							break;
+
+						case MSG_0810_301 :
+							break;
+
+						case MSG_0800_040 :
+							strncpy(&_cnt_record.link_status[0], "02", 2);			/* 02는 link 종료 송신 */
+							break;
+
+						case MSG_0810_040 :
+							strncpy(&_cnt_record.link_status[0], "03", 2);			/* 03은 link 종료 수신 */
+							break;
+
+						case MSG_0200_000 :
+						case MSG_0210_000 :
+							long _temp_count;
+							char _add_count[9];
+							memset(_add_count, 0x00, sizeof(_add_count));
+							
+							_temp_count = F_get_last_data_count();
+							_temp_count += 1;
+
+							sprintf(_add_count, "%.8ld", _temp_count);
+
+							strncpy(_cnt_record.data_count, _add_count, 8); /* 일련번호 세팅 */
+							break;
+
+						default :
+							memset(_write_message, 0x00, sizeof(_write_message));
+							sprintf(_write_message, "Invalid Message Type..%d (in message_set)", msg_type);
+							throw _write_message;
+					}
+							break;
+			}
+
+			/* 4. Write Record */
+			F_write_cnt();
+		}
 
 		int F_put_process_stop(int option)
 		{

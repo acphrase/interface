@@ -1300,3 +1300,961 @@
 [$r999x-10:28:02] RECV RETRY 3 Times Error..
 [$r999x-10:28:02] TRY TCP/IP RECONNECT..
 [$r999x-10:28:02] Socket(NO = 9) Listening..
+[$r999x-23:41:14] ====================================================
+[$r999x-23:41:14] TCP/IP PROGRAM
+[$r999x-23:41:14] ====================================================
+[$r999x-23:41:14] Log File OPEN(el0999ra)..
+[$r999x-23:41:14] MSG File OPEN(bmsgf99)..
+[$r999x-23:41:14] TCP/IP PROGRAM STARTING
+[$r999x-23:41:14] Data File OPEN(bsnd999)..
+[$r999x-23:41:14] CNT File OPEN(bsqifrv)..
+[$r999x-23:41:14] Jang File OPEN(bmmjang)..
+[$r999x-23:41:14] Last Count : 22
+[$r999x-23:41:14] Proc Status : 4
+[$r999x-23:41:14] Link Status : 33
+[$r999x-23:41:14] Socket(NO = 9) Listening..
+[$r999x-23:41:16] TCP/IP Connected ( IP:127.0.0.1 port:41676 )
+[$r999x-23:41:16] Link 대기 중...
+[$r999x-23:41:16] RECV Error Code : 10
+[$r999x-23:41:25] Message Read Error From Socket..
+[$r999x-23:41:38] Message Length Read Error From Socket..
+[$r999x-23:41:38] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-23:42:08] RECV Time Out...Keep..1
+[$r999x-23:42:38] RECV Time Out...Keep..2
+[$r999x-23:43:08] RECV Time Out...Keep..3
+[$r999x-23:43:08] RECV RETRY 3 Times Error..
+[$r999x-23:43:08] TRY TCP/IP RECONNECT..
+[$r999x-23:43:08] Socket(NO = 9) Listening..
+[$r999x-23:45:08] ====================================================
+[$r999x-23:45:08] TCP/IP PROGRAM
+[$r999x-23:45:08] ====================================================
+[$r999x-23:45:08] Log File OPEN(el0999ra)..
+[$r999x-23:45:08] MSG File OPEN(bmsgf99)..
+[$r999x-23:45:08] TCP/IP PROGRAM STARTING
+[$r999x-23:45:08] Data File OPEN(bsnd999)..
+[$r999x-23:45:08] CNT File OPEN(bsqifrv)..
+[$r999x-23:45:08] Jang File OPEN(bmmjang)..
+[$r999x-23:45:08] Last Count : 22
+[$r999x-23:45:08] Proc Status : 4
+[$r999x-23:45:08] Link Status : 33
+[$r999x-23:45:08] Socket(NO = 9) Listening..
+[$r999x-23:45:15] ====================================================
+[$r999x-23:45:15] TCP/IP PROGRAM
+[$r999x-23:45:15] ====================================================
+[$r999x-23:45:15] Log File OPEN(el0999ra)..
+[$r999x-23:45:15] MSG File OPEN(bmsgf99)..
+[$r999x-23:45:15] TCP/IP PROGRAM STARTING
+[$r999x-23:45:15] Data File OPEN(bsnd999)..
+[$r999x-23:45:15] CNT File OPEN(bsqifrv)..
+[$r999x-23:45:15] Jang File OPEN(bmmjang)..
+[$r999x-23:45:15] Last Count : 22
+[$r999x-23:45:15] Proc Status : 4
+[$r999x-23:45:15] Link Status : 33
+[$r999x-23:45:15] Socket(NO = 9) Listening..
+[$r999x-23:45:20] TCP/IP Connected ( IP:127.0.0.1 port:41680 )
+[$r999x-23:45:20] Link 대기 중...
+[$r999x-23:45:20] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-23:45:50] RECV Time Out...Keep..1
+[$r999x-23:46:20] RECV Time Out...Keep..2
+[$r999x-23:46:50] RECV Time Out...Keep..3
+[$r999x-23:46:50] RECV RETRY 3 Times Error..
+[$r999x-23:46:50] TRY TCP/IP RECONNECT..
+[$r999x-23:46:50] Socket(NO = 9) Listening..
+[$r999x-01:05:08] ====================================================
+[$r999x-01:05:08] TCP/IP PROGRAM
+[$r999x-01:05:08] ====================================================
+[$r999x-01:05:08] Log File OPEN(el0999ra)..
+[$r999x-01:05:08] MSG File OPEN(bmsgf99)..
+[$r999x-01:05:08] TCP/IP PROGRAM STARTING
+[$r999x-01:05:08] Data File OPEN(bsnd999)..
+[$r999x-01:05:08] CNT File OPEN(bsqifrv)..
+[$r999x-01:05:08] Jang File OPEN(bmmjang)..
+[$r999x-01:05:08] Last Count : 0
+[$r999x-01:05:08] Proc Status : 0
+[$r999x-01:05:08] Link Status : 0
+[$r999x-01:05:08] Socket(NO = 9) Listening..
+[$r999x-01:05:22] TCP/IP Connected ( IP:127.0.0.1 port:41682 )
+[$r999x-01:05:22] Link 대기 중...
+[$r999x-01:05:22] RCV [R header] data no : 22..0
+[$r999x-01:05:22] Interface Error Code..98
+[$r999x-01:05:22] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-01:06:19] ====================================================
+[$r999x-01:06:19] TCP/IP PROGRAM
+[$r999x-01:06:19] ====================================================
+[$r999x-01:06:19] Log File OPEN(el0999ra)..
+[$r999x-01:06:19] MSG File OPEN(bmsgf99)..
+[$r999x-01:06:19] TCP/IP PROGRAM STARTING
+[$r999x-01:06:19] Data File OPEN(bsnd999)..
+[$r999x-01:06:19] CNT File OPEN(bsqifrv)..
+[$r999x-01:06:19] Jang File OPEN(bmmjang)..
+[$r999x-01:06:19] Last Count : 0
+[$r999x-01:06:19] Proc Status : 0
+[$r999x-01:06:19] Link Status : 0
+[$r999x-01:06:19] Socket(NO = 9) Listening..
+[$r999x-01:06:33] TCP/IP Connected ( IP:127.0.0.1 port:41684 )
+[$r999x-01:06:33] Link 대기 중...
+[$r999x-01:06:33] RCV [R header] data no : 22..0
+[$r999x-01:06:33] Interface Error Code..98
+[$r999x-01:06:33] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-01:08:36] RCV [R header] data no : 22..0
+[$r999x-01:08:36] Interface Error Code..98
+[$r999x-01:08:36] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-01:10:36] ====================================================
+[$r999x-01:10:36] TCP/IP PROGRAM
+[$r999x-01:10:36] ====================================================
+[$r999x-01:10:36] Log File OPEN(el0999ra)..
+[$r999x-01:10:36] MSG File OPEN(bmsgf99)..
+[$r999x-01:10:36] TCP/IP PROGRAM STARTING
+[$r999x-01:10:36] Data File OPEN(bsnd999)..
+[$r999x-01:10:36] CNT File OPEN(bsqifrv)..
+[$r999x-01:10:36] Jang File OPEN(bmmjang)..
+[$r999x-01:10:36] Last Count : 22
+[$r999x-01:10:36] Proc Status : 4
+[$r999x-01:10:36] Link Status : 33
+[$r999x-01:10:36] Socket Bind Error : Address already in use
+[$r999x-01:10:36] Interface PROGRAM ABNORMAL STOP
+[$r999x-01:11:58] ====================================================
+[$r999x-01:11:58] TCP/IP PROGRAM
+[$r999x-01:11:58] ====================================================
+[$r999x-01:11:58] Log File OPEN(el0999ra)..
+[$r999x-01:11:58] MSG File OPEN(bmsgf99)..
+[$r999x-01:11:58] TCP/IP PROGRAM STARTING
+[$r999x-01:11:58] Data File OPEN(bsnd999)..
+[$r999x-01:11:58] CNT File OPEN(bsqifrv)..
+[$r999x-01:11:58] Jang File OPEN(bmmjang)..
+[$r999x-01:11:58] Last Count : 22
+[$r999x-01:11:58] Proc Status : 4
+[$r999x-01:11:58] Link Status : 33
+[$r999x-01:11:58] Socket(NO = 9) Listening..
+[$r999x-01:12:11] TCP/IP Connected ( IP:127.0.0.1 port:41688 )
+[$r999x-01:12:11] Link 대기 중...
+[$r999x-01:12:11] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-01:12:41] RECV Time Out...Keep..1
+[$r999x-01:13:11] RECV Time Out...Keep..2
+[$r999x-01:13:41] RECV Time Out...Keep..3
+[$r999x-01:13:41] RECV RETRY 3 Times Error..
+[$r999x-01:13:41] TRY TCP/IP RECONNECT..
+[$r999x-01:13:41] Socket(NO = 9) Listening..
+[$r999x-01:21:23] ====================================================
+[$r999x-01:21:23] TCP/IP PROGRAM
+[$r999x-01:21:23] ====================================================
+[$r999x-01:21:23] Log File OPEN(el0999ra)..
+[$r999x-01:21:23] MSG File OPEN(bmsgf99)..
+[$r999x-01:21:23] TCP/IP PROGRAM STARTING
+[$r999x-01:21:23] Data File OPEN(bsnd999)..
+[$r999x-01:21:23] CNT File OPEN(bsqifrv)..
+[$r999x-01:21:23] Jang File OPEN(bmmjang)..
+[$r999x-01:21:23] Last Count : 22
+[$r999x-01:21:23] Proc Status : 4
+[$r999x-01:21:23] Link Status : 33
+[$r999x-01:21:23] Socket(NO = 9) Listening..
+[$r999x-01:22:04] TCP/IP Connected ( IP:127.0.0.1 port:41690 )
+[$r999x-01:22:04] Link 대기 중...
+[$r999x-01:22:04] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-01:22:34] RECV Time Out...Keep..1
+[$r999x-01:27:32] ====================================================
+[$r999x-01:27:32] TCP/IP PROGRAM
+[$r999x-01:27:32] ====================================================
+[$r999x-01:27:32] Log File OPEN(el0999ra)..
+[$r999x-01:27:32] MSG File OPEN(bmsgf99)..
+[$r999x-01:27:32] TCP/IP PROGRAM STARTING
+[$r999x-01:27:32] Data File OPEN(bsnd999)..
+[$r999x-01:27:32] CNT File OPEN(bsqifrv)..
+[$r999x-01:27:32] Jang File OPEN(bmmjang)..
+[$r999x-01:27:32] Last Count : 22
+[$r999x-01:27:32] Proc Status : 4
+[$r999x-01:27:32] Link Status : 33
+[$r999x-01:27:32] Socket(NO = 9) Listening..
+[$r999x-01:27:37] TCP/IP Connected ( IP:127.0.0.1 port:41692 )
+[$r999x-01:27:37] Link 대기 중...
+[$r999x-01:27:37] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-01:28:07] RECV Time Out...Keep..1
+[$r999x-01:29:22] ====================================================
+[$r999x-01:29:22] TCP/IP PROGRAM
+[$r999x-01:29:22] ====================================================
+[$r999x-01:29:22] Log File OPEN(el0999ra)..
+[$r999x-01:29:22] MSG File OPEN(bmsgf99)..
+[$r999x-01:29:22] TCP/IP PROGRAM STARTING
+[$r999x-01:29:22] Data File OPEN(bsnd999)..
+[$r999x-01:29:22] CNT File OPEN(bsqifrv)..
+[$r999x-01:29:22] Jang File OPEN(bmmjang)..
+[$r999x-01:29:23] Last Count : 22
+[$r999x-01:29:23] Proc Status : 4
+[$r999x-01:29:23] Link Status : 33
+[$r999x-01:30:23] ====================================================
+[$r999x-01:30:23] TCP/IP PROGRAM
+[$r999x-01:30:23] ====================================================
+[$r999x-01:30:23] Log File OPEN(el0999ra)..
+[$r999x-01:30:23] MSG File OPEN(bmsgf99)..
+[$r999x-01:30:23] TCP/IP PROGRAM STARTING
+[$r999x-01:30:23] Data File OPEN(bsnd999)..
+[$r999x-01:30:23] CNT File OPEN(bsqifrv)..
+[$r999x-01:30:23] Jang File OPEN(bmmjang)..
+[$r999x-01:30:23] Last Count : 22
+[$r999x-01:30:23] Proc Status : 4
+[$r999x-01:30:23] Link Status : 33
+[$r999x-01:40:00] ====================================================
+[$r999x-01:40:00] TCP/IP PROGRAM
+[$r999x-01:40:00] ====================================================
+[$r999x-01:40:00] Log File OPEN(el0999ra)..
+[$r999x-01:40:00] MSG File OPEN(bmsgf99)..
+[$r999x-01:40:00] TCP/IP PROGRAM STARTING
+[$r999x-01:40:00] Data File OPEN(bsnd999)..
+[$r999x-01:40:00] CNT File OPEN(bsqifrv)..
+[$r999x-01:40:00] Jang File OPEN(bmmjang)..
+[$r999x-01:40:00] Last Count : 22
+[$r999x-01:40:00] Proc Status : 4
+[$r999x-01:40:00] Link Status : 33
+[$r999x-01:45:21] ====================================================
+[$r999x-01:45:21] TCP/IP PROGRAM
+[$r999x-01:45:21] ====================================================
+[$r999x-01:45:21] Log File OPEN(el0999ra)..
+[$r999x-01:45:21] MSG File OPEN(bmsgf99)..
+[$r999x-01:45:21] TCP/IP PROGRAM STARTING
+[$r999x-01:45:21] Data File OPEN(bsnd999)..
+[$r999x-01:46:43] CNT File OPEN(bsqifrv)..
+[$r999x-01:48:34] ====================================================
+[$r999x-01:48:34] TCP/IP PROGRAM
+[$r999x-01:48:34] ====================================================
+[$r999x-01:48:34] Log File OPEN(el0999ra)..
+[$r999x-01:48:34] MSG File OPEN(bmsgf99)..
+[$r999x-01:48:34] TCP/IP PROGRAM STARTING
+[$r999x-01:48:34] Data File OPEN(bsnd999)..
+[$r999x-01:48:34] CNT File OPEN(bsqifrv)..
+[$r999x-01:48:34] Jang File OPEN(bmmjang)..
+[$r999x-01:48:34] Last Count : 22
+[$r999x-01:48:34] Proc Status : 0
+[$r999x-01:48:34] Link Status : 0
+[$r999x-01:48:34] Socket(NO = 9) Listening..
+[$r999x-01:48:58] TCP/IP Connected ( IP:127.0.0.1 port:41694 )
+[$r999x-01:48:58] Link 대기 중...
+[$r999x-01:48:58] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-01:49:29] RECV Time Out...Keep..1
+[$r999x-01:50:22] ====================================================
+[$r999x-01:50:22] TCP/IP PROGRAM
+[$r999x-01:50:22] ====================================================
+[$r999x-01:50:22] Log File OPEN(el0999ra)..
+[$r999x-01:50:22] MSG File OPEN(bmsgf99)..
+[$r999x-01:50:22] TCP/IP PROGRAM STARTING
+[$r999x-01:50:22] Data File OPEN(bsnd999)..
+[$r999x-01:50:22] CNT File OPEN(bsqifrv)..
+[$r999x-01:50:22] Jang File OPEN(bmmjang)..
+[$r999x-01:50:22] Last Count : 22
+[$r999x-01:50:22] Proc Status : 0
+[$r999x-01:50:22] Link Status : 0
+[$r999x-01:51:43] Socket(NO = 9) Listening..
+[$r999x-01:55:27] ====================================================
+[$r999x-01:55:27] TCP/IP PROGRAM
+[$r999x-01:55:27] ====================================================
+[$r999x-01:55:27] Log File OPEN(el0999ra)..
+[$r999x-01:55:27] MSG File OPEN(bmsgf99)..
+[$r999x-01:55:27] TCP/IP PROGRAM STARTING
+[$r999x-01:55:27] Data File OPEN(bsnd999)..
+[$r999x-01:55:27] CNT File OPEN(bsqifrv)..
+[$r999x-01:55:27] Jang File OPEN(bmmjang)..
+[$r999x-01:55:27] Last Count : 22
+[$r999x-01:55:27] Proc Status : 0
+[$r999x-01:55:27] Link Status : 0
+[$r999x-01:59:37] Socket(NO = 9) Listening..
+[$r999x-10:58:42] ====================================================
+[$r999x-10:58:42] TCP/IP PROGRAM
+[$r999x-10:58:42] ====================================================
+[$r999x-10:58:42] Log File OPEN(el0999ra)..
+[$r999x-10:58:42] MSG File OPEN(bmsgf99)..
+[$r999x-10:58:42] TCP/IP PROGRAM STARTING
+[$r999x-10:58:42] Data File OPEN(bsnd999)..
+[$r999x-10:58:42] CNT File OPEN(bsqifrv)..
+[$r999x-10:58:42] Jang File OPEN(bmmjang)..
+[$r999x-10:58:42] Last Count : 22
+[$r999x-10:58:42] Proc Status : 0
+[$r999x-10:58:42] Link Status : 0
+[$r999x-10:58:42] Socket(NO = 9) Listening..
+[$r999x-10:59:13] ====================================================
+[$r999x-10:59:13] TCP/IP PROGRAM
+[$r999x-10:59:13] ====================================================
+[$r999x-10:59:13] Log File OPEN(el0999ra)..
+[$r999x-10:59:13] MSG File OPEN(bmsgf99)..
+[$r999x-10:59:13] TCP/IP PROGRAM STARTING
+[$r999x-10:59:13] Data File OPEN(bsnd999)..
+[$r999x-10:59:13] CNT File OPEN(bsqifrv)..
+[$r999x-10:59:13] Jang File OPEN(bmmjang)..
+[$r999x-10:59:13] Last Count : 22
+[$r999x-10:59:13] Proc Status : 0
+[$r999x-10:59:13] Link Status : 0
+[$r999x-10:59:13] Socket(NO = 9) Listening..
+[$r999x-10:59:41] TCP/IP Connected ( IP:127.0.0.1 port:41712 )
+[$r999x-10:59:41] Link 대기 중...
+[$r999x-10:59:41] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-11:03:00] ====================================================
+[$r999x-11:03:00] TCP/IP PROGRAM
+[$r999x-11:03:00] ====================================================
+[$r999x-11:03:00] Log File OPEN(el0999ra)..
+[$r999x-11:03:00] MSG File OPEN(bmsgf99)..
+[$r999x-11:03:00] TCP/IP PROGRAM STARTING
+[$r999x-11:03:00] Data File OPEN(bsnd999)..
+[$r999x-11:03:00] CNT File OPEN(bsqifrv)..
+[$r999x-11:03:00] Jang File OPEN(bmmjang)..
+[$r999x-11:03:00] Last Count : 22
+[$r999x-11:03:00] Proc Status : 0
+[$r999x-11:03:00] Link Status : 0
+[$r999x-11:03:00] CNT File Write Error..99999
+[$r999x-11:03:00] CNT File Read Error..99999
+[$r999x-11:04:32] ====================================================
+[$r999x-11:04:32] TCP/IP PROGRAM
+[$r999x-11:04:32] ====================================================
+[$r999x-11:04:32] Log File OPEN(el0999ra)..
+[$r999x-11:04:32] MSG File OPEN(bmsgf99)..
+[$r999x-11:04:32] TCP/IP PROGRAM STARTING
+[$r999x-11:04:32] Data File OPEN(bsnd999)..
+[$r999x-11:04:32] CNT File OPEN(bsqifrv)..
+[$r999x-11:04:32] Jang File OPEN(bmmjang)..
+[$r999x-11:04:32] Last Count : 22
+[$r999x-11:04:32] Proc Status : 0
+[$r999x-11:04:32] Link Status : 0
+[$r999x-11:04:32] Socket(NO = 9) Listening..
+[$r999x-11:07:02] ====================================================
+[$r999x-11:07:02] TCP/IP PROGRAM
+[$r999x-11:07:02] ====================================================
+[$r999x-11:07:02] Log File OPEN(el0999ra)..
+[$r999x-11:07:02] MSG File OPEN(bmsgf99)..
+[$r999x-11:07:02] TCP/IP PROGRAM STARTING
+[$r999x-11:07:02] Data File OPEN(bsnd999)..
+[$r999x-11:07:02] CNT File OPEN(bsqifrv)..
+[$r999x-11:07:02] Jang File OPEN(bmmjang)..
+[$r999x-11:07:02] Last Count : 22
+[$r999x-11:07:02] Proc Status : 4
+[$r999x-11:07:02] Link Status : 33
+[$r999x-11:12:38] ====================================================
+[$r999x-11:12:38] TCP/IP PROGRAM
+[$r999x-11:12:38] ====================================================
+[$r999x-11:12:38] Log File OPEN(el0999ra)..
+[$r999x-11:12:38] MSG File OPEN(bmsgf99)..
+[$r999x-11:12:38] TCP/IP PROGRAM STARTING
+[$r999x-11:12:38] Data File OPEN(bsnd999)..
+[$r999x-11:12:38] CNT File OPEN(bsqifrv)..
+[$r999x-11:12:38] Jang File OPEN(bmmjang)..
+[$r999x-11:12:38] Last Count : 22
+[$r999x-11:12:38] Proc Status : 4
+[$r999x-11:12:38] Link Status : 33
+[$r999x-11:12:38] Socket(NO = 9) Listening..
+[$r999x-11:15:25] ====================================================
+[$r999x-11:15:25] TCP/IP PROGRAM
+[$r999x-11:15:25] ====================================================
+[$r999x-11:15:25] Log File OPEN(el0999ra)..
+[$r999x-11:15:25] MSG File OPEN(bmsgf99)..
+[$r999x-11:15:25] TCP/IP PROGRAM STARTING
+[$r999x-11:15:25] Data File OPEN(bsnd999)..
+[$r999x-11:15:25] CNT File OPEN(bsqifrv)..
+[$r999x-11:15:25] Jang File OPEN(bmmjang)..
+[$r999x-11:15:25] Last Count : 22
+[$r999x-11:15:25] Proc Status : 4
+[$r999x-11:15:25] Link Status : 33
+[$r999x-11:15:25] Socket(NO = 9) Listening..
+[$r999x-11:26:50] ====================================================
+[$r999x-11:26:50] TCP/IP PROGRAM
+[$r999x-11:26:50] ====================================================
+[$r999x-11:26:50] Log File OPEN(el0999ra)..
+[$r999x-11:26:50] MSG File OPEN(bmsgf99)..
+[$r999x-11:26:50] TCP/IP PROGRAM STARTING
+[$r999x-11:26:50] Data File OPEN(bsnd999)..
+[$r999x-11:26:50] CNT File OPEN(bsqifrv)..
+[$r999x-11:26:50] Jang File OPEN(bmmjang)..
+[$r999x-11:26:50] Last Count : 22
+[$r999x-11:26:50] Proc Status : 4
+[$r999x-11:26:50] Link Status : 33
+[$r999x-11:26:50] Socket(NO = 9) Listening..
+[$r999x-11:34:59] ====================================================
+[$r999x-11:34:59] TCP/IP PROGRAM
+[$r999x-11:34:59] ====================================================
+[$r999x-11:34:59] Log File OPEN(el0999ra)..
+[$r999x-11:34:59] MSG File OPEN(bmsgf99)..
+[$r999x-11:34:59] TCP/IP PROGRAM STARTING
+[$r999x-11:34:59] Data File OPEN(bsnd999)..
+[$r999x-11:34:59] CNT File OPEN(bsqifrv)..
+[$r999x-11:34:59] Jang File OPEN(bmmjang)..
+[$r999x-11:34:59] Last Count : 22
+[$r999x-11:34:59] Proc Status : 4
+[$r999x-11:34:59] Link Status : 33
+[$r999x-11:35:15] ====================================================
+[$r999x-11:35:15] TCP/IP PROGRAM
+[$r999x-11:35:15] ====================================================
+[$r999x-11:35:15] Log File OPEN(el0999ra)..
+[$r999x-11:35:15] MSG File OPEN(bmsgf99)..
+[$r999x-11:35:15] TCP/IP PROGRAM STARTING
+[$r999x-11:35:15] Data File OPEN(bsnd999)..
+[$r999x-11:35:15] CNT File OPEN(bsqifrv)..
+[$r999x-11:35:15] Jang File OPEN(bmmjang)..
+[$r999x-11:35:15] Last Count : 22
+[$r999x-11:35:15] Proc Status : 4
+[$r999x-11:35:15] Link Status : 33
+[$r999x-11:37:48] ====================================================
+[$r999x-11:37:48] TCP/IP PROGRAM
+[$r999x-11:37:48] ====================================================
+[$r999x-11:37:48] Log File OPEN(el0999ra)..
+[$r999x-11:37:48] MSG File OPEN(bmsgf99)..
+[$r999x-11:37:48] TCP/IP PROGRAM STARTING
+[$r999x-11:37:48] Data File OPEN(bsnd999)..
+[$r999x-11:37:48] CNT File OPEN(bsqifrv)..
+[$r999x-11:37:48] Jang File OPEN(bmmjang)..
+[$r999x-11:37:48] Last Count : 22
+[$r999x-11:37:48] Proc Status : 4
+[$r999x-11:37:48] Link Status : 33
+[$r999x-11:37:48] Socket(NO = 9) Listening..
+[$r999x-11:40:11] ====================================================
+[$r999x-11:40:11] TCP/IP PROGRAM
+[$r999x-11:40:11] ====================================================
+[$r999x-11:40:11] Log File OPEN(el0999ra)..
+[$r999x-11:40:11] MSG File OPEN(bmsgf99)..
+[$r999x-11:40:11] TCP/IP PROGRAM STARTING
+[$r999x-11:40:11] Data File OPEN(bsnd999)..
+[$r999x-11:40:11] CNT File Open Error(bsqifrv)..
+[$r999x-11:40:42] ====================================================
+[$r999x-11:40:42] TCP/IP PROGRAM
+[$r999x-11:40:42] ====================================================
+[$r999x-11:40:42] Log File OPEN(el0999ra)..
+[$r999x-11:40:42] MSG File OPEN(bmsgf99)..
+[$r999x-11:40:42] TCP/IP PROGRAM STARTING
+[$r999x-11:40:42] Data File OPEN(bsnd999)..
+[$r999x-11:40:42] CNT File OPEN(bsqifrv)..
+[$r999x-11:40:42] Jang File OPEN(bmmjang)..
+[$r999x-11:40:42] Last Count : 22
+[$r999x-11:40:42] Proc Status : 4
+[$r999x-11:40:42] Link Status : 33
+[$r999x-11:40:42] Socket(NO = 9) Listening..
+[$r999x-11:42:16] ====================================================
+[$r999x-11:42:16] TCP/IP PROGRAM
+[$r999x-11:42:16] ====================================================
+[$r999x-11:42:16] Log File OPEN(el0999ra)..
+[$r999x-11:42:16] MSG File OPEN(bmsgf99)..
+[$r999x-11:42:16] TCP/IP PROGRAM STARTING
+[$r999x-11:42:16] Data File OPEN(bsnd999)..
+[$r999x-11:42:16] CNT File OPEN(bsqifrv)..
+[$r999x-11:42:16] Jang File OPEN(bmmjang)..
+[$r999x-11:42:16] Last Count : 22
+[$r999x-11:42:16] Proc Status : 4
+[$r999x-11:42:16] Link Status : 33
+[$r999x-11:42:16] Socket Bind Error : Address already in use
+[$r999x-11:42:16] Interface PROGRAM ABNORMAL STOP
+[$r999x-11:45:12] ====================================================
+[$r999x-11:45:12] TCP/IP PROGRAM
+[$r999x-11:45:12] ====================================================
+[$r999x-11:45:12] Log File OPEN(el0999ra)..
+[$r999x-11:45:12] MSG File OPEN(bmsgf99)..
+[$r999x-11:45:12] TCP/IP PROGRAM STARTING
+[$r999x-11:45:12] Data File OPEN(bsnd999)..
+[$r999x-11:45:12] CNT File OPEN(bsqifrv)..
+[$r999x-11:45:12] Jang File OPEN(bmmjang)..
+[$r999x-11:45:12] Last Count : 22
+[$r999x-11:45:12] Proc Status : 2
+[$r999x-11:45:12] Link Status : 33
+[$r999x-11:45:12] Socket(NO = 9) Listening..
+[$r999x-11:46:30] ====================================================
+[$r999x-11:46:30] TCP/IP PROGRAM
+[$r999x-11:46:30] ====================================================
+[$r999x-11:46:30] Log File OPEN(el0999ra)..
+[$r999x-11:46:30] MSG File OPEN(bmsgf99)..
+[$r999x-11:46:30] TCP/IP PROGRAM STARTING
+[$r999x-11:46:30] Data File OPEN(bsnd999)..
+[$r999x-11:46:30] CNT File OPEN(bsqifrv)..
+[$r999x-11:46:30] Jang File OPEN(bmmjang)..
+[$r999x-11:46:30] Last Count : 22
+[$r999x-11:46:30] Proc Status : 2
+[$r999x-11:46:30] Link Status : 33
+[$r999x-11:46:30] Socket(NO = 9) Listening..
+[$r999x-11:48:32] ====================================================
+[$r999x-11:48:32] TCP/IP PROGRAM
+[$r999x-11:48:32] ====================================================
+[$r999x-11:48:32] Log File OPEN(el0999ra)..
+[$r999x-11:48:32] MSG File OPEN(bmsgf99)..
+[$r999x-11:48:32] TCP/IP PROGRAM STARTING
+[$r999x-11:48:32] Data File OPEN(bsnd999)..
+[$r999x-11:48:32] CNT File OPEN(bsqifrv)..
+[$r999x-11:48:32] Jang File OPEN(bmmjang)..
+[$r999x-11:48:32] Last Count : 22
+[$r999x-11:48:32] Proc Status : 2
+[$r999x-11:48:32] Link Status : 33
+[$r999x-11:48:32] Socket(NO = 9) Listening..
+[$r999x-11:50:44] ====================================================
+[$r999x-11:50:44] TCP/IP PROGRAM
+[$r999x-11:50:44] ====================================================
+[$r999x-11:50:44] Log File OPEN(el0999ra)..
+[$r999x-11:50:44] MSG File OPEN(bmsgf99)..
+[$r999x-11:50:44] TCP/IP PROGRAM STARTING
+[$r999x-11:50:44] Data File OPEN(bsnd999)..
+[$r999x-11:50:44] CNT File OPEN(bsqifrv)..
+[$r999x-11:50:44] Jang File OPEN(bmmjang)..
+[$r999x-11:50:44] Last Count : 22
+[$r999x-11:50:44] Proc Status : 2
+[$r999x-11:50:44] Link Status : 33
+[$r999x-11:50:44] Socket(NO = 9) Listening..
+[$r999x-11:53:59] ====================================================
+[$r999x-11:53:59] TCP/IP PROGRAM
+[$r999x-11:53:59] ====================================================
+[$r999x-11:53:59] Log File OPEN(el0999ra)..
+[$r999x-11:53:59] MSG File OPEN(bmsgf99)..
+[$r999x-11:53:59] TCP/IP PROGRAM STARTING
+[$r999x-11:53:59] Data File OPEN(bsnd999)..
+[$r999x-11:53:59] CNT File OPEN(bsqifrv)..
+[$r999x-11:53:59] Jang File OPEN(bmmjang)..
+[$r999x-11:53:59] Last Count : 22
+[$r999x-11:53:59] Proc Status : 2
+[$r999x-11:53:59] Link Status : 33
+[$r999x-11:53:59] Socket(NO = 9) Listening..
+[$r999x-11:55:56] ====================================================
+[$r999x-11:55:56] TCP/IP PROGRAM
+[$r999x-11:55:56] ====================================================
+[$r999x-11:55:56] Log File OPEN(el0999ra)..
+[$r999x-11:55:56] MSG File OPEN(bmsgf99)..
+[$r999x-11:55:56] TCP/IP PROGRAM STARTING
+[$r999x-11:55:56] Data File OPEN(bsnd999)..
+[$r999x-11:55:56] CNT File OPEN(bsqifrv)..
+[$r999x-11:55:56] Jang File OPEN(bmmjang)..
+[$r999x-11:55:56] Last Count : 22
+[$r999x-11:55:56] Proc Status : 2
+[$r999x-11:55:56] Link Status : 33
+[$r999x-11:55:56] Socket(NO = 9) Listening..
+[$r999x-11:58:01] ====================================================
+[$r999x-11:58:01] TCP/IP PROGRAM
+[$r999x-11:58:01] ====================================================
+[$r999x-11:58:01] Log File OPEN(el0999ra)..
+[$r999x-11:58:01] MSG File OPEN(bmsgf99)..
+[$r999x-11:58:01] TCP/IP PROGRAM STARTING
+[$r999x-11:58:01] Data File OPEN(bsnd999)..
+[$r999x-11:58:01] CNT File OPEN(bsqifrv)..
+[$r999x-11:58:01] Jang File OPEN(bmmjang)..
+[$r999x-11:58:01] Last Count : 22
+[$r999x-11:58:01] Proc Status : 4
+[$r999x-11:58:01] Link Status : 33
+[$r999x-11:58:01] Socket(NO = 9) Listening..
+[$r999x-12:00:59] ====================================================
+[$r999x-12:00:59] TCP/IP PROGRAM
+[$r999x-12:00:59] ====================================================
+[$r999x-12:00:59] Log File OPEN(el0999ra)..
+[$r999x-12:00:59] MSG File OPEN(bmsgf99)..
+[$r999x-12:00:59] TCP/IP PROGRAM STARTING
+[$r999x-12:00:59] Data File OPEN(bsnd999)..
+[$r999x-12:00:59] CNT File OPEN(bsqifrv)..
+[$r999x-12:00:59] Jang File OPEN(bmmjang)..
+[$r999x-12:00:59] Last Count : 22
+[$r999x-12:00:59] Proc Status : 4
+[$r999x-12:00:59] Link Status : 33
+[$r999x-12:00:59] Socket(NO = 9) Listening..
+[$r999x-12:03:02] ====================================================
+[$r999x-12:03:02] TCP/IP PROGRAM
+[$r999x-12:03:02] ====================================================
+[$r999x-12:03:02] Log File OPEN(el0999ra)..
+[$r999x-12:03:02] MSG File OPEN(bmsgf99)..
+[$r999x-12:03:02] TCP/IP PROGRAM STARTING
+[$r999x-12:03:02] Data File OPEN(bsnd999)..
+[$r999x-12:03:02] CNT File OPEN(bsqifrv)..
+[$r999x-12:03:02] Jang File OPEN(bmmjang)..
+[$r999x-12:03:02] Last Count : 22
+[$r999x-12:03:02] Proc Status : 4
+[$r999x-12:03:02] Link Status : 33
+[$r999x-12:03:02] Socket(NO = 9) Listening..
+[$r999x-12:13:25] ====================================================
+[$r999x-12:13:25] TCP/IP PROGRAM
+[$r999x-12:13:25] ====================================================
+[$r999x-12:13:25] Log File OPEN(el0999ra)..
+[$r999x-12:13:25] MSG File OPEN(bmsgf99)..
+[$r999x-12:13:25] TCP/IP PROGRAM STARTING
+[$r999x-12:13:25] Data File OPEN(bsnd999)..
+[$r999x-12:13:25] CNT File OPEN(bsqifrv)..
+[$r999x-12:13:25] Jang File OPEN(bmmjang)..
+[$r999x-12:13:25] Last Count : 00000022
+[$r999x-12:13:25] Proc Status : 4
+[$r999x-12:13:25] Link Status : 33
+[$r999x-12:13:25] Socket Bind Error : Address already in use
+[$r999x-12:13:25] Interface PROGRAM ABNORMAL STOP
+[$r999x-12:13:48] ====================================================
+[$r999x-12:13:48] TCP/IP PROGRAM
+[$r999x-12:13:48] ====================================================
+[$r999x-12:13:48] Log File OPEN(el0999ra)..
+[$r999x-12:13:48] MSG File OPEN(bmsgf99)..
+[$r999x-12:13:48] TCP/IP PROGRAM STARTING
+[$r999x-12:13:48] Data File OPEN(bsnd999)..
+[$r999x-12:13:48] CNT File OPEN(bsqifrv)..
+[$r999x-12:13:48] Jang File OPEN(bmmjang)..
+[$r999x-12:13:48] Last Count : 00000022
+[$r999x-12:13:48] Proc Status : 1
+[$r999x-12:13:48] Link Status : 33
+[$r999x-12:13:48] Socket(NO = 9) Listening..
+[$r999x-12:17:56] ====================================================
+[$r999x-12:17:56] TCP/IP PROGRAM
+[$r999x-12:17:56] ====================================================
+[$r999x-12:17:56] Log File OPEN(el0999ra)..
+[$r999x-12:17:56] MSG File OPEN(bmsgf99)..
+[$r999x-12:17:56] TCP/IP PROGRAM STARTING
+[$r999x-12:17:56] Data File OPEN(bsnd999)..
+[$r999x-12:17:56] CNT File OPEN(bsqifrv)..
+[$r999x-12:17:56] Jang File OPEN(bmmjang)..
+[$r999x-12:17:56] Last Count : 00000022
+[$r999x-12:17:56] Proc Status : 2
+[$r999x-12:17:56] Link Status : 33
+[$r999x-12:17:56] Socket(NO = 9) Listening..
+[$r999x-12:23:49] ====================================================
+[$r999x-12:23:49] TCP/IP PROGRAM
+[$r999x-12:23:49] ====================================================
+[$r999x-12:23:49] Log File OPEN(el0999ra)..
+[$r999x-12:23:49] MSG File OPEN(bmsgf99)..
+[$r999x-12:23:49] TCP/IP PROGRAM STARTING
+[$r999x-12:23:49] Data File OPEN(bsnd999)..
+[$r999x-12:23:49] CNT File OPEN(bsqifrv)..
+[$r999x-12:23:49] Jang File OPEN(bmmjang)..
+[$r999x-12:23:49] Last Count : 22
+[$r999x-12:23:49] Proc Status : 2
+[$r999x-12:23:49] Link Status : 33
+[$r999x-12:23:49] Socket(NO = 9) Listening..
+[$r999x-12:26:43] ====================================================
+[$r999x-12:26:43] TCP/IP PROGRAM
+[$r999x-12:26:43] ====================================================
+[$r999x-12:26:43] Log File OPEN(el0999ra)..
+[$r999x-12:26:43] MSG File OPEN(bmsgf99)..
+[$r999x-12:26:43] TCP/IP PROGRAM STARTING
+[$r999x-12:26:43] Data File OPEN(bsnd999)..
+[$r999x-12:26:43] CNT File OPEN(bsqifrv)..
+[$r999x-12:26:43] Jang File OPEN(bmmjang)..
+[$r999x-12:26:43] Last Count : 22
+[$r999x-12:26:43] Proc Status : 2
+[$r999x-12:26:43] Link Status : 33
+[$r999x-12:26:43] Socket(NO = 9) Listening..
+[$r999x-12:27:48] ====================================================
+[$r999x-12:27:48] TCP/IP PROGRAM
+[$r999x-12:27:48] ====================================================
+[$r999x-12:27:48] Log File OPEN(el0999ra)..
+[$r999x-12:27:48] MSG File OPEN(bmsgf99)..
+[$r999x-12:27:48] TCP/IP PROGRAM STARTING
+[$r999x-12:27:48] Data File OPEN(bsnd999)..
+[$r999x-12:27:48] CNT File OPEN(bsqifrv)..
+[$r999x-12:27:48] Jang File OPEN(bmmjang)..
+[$r999x-12:27:48] Last Count : 22
+[$r999x-12:27:48] Proc Status : 2
+[$r999x-12:27:48] Link Status : 33
+[$r999x-12:27:48] Socket(NO = 9) Listening..
+[$r999x-12:28:19] ====================================================
+[$r999x-12:28:19] TCP/IP PROGRAM
+[$r999x-12:28:19] ====================================================
+[$r999x-12:28:19] Log File OPEN(el0999ra)..
+[$r999x-12:28:19] MSG File OPEN(bmsgf99)..
+[$r999x-12:28:19] TCP/IP PROGRAM STARTING
+[$r999x-12:28:19] Data File OPEN(bsnd999)..
+[$r999x-12:28:19] CNT File OPEN(bsqifrv)..
+[$r999x-12:28:19] Jang File OPEN(bmmjang)..
+[$r999x-12:28:19] Last Count : 22
+[$r999x-12:28:19] Proc Status : 2
+[$r999x-12:28:19] Link Status : 33
+[$r999x-12:28:19] Socket(NO = 9) Listening..
+[$r999x-12:28:35] ====================================================
+[$r999x-12:28:35] TCP/IP PROGRAM
+[$r999x-12:28:35] ====================================================
+[$r999x-12:28:35] Log File OPEN(el0999ra)..
+[$r999x-12:28:35] MSG File OPEN(bmsgf99)..
+[$r999x-12:28:35] TCP/IP PROGRAM STARTING
+[$r999x-12:28:35] Data File OPEN(bsnd999)..
+[$r999x-12:28:35] CNT File OPEN(bsqifrv)..
+[$r999x-12:28:35] Jang File OPEN(bmmjang)..
+[$r999x-12:28:35] Last Count : 22
+[$r999x-12:28:35] Proc Status : 2
+[$r999x-12:28:35] Link Status : 33
+[$r999x-12:28:35] Socket(NO = 9) Listening..
+[$r999x-12:29:21] ====================================================
+[$r999x-12:29:21] TCP/IP PROGRAM
+[$r999x-12:29:21] ====================================================
+[$r999x-12:29:21] Log File OPEN(el0999ra)..
+[$r999x-12:29:21] MSG File OPEN(bmsgf99)..
+[$r999x-12:29:21] TCP/IP PROGRAM STARTING
+[$r999x-12:29:21] Data File OPEN(bsnd999)..
+[$r999x-12:29:21] CNT File OPEN(bsqifrv)..
+[$r999x-12:29:21] Jang File OPEN(bmmjang)..
+[$r999x-12:29:21] Last Count : 22
+[$r999x-12:29:21] Proc Status : 2
+[$r999x-12:29:21] Link Status : 33
+[$r999x-12:29:21] Socket(NO = 9) Listening..
+[$r999x-12:32:21] ====================================================
+[$r999x-12:32:21] TCP/IP PROGRAM
+[$r999x-12:32:21] ====================================================
+[$r999x-12:32:21] Log File OPEN(el0999ra)..
+[$r999x-12:32:21] MSG File OPEN(bmsgf99)..
+[$r999x-12:32:21] TCP/IP PROGRAM STARTING
+[$r999x-12:32:21] Data File OPEN(bsnd999)..
+[$r999x-12:32:21] CNT File OPEN(bsqifrv)..
+[$r999x-12:32:21] Jang File OPEN(bmmjang)..
+[$r999x-12:32:52] ====================================================
+[$r999x-12:32:52] TCP/IP PROGRAM
+[$r999x-12:32:52] ====================================================
+[$r999x-12:32:52] Log File OPEN(el0999ra)..
+[$r999x-12:32:52] MSG File OPEN(bmsgf99)..
+[$r999x-12:32:52] TCP/IP PROGRAM STARTING
+[$r999x-12:32:52] Data File OPEN(bsnd999)..
+[$r999x-12:32:52] CNT File OPEN(bsqifrv)..
+[$r999x-12:32:52] Jang File OPEN(bmmjang)..
+[$r999x-12:34:10] ====================================================
+[$r999x-12:34:10] TCP/IP PROGRAM
+[$r999x-12:34:10] ====================================================
+[$r999x-12:34:10] Log File OPEN(el0999ra)..
+[$r999x-12:34:10] MSG File OPEN(bmsgf99)..
+[$r999x-12:34:10] TCP/IP PROGRAM STARTING
+[$r999x-12:34:10] Data File OPEN(bsnd999)..
+[$r999x-12:34:10] CNT File OPEN(bsqifrv)..
+[$r999x-12:34:10] Jang File OPEN(bmmjang)..
+[$r999x-12:36:31] ====================================================
+[$r999x-12:36:31] TCP/IP PROGRAM
+[$r999x-12:36:31] ====================================================
+[$r999x-12:36:31] Log File OPEN(el0999ra)..
+[$r999x-12:36:31] MSG File OPEN(bmsgf99)..
+[$r999x-12:36:31] TCP/IP PROGRAM STARTING
+[$r999x-12:36:31] Data File OPEN(bsnd999)..
+[$r999x-12:36:31] CNT File OPEN(bsqifrv)..
+[$r999x-12:36:31] Jang File OPEN(bmmjang)..
+[$r999x-12:37:22] ====================================================
+[$r999x-12:37:22] TCP/IP PROGRAM
+[$r999x-12:37:22] ====================================================
+[$r999x-12:37:22] Log File OPEN(el0999ra)..
+[$r999x-12:37:22] MSG File OPEN(bmsgf99)..
+[$r999x-12:37:22] TCP/IP PROGRAM STARTING
+[$r999x-12:37:22] Data File OPEN(bsnd999)..
+[$r999x-12:37:22] CNT File OPEN(bsqifrv)..
+[$r999x-12:37:22] Jang File OPEN(bmmjang)..
+[$r999x-12:42:02] ====================================================
+[$r999x-12:42:02] TCP/IP PROGRAM
+[$r999x-12:42:02] ====================================================
+[$r999x-12:42:02] Log File OPEN(el0999ra)..
+[$r999x-12:42:02] MSG File OPEN(bmsgf99)..
+[$r999x-12:42:02] TCP/IP PROGRAM STARTING
+[$r999x-12:42:02] Data File OPEN(bsnd999)..
+[$r999x-12:42:02] CNT File OPEN(bsqifrv)..
+[$r999x-12:42:02] Jang File OPEN(bmmjang)..
+[$r999x-12:44:24] ====================================================
+[$r999x-12:44:24] TCP/IP PROGRAM
+[$r999x-12:44:24] ====================================================
+[$r999x-12:44:24] Log File OPEN(el0999ra)..
+[$r999x-12:44:24] MSG File OPEN(bmsgf99)..
+[$r999x-12:44:24] TCP/IP PROGRAM STARTING
+[$r999x-12:44:24] Data File OPEN(bsnd999)..
+[$r999x-12:44:24] CNT File OPEN(bsqifrv)..
+[$r999x-12:44:24] Jang File OPEN(bmmjang)..
+[$r999x-12:44:24] Last Count : 22
+[$r999x-12:44:24] Proc Status : 2
+[$r999x-12:44:24] Link Status : 33
+[$r999x-12:44:24] Socket(NO = 9) Listening..
+[$r999x-12:45:05] ====================================================
+[$r999x-12:45:05] TCP/IP PROGRAM
+[$r999x-12:45:05] ====================================================
+[$r999x-12:45:05] Log File OPEN(el0999ra)..
+[$r999x-12:45:05] MSG File OPEN(bmsgf99)..
+[$r999x-12:45:05] TCP/IP PROGRAM STARTING
+[$r999x-12:45:05] Data File OPEN(bsnd999)..
+[$r999x-12:45:05] CNT File OPEN(bsqifrv)..
+[$r999x-12:45:05] Jang File OPEN(bmmjang)..
+[$r999x-12:46:30] ====================================================
+[$r999x-12:46:30] TCP/IP PROGRAM
+[$r999x-12:46:30] ====================================================
+[$r999x-12:46:30] Log File OPEN(el0999ra)..
+[$r999x-12:46:30] MSG File OPEN(bmsgf99)..
+[$r999x-12:46:30] TCP/IP PROGRAM STARTING
+[$r999x-12:46:30] Data File OPEN(bsnd999)..
+[$r999x-12:46:30] CNT File OPEN(bsqifrv)..
+[$r999x-12:46:30] Jang File OPEN(bmmjang)..
+[$r999x-12:46:30] Last Count : 22
+[$r999x-12:46:30] Proc Status : 2
+[$r999x-12:46:30] Link Status : 33
+[$r999x-12:48:26] Socket(NO = 9) Listening..
+[$r999x-12:54:36] ====================================================
+[$r999x-12:54:36] TCP/IP PROGRAM
+[$r999x-12:54:36] ====================================================
+[$r999x-12:54:36] Log File OPEN(el0999ra)..
+[$r999x-12:54:36] MSG File OPEN(bmsgf99)..
+[$r999x-12:54:36] TCP/IP PROGRAM STARTING
+[$r999x-12:54:36] Data File OPEN(bsnd999)..
+[$r999x-12:54:36] CNT File OPEN(bsqifrv)..
+[$r999x-12:54:36] Jang File OPEN(bmmjang)..
+[$r999x-12:54:36] Last Count : 22
+[$r999x-12:54:36] Proc Status : 2
+[$r999x-12:54:36] Link Status : 33
+[$r999x-12:57:23] ====================================================
+[$r999x-12:57:23] TCP/IP PROGRAM
+[$r999x-12:57:23] ====================================================
+[$r999x-12:57:23] Log File OPEN(el0999ra)..
+[$r999x-12:57:23] MSG File OPEN(bmsgf99)..
+[$r999x-12:57:23] TCP/IP PROGRAM STARTING
+[$r999x-12:57:23] Data File OPEN(bsnd999)..
+[$r999x-12:57:23] CNT File OPEN(bsqifrv)..
+[$r999x-12:57:23] Jang File OPEN(bmmjang)..
+[$r999x-12:57:23] Last Count : 22
+[$r999x-12:57:23] Proc Status : 2
+[$r999x-12:57:23] Link Status : 33
+[$r999x-12:57:23] Socket(NO = 9) Listening..
+[$r999x-13:00:27] ====================================================
+[$r999x-13:00:27] TCP/IP PROGRAM
+[$r999x-13:00:27] ====================================================
+[$r999x-13:00:27] Log File OPEN(el0999ra)..
+[$r999x-13:00:27] MSG File OPEN(bmsgf99)..
+[$r999x-13:00:27] TCP/IP PROGRAM STARTING
+[$r999x-13:00:27] Data File OPEN(bsnd999)..
+[$r999x-13:00:27] CNT File OPEN(bsqifrv)..
+[$r999x-13:00:27] Jang File OPEN(bmmjang)..
+[$r999x-13:00:27] Last Count : 22
+[$r999x-13:00:27] Proc Status : 2
+[$r999x-13:00:27] Link Status : 33
+[$r999x-13:00:27] Socket(NO = 9) Listening..
+[$r999x-13:02:59] ====================================================
+[$r999x-13:02:59] TCP/IP PROGRAM
+[$r999x-13:02:59] ====================================================
+[$r999x-13:02:59] Log File OPEN(el0999ra)..
+[$r999x-13:02:59] MSG File OPEN(bmsgf99)..
+[$r999x-13:02:59] TCP/IP PROGRAM STARTING
+[$r999x-13:02:59] Data File OPEN(bsnd999)..
+[$r999x-13:02:59] CNT File OPEN(bsqifrv)..
+[$r999x-13:02:59] Jang File OPEN(bmmjang)..
+[$r999x-13:02:59] Last Count : 22
+[$r999x-13:02:59] Proc Status : 2
+[$r999x-13:02:59] Link Status : 33
+[$r999x-13:02:59] Socket(NO = 9) Listening..
+[$r999x-13:07:13] ====================================================
+[$r999x-13:07:13] TCP/IP PROGRAM
+[$r999x-13:07:13] ====================================================
+[$r999x-13:07:13] Log File OPEN(el0999ra)..
+[$r999x-13:07:13] MSG File OPEN(bmsgf99)..
+[$r999x-13:07:13] TCP/IP PROGRAM STARTING
+[$r999x-13:07:13] Data File OPEN(bsnd999)..
+[$r999x-13:07:13] CNT File OPEN(bsqifrv)..
+[$r999x-13:07:13] Jang File OPEN(bmmjang)..
+[$r999x-13:07:13] Last Count : 22
+[$r999x-13:07:13] Proc Status : 2
+[$r999x-13:07:13] Link Status : 33
+[$r999x-13:07:13] Socket(NO = 9) Listening..
+[$r999x-13:08:47] ====================================================
+[$r999x-13:08:47] TCP/IP PROGRAM
+[$r999x-13:08:47] ====================================================
+[$r999x-13:08:47] Log File OPEN(el0999ra)..
+[$r999x-13:08:47] MSG File OPEN(bmsgf99)..
+[$r999x-13:08:47] TCP/IP PROGRAM STARTING
+[$r999x-13:08:47] Data File OPEN(bsnd999)..
+[$r999x-13:08:47] CNT File OPEN(bsqifrv)..
+[$r999x-13:08:47] Jang File OPEN(bmmjang)..
+[$r999x-13:08:47] Last Count : 22
+[$r999x-13:08:47] Proc Status : 2
+[$r999x-13:08:47] Link Status : 33
+[$r999x-13:08:47] Socket(NO = 9) Listening..
+[$r999x-13:11:18] ====================================================
+[$r999x-13:11:18] TCP/IP PROGRAM
+[$r999x-13:11:18] ====================================================
+[$r999x-13:11:18] Log File OPEN(el0999ra)..
+[$r999x-13:11:18] MSG File OPEN(bmsgf99)..
+[$r999x-13:11:18] TCP/IP PROGRAM STARTING
+[$r999x-13:11:18] Data File OPEN(bsnd999)..
+[$r999x-13:11:18] CNT File OPEN(bsqifrv)..
+[$r999x-13:11:18] Jang File OPEN(bmmjang)..
+[$r999x-13:11:18] Last Count : 22
+[$r999x-13:11:18] Proc Status : 2
+[$r999x-13:11:18] Link Status : 33
+[$r999x-13:11:18] Socket(NO = 9) Listening..
+[$r999x-13:12:37] ====================================================
+[$r999x-13:12:37] TCP/IP PROGRAM
+[$r999x-13:12:37] ====================================================
+[$r999x-13:12:37] Log File OPEN(el0999ra)..
+[$r999x-13:12:37] MSG File OPEN(bmsgf99)..
+[$r999x-13:12:37] TCP/IP PROGRAM STARTING
+[$r999x-13:12:37] Data File OPEN(bsnd999)..
+[$r999x-13:12:37] CNT File OPEN(bsqifrv)..
+[$r999x-13:12:37] Jang File OPEN(bmmjang)..
+[$r999x-13:12:37] Last Count : 22
+[$r999x-13:12:37] Proc Status : 2
+[$r999x-13:12:37] Link Status : 33
+[$r999x-13:12:37] Socket Bind Error : Address already in use
+[$r999x-13:12:37] Interface PROGRAM ABNORMAL STOP
+[$r999x-13:13:50] ====================================================
+[$r999x-13:13:50] TCP/IP PROGRAM
+[$r999x-13:13:50] ====================================================
+[$r999x-13:13:50] Log File OPEN(el0999ra)..
+[$r999x-13:13:50] MSG File OPEN(bmsgf99)..
+[$r999x-13:13:50] TCP/IP PROGRAM STARTING
+[$r999x-13:13:50] Data File OPEN(bsnd999)..
+[$r999x-13:13:50] CNT File OPEN(bsqifrv)..
+[$r999x-13:13:50] Jang File OPEN(bmmjang)..
+[$r999x-13:13:50] Last Count : 22
+[$r999x-13:13:50] Proc Status : 1
+[$r999x-13:13:50] Link Status : 33
+[$r999x-13:13:50] Socket(NO = 9) Listening..
+[$r999x-13:15:27] ====================================================
+[$r999x-13:15:27] TCP/IP PROGRAM
+[$r999x-13:15:27] ====================================================
+[$r999x-13:15:27] Log File OPEN(el0999ra)..
+[$r999x-13:15:27] MSG File OPEN(bmsgf99)..
+[$r999x-13:15:27] TCP/IP PROGRAM STARTING
+[$r999x-13:15:27] Data File OPEN(bsnd999)..
+[$r999x-13:15:27] CNT File OPEN(bsqifrv)..
+[$r999x-13:15:27] Jang File OPEN(bmmjang)..
+[$r999x-13:15:27] Last Count : 22
+[$r999x-13:15:27] Proc Status : 1
+[$r999x-13:15:27] Link Status : 33
+[$r999x-13:15:27] Socket(NO = 9) Listening..
+[$r999x-13:16:36] ====================================================
+[$r999x-13:16:36] TCP/IP PROGRAM
+[$r999x-13:16:36] ====================================================
+[$r999x-13:16:36] Log File OPEN(el0999ra)..
+[$r999x-13:16:36] MSG File OPEN(bmsgf99)..
+[$r999x-13:16:36] TCP/IP PROGRAM STARTING
+[$r999x-13:16:36] Data File OPEN(bsnd999)..
+[$r999x-13:16:36] CNT File OPEN(bsqifrv)..
+[$r999x-13:16:36] Jang File OPEN(bmmjang)..
+[$r999x-13:16:36] Last Count : 22
+[$r999x-13:16:36] Proc Status : 1
+[$r999x-13:16:36] Link Status : 33
+[$r999x-13:16:36] Socket(NO = 9) Listening..
+[$r999x-13:25:10] ====================================================
+[$r999x-13:25:10] TCP/IP PROGRAM
+[$r999x-13:25:10] ====================================================
+[$r999x-13:25:10] Log File OPEN(el0999ra)..
+[$r999x-13:25:10] MSG File OPEN(bmsgf99)..
+[$r999x-13:25:10] TCP/IP PROGRAM STARTING
+[$r999x-13:25:10] Data File OPEN(bsnd999)..
+[$r999x-13:25:10] CNT File OPEN(bsqifrv)..
+[$r999x-13:25:10] Jang File OPEN(bmmjang)..
+[$r999x-13:25:10] Last Count : 22
+[$r999x-13:25:10] Proc Status : 1
+[$r999x-13:25:10] Link Status : 33
+[$r999x-13:25:10] Socket(NO = 9) Listening..
+[$r999x-13:25:47] ====================================================
+[$r999x-13:25:47] TCP/IP PROGRAM
+[$r999x-13:25:47] ====================================================
+[$r999x-13:25:47] Log File OPEN(el0999ra)..
+[$r999x-13:25:47] MSG File OPEN(bmsgf99)..
+[$r999x-13:25:47] TCP/IP PROGRAM STARTING
+[$r999x-13:25:47] Data File OPEN(bsnd999)..
+[$r999x-13:25:47] CNT File OPEN(bsqifrv)..
+[$r999x-13:25:47] Jang File OPEN(bmmjang)..
+[$r999x-13:25:47] Last Count : 22
+[$r999x-13:25:47] Proc Status : 1
+[$r999x-13:25:47] Link Status : 33
+[$r999x-13:25:47] Socket(NO = 9) Listening..
+[$r999x-13:27:02] TCP/IP Connected ( IP:127.0.0.1 port:41732 )
+[$r999x-13:27:02] Link 대기 중...
+[$r999x-13:27:02] RECV 0045 N 999 0800 001 00 190417141700 11 00000022 00.49
+[$r999x-13:27:32] RECV Time Out...Keep..1
+[$r999x-13:29:12] ====================================================
+[$r999x-13:29:12] TCP/IP PROGRAM
+[$r999x-13:29:12] ====================================================
+[$r999x-13:29:12] Log File OPEN(el0999ra)..
+[$r999x-13:29:12] MSG File OPEN(bmsgf99)..
+[$r999x-13:29:12] TCP/IP PROGRAM STARTING
+[$r999x-13:29:12] Data File OPEN(bsnd999)..
+[$r999x-13:29:12] CNT File OPEN(bsqifrv)..
+[$r999x-13:29:12] Jang File OPEN(bmmjang)..
+[$r999x-13:29:12] Last Count : 22
+[$r999x-13:29:12] Proc Status : 1
+[$r999x-13:29:12] Link Status : 33
+[$r999x-13:29:12] Socket(NO = 9) Listening..
+[$r999x-13:32:56] ====================================================
+[$r999x-13:32:56] TCP/IP PROGRAM
+[$r999x-13:32:56] ====================================================
+[$r999x-13:32:56] Log File OPEN(el0999ra)..
+[$r999x-13:32:56] MSG File OPEN(bmsgf99)..
+[$r999x-13:32:56] TCP/IP PROGRAM STARTING
+[$r999x-13:32:56] Data File OPEN(bsnd999)..
+[$r999x-13:32:56] CNT File OPEN(bsqifrv)..
+[$r999x-13:32:56] Jang File OPEN(bmmjang)..
+[$r999x-13:32:56] Last Count : 22
+[$r999x-13:32:56] Proc Status : 1
+[$r999x-13:32:56] Link Status : 33
+[$r999x-13:32:56] Socket(NO = 9) Listening..

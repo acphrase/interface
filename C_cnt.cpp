@@ -136,7 +136,7 @@ void C_cnt::F_setting_tcpip_error_code(int r_error_code)
 	strncpy(_cnt_record.error_code, temp, 2); /* TCPIP Error Code Set */
 }
 
-void C_cnt::F_update_cnt(int msg_type)
+int C_cnt::F_update_cnt(int msg_type)
 {
 	/* 1. Read Record */
 	F_read_cnt();
@@ -204,6 +204,11 @@ void C_cnt::F_update_cnt(int msg_type)
 
 	/* 4. Write Record */
 	F_write_cnt();
+
+	if(msg_type == MSG_0810_001)
+		return MSG_0810_001;
+	else
+		return SUCCESS;
 }
 
 int C_cnt::F_put_process_stop(int option)

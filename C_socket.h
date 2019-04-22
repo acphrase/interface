@@ -18,6 +18,7 @@
 #define WAIT_TIMEOUT		-1
 #define RECV_TIMEOUT		30000
 #define SEND_TIMEOUT		30000
+#define CHECK_TIMEOUT		1
 //#define RECV_TIMEOUT		3000
 //#define SEND_TIMEOUT		3000
 
@@ -130,12 +131,15 @@ class C_socket
         int F_read_socket(int _message_length);
 		int F_write_socket();
 		int F_check_message(int r_jang_status, long r_last_data_count);
+		int F_set_message();
 		int F_check_socket(int _time);
 		void F_set_non_blocking_mode(int _socket);
-		char* F_put_log_message();
+		char* F_put_log_recv_message();
+		char* F_put_log_send_message();
 		int F_link_status();
-		void F_set_message_error_code(int r_error_code);
-		int F_get_message_error_code();
+		void F_set_connect_status();
+		void F_set_error_code(int r_error_code);
+		int F_get_error_code();
 		int F_get_message_type();
 };
 

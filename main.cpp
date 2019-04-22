@@ -213,6 +213,7 @@ class C_main_handle
 					/* 2. Message Status Check */
 					if(_result == SUCCESS) 
 					{ /* 정상 수신 */
+						_log.F_write_log(_socket.F_put_log_recv_message());
 						break;
 					}
 					else
@@ -244,7 +245,6 @@ class C_main_handle
 		{
 			try
 			{
-
 				/* 1. 마지막 데이터 갯수 확인 */
 				long _last_data_count = 0;
 				_last_data_count = _cnt.F_get_last_data_count();
@@ -253,14 +253,19 @@ class C_main_handle
 				F_get_jang();
 
 				/* 3. Check Message */
-				_socket.F_check_message(_jang_status, _last_data_count);
+				int _result_check = 0;
+				_result_check = _socket.F_check_message(_jang_status, _last_data_count);
+				if(_result_check == END)
+				{
+					F_stop_process(SUCCESS);
+				}
 			}
 			catch(const char* r_message)
 			{
 				_log.F_write_log(r_message);
 				_msg.F_write_msg(r_message);
-				_error_code = _socket.F_get_message_error_code();
-				if( _error_code != FAIL)
+				_error_code = _socket.F_get_error_code();
+				if(_error_code != FAIL)
 				{
 					_cnt.F_setting_tcpip_error_code(_error_code);
 					memset(_message, 0x00, sizeof(_message));
@@ -277,26 +282,100 @@ class C_main_handle
 			}
 		}
 
+		void F_send_message()
+		{
+			/* Variable Init */
+			int _result = FAIL;
+
+			while(1)
+			{
+				try
+				{
+					/* 1. Send Message */
+					_result = _socket.F_send_message();
+
+					/* 2. Message Status Check */
+					if(_result == SUCCESS) 
+					{ /* 정상 송신 */
+						_log.F_write_log(_socket.F_put_log_send_message());
+						F_update_cnt(NORMAL);
+						break;
+					}
+					else
+					{
+						memset(_message, 0x00, sizeof(_message));
+						sprintf(_message, "Message Send Error.. : %s", strerror(errno));
+						_log.F_write_log(_message);
+						_log.F_write_log(_message);
+						F_stop_process(FAIL);
+					}
+				}
+				catch(const char* r_message)
+				{
+					_log.F_write_log(r_message);
+					_msg.F_write_msg(r_message);
+					_log.F_write_log("TRY TCP/IP RECONNECT..");
+
+					/* Socket recreate */
+					F_start();
+				}
+			}
+		}
+
+		void F_set_message()
+		{
+			try
+			{
+				_socket.F_set_message();
+				_log.F_write_log(_socket.F_put_log_send_message());
+			}
+			catch(const char* r_message)
+			{
+				_log.F_write_log(r_message);
+				_msg.F_write_msg(r_message);
+			}
+		}
+
 		void F_update_cnt(int msg_type)
 		{
+			int _update_result;
 			try
 			{
 				switch(msg_type)
 				{
 					case START :
-						_cnt.F_update_cnt(START);
+						_update_result = _cnt.F_update_cnt(START);
 						break;
 					case ERROR :
-						_cnt.F_update_cnt(ERROR);
+						_update_result = _cnt.F_update_cnt(ERROR);
 						break;
 					case NORMAL :
-						_cnt.F_update_cnt(_socket.F_get_message_type());
+						_update_result = _cnt.F_update_cnt(_socket.F_get_message_type());
 						break;
 					default :
 						memset(_message, 0x00, sizeof(_message));
-						sprintf(_message, "Invalid Message Type..%d (in message_set)", msg_type);
+						sprintf(_message, "Invalid Message Type..%d (in control)", msg_type);
+						_log.F_write_log(_message);
+						_msg.F_write_msg(_message);
 						F_stop_process(FAIL);
 						break;
+				}
+
+				if(_update_result !=  SUCCESS)
+				{
+					if(_update_result == MSG_0810_001)
+					{
+						_socket.F_set_connect_status();
+
+						_log.F_write_log("Link Complete..");
+						_msg.F_write_msg("Link Complete..");
+					}
+					else
+					{
+						_log.F_write_log("CNT File Update Error..");
+						_msg.F_write_msg("CNT File Update Error..");
+						F_stop_process(FAIL);
+					}
 				}
 			}
 			catch(const char* r_message)
@@ -337,11 +416,6 @@ class C_main_handle
 				exit(1);
 			}
 		}
-
-		void F_log()
-		{
-			_log.F_write_log(_socket.F_put_log_message());
-		}
 };
 
 int main(int argc, char *argv[])
@@ -350,7 +424,6 @@ int main(int argc, char *argv[])
 	argc = 3;
 	argv[1] = "999r1";
 	argv[2] = "tconfig";
-
 
 	/* Parameter Check */
 	C_main_handle _control(&argc, argv);
@@ -366,23 +439,17 @@ int main(int argc, char *argv[])
 	
     while(1)
     {
-        /* 0. Socket Create, Bind, Listen, Accept */
+        /* 1. Socket Create, Bind, Listen, Accept */
         _control.F_start();
 
-        /* 1. Recv Message */
+        /* 2. Recv Message */
 		_control.F_read_message();
 
-        /* 2. Message Check */
+        /* 3. Message Check & Message Set */
 		_control.F_check_message();
 
-		/* 3. Send Message Set */
-
-		/* 4. Data Set */
-
-        /* 5. Send Message */
-
-
-		_control.F_log();
+		/* 4. Send Message */
+		_control.F_send_message();
     }
 
 	return 0;

@@ -242,23 +242,31 @@ int C_socket::F_send_message()
 	int _send_message_length = 0;
 	_send_message_length = strlen(_send_message.message_length);
 
-	/* 2. Time Setting */
-	_date_time.F_update_date_time();
-	_date = _date_time.F_get_date();
-	_time = _date_time.F_get_time();
+	/* 2. Send Message Setting */
+	F_set_message();
 
-	/* 3. Send Meassage Time Setting */
-	strncpy(_send_message.time, &_date[2], 6);
-	strncpy(&_send_message.time[6], _time, 6);
-
-	/* 4. Send Message from Buffer */
+	/* 3. Send Message from Buffer */
 	_send_length = F_write_socket();
-	if(_send_length == _send_message_length)
-		return SUCCESS;
-	else
-	{
-		throw	"Message Send Error To Socket..";
-	}
+	return SUCCESS;
+	//if(_send_length == _send_message_length)
+	//{
+	//	return SUCCESS;
+	//}
+	//else
+	//{
+	//	/* Socket Close */
+	//	_link_status = DISCONNECT;
+	//	_connect_status = DISCONNECT;
+	//	epoll_ctl(_epfd, EPOLL_CTL_DEL, _server_socket, NULL);
+	//	epoll_ctl(_epfd, EPOLL_CTL_DEL, _client_socket, NULL);
+	//	close(_client_socket);
+	//	close(_server_socket);
+	//	int _retry_temp = 0;
+	//	_retry_temp = _retry_check;
+	//	F_put_retry_init();
+
+	//	throw	"Message Send Error To Socket..";
+	//}
 }
 
 void C_socket::F_event_timeout()
@@ -376,7 +384,7 @@ int C_socket::F_check_message(int r_jang_status, long r_last_data_count)
 	{
 		if(strncmp(_tr_code, _recv_message.data_tr_code, 2) != 0)
 		{
-			F_set_message_error_code(PARSING_ERROR);
+			F_set_error_code(PARSING_ERROR);
 			throw "[Header] Parsing Error..";
 		}
 
@@ -386,7 +394,7 @@ int C_socket::F_check_message(int r_jang_status, long r_last_data_count)
 
 		if(strlen(_recv_buffer) != (HEADER_LENGTH + _header_message_length + _data_length))
 		{
-			F_set_message_error_code(FORMAT_ERROR);
+			F_set_error_code(FORMAT_ERROR);
 			throw "[Header] Format Error..";
 		}
 	}
@@ -396,12 +404,12 @@ int C_socket::F_check_message(int r_jang_status, long r_last_data_count)
 	{
 		if(_jang_status == JANG_BEFORE)
 		{
-			F_set_message_error_code(MARKET_BEF_ERROR);
+			F_set_error_code(MARKET_BEF_ERROR);
 			throw "[Header] Market is Not Started..";
 		}
 		if(_jang_status == JANG_CLOSE)
 		{
-			F_set_message_error_code(MARKET_AFT_ERROR);
+			F_set_error_code(MARKET_AFT_ERROR);
 			throw "[Header] Market is Aleady End..";
 		}
 	}
@@ -410,7 +418,7 @@ int C_socket::F_check_message(int r_jang_status, long r_last_data_count)
 	{
 		if(_jang_status == JANG_CLOSE)
 		{
-			F_set_message_error_code(MARKET_AFT_ERROR);
+			F_set_error_code(MARKET_AFT_ERROR);
 			throw "[Header] Market is Aleady End..";
 		}
 	}
@@ -420,7 +428,7 @@ int C_socket::F_check_message(int r_jang_status, long r_last_data_count)
 	{
 		memset(_message, 0x00, sizeof(_message));
 		sprintf(_message, "[Header] TR_CODE error..%.3s", _recv_message.tr_code);
-		F_set_message_error_code(TR_CODE_INVALID);
+		F_set_error_code(TR_CODE_INVALID);
 		throw _message;
 	}
 
@@ -430,7 +438,7 @@ int C_socket::F_check_message(int r_jang_status, long r_last_data_count)
 
 		memset(_message, 0x00, sizeof(_message));
 		sprintf(_message, "[Header] Gigwan ID error..%.3s", _recv_message.gigwan_id);
-		F_set_message_error_code(GIGWAN_ID_INVALID);
+		F_set_error_code(GIGWAN_ID_INVALID);
 		throw _message;
 	}
 
@@ -445,7 +453,7 @@ int C_socket::F_check_message(int r_jang_status, long r_last_data_count)
 		{
 			memset(_message, 0x00, sizeof(_message));
 			sprintf(_message, "Invalid Recv[R] MSG TYPE : %.4s.%.3s", _recv_message.msg_type, _recv_message.opr_type);
-			F_set_message_error_code(MSG_TYPE_INVALID);
+			F_set_error_code(MSG_TYPE_INVALID);
 			throw _message;
 		}
 	}
@@ -458,7 +466,7 @@ int C_socket::F_check_message(int r_jang_status, long r_last_data_count)
 		{
 			memset(_message, 0x00, sizeof(_message));
 			sprintf(_message, "Invalid Recv[S] MSG TYPE : %.4s.%.3s", _recv_message.msg_type, _recv_message.opr_type);
-			F_set_message_error_code(MSG_TYPE_INVALID);
+			F_set_error_code(MSG_TYPE_INVALID);
 			throw _message;
 		}
 
@@ -469,7 +477,7 @@ int C_socket::F_check_message(int r_jang_status, long r_last_data_count)
 			{
 				memset(_message, 0x00, sizeof(_message));
 				sprintf(_message, "Invalid Recv[S] OPR TYPE : %.4s.%.3s", _recv_message.msg_type, _recv_message.opr_type);
-				F_set_message_error_code(OPR_TYPE_INVALID);
+				F_set_error_code(OPR_TYPE_INVALID);
 				throw _message;
 			}
 		}
@@ -487,7 +495,7 @@ int C_socket::F_check_message(int r_jang_status, long r_last_data_count)
 		{
 			memset(_message, 0x00, sizeof(_message));
 			sprintf(_message, "RCV data before 0800/001 : %.4s %.3s", _recv_message.msg_type, _recv_message.opr_type);
-			F_set_message_error_code(MSG_TYPE_INVALID);
+			F_set_error_code(MSG_TYPE_INVALID);
 			throw _message;
 		}
 	}
@@ -508,7 +516,7 @@ int C_socket::F_check_message(int r_jang_status, long r_last_data_count)
 			{ /* 마지막 count와 같아야 함 */
 				memset(_message, 0x00, sizeof(_message));
 				sprintf(_message, "RCV [S header] data no : %ld..%ld", _recv_data_no, _last_data_count);
-				F_set_message_error_code(DATA_NO_INVALID);
+				F_set_error_code(DATA_NO_INVALID);
 				throw _message;
 			}
 		}
@@ -520,7 +528,7 @@ int C_socket::F_check_message(int r_jang_status, long r_last_data_count)
 				{
 					memset(_message, 0x00, sizeof(_message));
 					sprintf(_message, "RCV [R header] data no : %ld..%ld", _recv_data_no, _last_data_count);
-					F_set_message_error_code(DATA_NO_INVALID);
+					F_set_error_code(DATA_NO_INVALID);
 					throw _message;
 				}
 			}
@@ -530,7 +538,7 @@ int C_socket::F_check_message(int r_jang_status, long r_last_data_count)
 				{
 					memset(_message, 0x00, sizeof(_message));
 					sprintf(_message, "RCV [R header] data no : %ld..%ld", _recv_data_no, _last_data_count + 1);
-					F_set_message_error_code(DATA_NO_INVALID);
+					F_set_error_code(DATA_NO_INVALID);
 					throw _message;
 				}
 			}
@@ -553,7 +561,7 @@ int C_socket::F_check_message(int r_jang_status, long r_last_data_count)
 		{
 			memset(_message, 0x00, sizeof(_message));
 			sprintf(_message, "RCV Data Block Cnt Error : %d..", _recv_data_cnt);
-			F_set_message_error_code(DATA_CNT_INVALID);
+			F_set_error_code(DATA_CNT_INVALID);
 			throw _message;
 		}
 	}
@@ -563,7 +571,7 @@ int C_socket::F_check_message(int r_jang_status, long r_last_data_count)
 		{
 			memset(_message, 0x00, sizeof(_message));
 			sprintf(_message, "RCV Data Block Cnt Error : %d..", _recv_data_cnt);
-			F_set_message_error_code(DATA_CNT_INVALID);
+			F_set_error_code(DATA_CNT_INVALID);
 			throw _message;
 		}
 	}
@@ -582,15 +590,165 @@ int C_socket::F_check_message(int r_jang_status, long r_last_data_count)
 		{
 			memset(_message, 0x00, sizeof(_message));
 			sprintf(_message, "RCV [Data] Data SEQ Error : %ld, %ld", _recv_data_no, _recv_data_seq);
-			F_set_message_error_code(SEQ_ERROR);
+			F_set_error_code(SEQ_ERROR);
 			throw _message;
 		}
 	}
 
-	/* 11. 개시 응답일 경우 Connect 상태 변수 변경 */
-	if(_recv_message_type == MSG_0800_001)
+	F_set_error_code(NO_ERROR);
+
+	if(strncasecmp(_communicate_type, &_send_gubun, 1) == 0)
+	{ /* 송신 통신 일 경우 */
+		if(F_get_error_code() == FAIL)
+		{ /* Message Check시, 정상 인 경우 (NO_ERROR일 경우 FAIL 반환) */
+			if(_recv_message_type == MSG_0810_040)
+			{ /* 종료 수신 일 경우 */
+				return END;
+			}
+		}
+	}
+
+	return SUCCESS;
+}
+
+int C_socket::F_set_message()
+{
+	/* 1. Message_length */
+	strncpy(_send_message.message_length, _recv_message.message_length, 4);
+
+	/* 2. TR-Code Set */
+    strncpy(_send_message.tr_code, "N        ", 9);
+
+	/* 3. Time Setting */
+	_date_time.F_update_date_time();
+	_date = _date_time.F_get_date();
+	_time = _date_time.F_get_time();
+	strncpy(_send_message.time, &_date[2], 6);
+	strncpy(&_send_message.time[6], _time, 6);
+
+    /* 4. Retry Set */
+	char _temp_retry[3];
+	memset(_temp_retry, 0x00, sizeof(_temp_retry));
+	sprintf(_temp_retry, "%.2d", _retry_check);
+    strncpy(_send_message.retry_cnt, _temp_retry, 2);
+
+	if(strncasecmp(_communicate_type, &_recv_gubun, 1) == 0)
 	{
-		_connect_status = CONNECT;
+		/* 5. Error Code Set */
+		switch(_error_code)
+    	{
+    	    case NO_ERROR :
+    	        strncpy(_send_message.err_code, "00", 2);
+    	        break;
+    	    case SEQ_ERROR : /* DATA SEQ Error */
+    	        strncpy(_send_message.err_code, "01", 2);
+    	        break;
+    	    case CNT_ERROR : /* DATA 건수 Error */
+    	        strncpy(_send_message.err_code, "02", 2);
+    	        break;
+    	    case MARKET_BEF_ERROR : /* 장개시 전 Error */
+    	        strncpy(_send_message.err_code, "03", 2);
+    	        break; 
+    	    case MARKET_AFT_ERROR : /* 장마감 Error */
+    	        strncpy(_send_message.err_code, "04", 2);
+    	        break; 
+    	    case FORMAT_ERROR : /* 전문 길이 Error */
+    	        strncpy(_send_message.err_code, "14", 2);
+    	        break; 
+    	    case PARSING_ERROR : /* 전문TR Error */
+    	        strncpy(_send_message.err_code, "18", 2);
+    	        break; 
+    	    case TR_CODE_INVALID :
+    	        strncpy(_send_message.err_code, "91", 2);
+    	        break;
+    	    case GIGWAN_ID_INVALID :
+    	        strncpy(_send_message.err_code, "92", 2);
+    	        break;
+    	    case MSG_TYPE_INVALID :
+    	        strncpy(_send_message.err_code, "93", 2);
+    	        break;
+    	    case DATA_NO_INVALID : /* DATA Number Error */
+    	        strncpy(_send_message.err_code, "98", 2);
+    	        break; 
+    	    case DATA_CNT_INVALID : /* DATA 개수 Error */
+    	        strncpy(_send_message.err_code, "99", 2);
+    	        break; 
+    	    default :
+				memset(_message, 0x00, sizeof(_message));
+				sprintf(_message, "Invalid Error Code..%d(In Message Set)", _error_code);
+				throw _message;
+    	}
+
+		/* 6. 기관 ID Set */
+    	strncpy(_send_message.gigwan_id, _recv_message.gigwan_id, 3);
+
+		/* 7. 전문 type set */
+		switch(_recv_message_type)
+    	{
+    	    case MSG_0800_001 :
+    	        strncpy(_send_message.msg_type, "0810", 4);
+    	        strncpy(_send_message.opr_type, "001", 3);
+    	        break;
+    	    case MSG_0800_301 :
+    	        strncpy(_send_message.msg_type, "0810", 4);
+    	        strncpy(_send_message.opr_type, "301", 3);
+    	        break;
+    	    case MSG_0800_040 :
+    	        strncpy(_send_message.msg_type, "0810", 4);
+    	        strncpy(_send_message.opr_type, "040", 3);
+    	        break;
+    	    case MSG_0200_000 :
+    	        strncpy(_send_message.msg_type, "0210", 4);
+    	        strncpy(_send_message.opr_type, "000", 3);
+    	        break ;
+    	    default :
+				memset(_message, 0x00, sizeof(_message));
+				sprintf(_message, "Invalid Message Type..%d (In Message Set)", _recv_message_type);
+				throw _message;
+    	}
+
+		/* 8. Data 번호 및 갯수 */
+    	strncpy(_send_message.data_no, _recv_message.data_no, 8);
+    	strncpy(_send_message.data_cnt, _recv_message.data_cnt, 2);
+	}
+	else
+	{
+		/* 5. Error Code Set */
+		strncpy(_send_message.err_code, "00", 2);
+
+		/* 6. 기관 ID Set */
+    	strncpy(_send_message.gigwan_id, _company_id, 3);
+
+		/* 7. 전문 type set */
+		switch(_send_message_type)
+    	{
+    	    case MSG_0800_001 :
+    	        strncpy(_send_message.msg_type, "0800", 4);
+    	        strncpy(_send_message.opr_type, "001", 3);
+    	        break;
+    	    case MSG_0800_301 :
+    	        strncpy(_send_message.msg_type, "0800", 4);
+    	        strncpy(_send_message.opr_type, "301", 3);
+    	        break;
+    	    case MSG_0800_040 :
+    	        strncpy(_send_message.msg_type, "0800", 4);
+    	        strncpy(_send_message.opr_type, "040", 3);
+    	        break;
+    	    case MSG_0200_000 :
+    	        strncpy(_send_message.msg_type, "0200", 4);
+    	        strncpy(_send_message.opr_type, "000", 3);
+    	        break ;
+    	    default :
+				memset(_message, 0x00, sizeof(_message));
+				sprintf(_message, "Invalid Message Type..%d (In Message Set)", _recv_message_type);
+				throw _message;
+    	}
+
+		/* 8. Data 번호 및 갯수 */
+		char _temp_count[9];
+		sprintf(_temp_count, "%.8ld", _last_data_count + 1);
+    	strncpy(_send_message.data_no, _temp_count, 8);
+    	//strncpy(_send_message.data_cnt, _recv_message.data_cnt, 2);
 	}
 
 	return SUCCESS;
@@ -650,35 +808,42 @@ void C_socket::F_set_non_blocking_mode(int _socket)
 	fcntl(_socket, F_SETFL, flag | O_NONBLOCK);
 }
 
-char* C_socket::F_put_log_message()
+char* C_socket::F_put_log_recv_message()
 {
 	memset(_message, 0x00, sizeof(_message));
 
-	if(strncasecmp(_communicate_type, &_recv_gubun, 1) == 0)
-	{ /* 수신 상황일 경우 */
-		sprintf(_message, "RECV %.4s %.1s %.3s %.4s %.3s %.2s %.12s %.2s %.8s %.2s.%ld", _recv_message.message_length, _recv_message.tr_code, _recv_message.gigwan_id, _recv_message.msg_type, _recv_message.opr_type, _recv_message.err_code, _recv_message.time, _recv_message.retry_cnt, _recv_message.data_no, _recv_message.data_cnt, strlen(_recv_message.message_length));
-	}
-	else
-	{ /* 송신 상황일 경우 */
-		sprintf(_message, "RECV %.4s %.1s %.3s %.4s %.3s %.2s %.12s %.2s %.8s %.2s.%ld", _send_message.message_length, _send_message.tr_code, _send_message.gigwan_id, _send_message.msg_type, _send_message.opr_type, _send_message.err_code, _send_message.time, _send_message.retry_cnt, _send_message.data_no, _send_message.data_cnt, strlen(_send_message.message_length));
-	}
+	sprintf(_message, "RECV %.4s %.1s %.3s %.4s %.3s %.2s %.12s %.2s %.8s %.2s.%ld", _recv_message.message_length, _recv_message.tr_code, _recv_message.gigwan_id, _recv_message.msg_type, _recv_message.opr_type, _recv_message.err_code, _recv_message.time, _recv_message.retry_cnt, _recv_message.data_no, _recv_message.data_cnt, strlen(_recv_message.message_length));
 
 	return _message;
 }			
+
+char* C_socket::F_put_log_send_message()
+{
+	memset(_message, 0x00, sizeof(_message));
+	
+	sprintf(_message, "SEND %.4s %.1s %.3s %.4s %.3s %.2s %.12s %.2s %.8s %.2s.%ld", _send_message.message_length, _send_message.tr_code, _send_message.gigwan_id, _send_message.msg_type, _send_message.opr_type, _send_message.err_code, _send_message.time, _send_message.retry_cnt, _send_message.data_no, _send_message.data_cnt, strlen(_send_message.message_length));
+	
+	return _message;
+}
 
 int C_socket::F_link_status()
 {
 	return _link_status;
 }
 
-void C_socket::F_set_message_error_code(int r_error_code)
+void C_socket::F_set_connect_status()
+{
+	_connect_status = CONNECT;
+}
+
+void C_socket::F_set_error_code(int r_error_code)
 {
 	_error_code = r_error_code;
 }
 
-int C_socket::F_get_message_error_code()
+int C_socket::F_get_error_code()
 {
-	if(_error_code == 0)
+	if(_error_code == NO_ERROR)
 		return FAIL;
 	else
 		return _error_code;
@@ -687,7 +852,11 @@ int C_socket::F_get_message_error_code()
 int C_socket::F_get_message_type()
 {
 	if(strncasecmp(_communicate_type, &_recv_gubun, 1) == 0)
+	{
+		if(_recv_message_type == MSG_0800_001)
+			return MSG_0810_001;
 		return _recv_message_type;
+	}
 	else
 		return _send_message_type;
 }

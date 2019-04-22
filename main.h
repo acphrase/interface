@@ -43,6 +43,7 @@ using namespace std;
 #define SEND_GUBUN			'S'
 #define NORMAL				0
 #define START				11
+#define END					22
 #define ERROR				99
 #define MSG_0800_001		8001
 #define MSG_0810_001		8101
@@ -54,7 +55,7 @@ using namespace std;
 #define MSG_0210_000		2100
 
 /*----------------------------------------------------------------------------*/
-/*----------------------------- 7. Message error 구분 ------------------------*/
+/*----------------------------- 4. Message error 구분 ------------------------*/
 /*----------------------------------------------------------------------------*/
 #define   NO_ERROR              0
 #define   SEQ_ERROR             1

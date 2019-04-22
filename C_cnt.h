@@ -72,7 +72,7 @@ class C_cnt
 		char* F_get_process();
 		char* F_get_link();
 		void F_setting_tcpip_error_code(int r_error_code);
-		void F_update_cnt(int msg_type);
+		int F_update_cnt(int msg_type);
 		int F_put_process_stop(int option);
 };
 

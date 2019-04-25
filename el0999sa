@@ -1,0 +1,158 @@
+
+[$s999x-02:03:01] ====================================================
+[$s999x-02:03:01] TCP/IP PROGRAM
+[$s999x-02:03:01] ====================================================
+[$s999x-02:03:01] Log File OPEN(el0999sa)..
+[$s999x-02:03:01] MSG File OPEN(bmsgf99)..
+[$s999x-02:03:01] TCP/IP PROGRAM STARTING
+[$s999x-02:03:01] Data File OPEN(bgererv)..
+[$s999x-02:03:01] CNT File OPEN(bsqifsd)..
+[$s999x-02:03:01] Jang File OPEN(bmmjang)..
+[$s999x-02:03:01] Last Count : 22
+[$s999x-02:03:01] Proc Status : 1
+[$s999x-02:03:01] Link Status : 03
+[$s999x-02:03:01] Socket(NO = 9) Listening..
+[$s999x-02:03:03] TCP/IP Connected ( IP:127.0.0.1 port:51788 )
+[$s999x-02:03:03] Link 대기 중...
+[$s999x-02:03:03] RECV 0045 N 999 0800 001 00 190417141700 00 00000022 00.49
+[$s999x-02:03:03] SEND 0045 N 999 0810 001 00 190423020303 00 00000023 .47
+[$s999x-02:03:03] Invalid Message Type..-1 (in message_set)
+[$s999x-02:03:03] Interface PROGRAM ABNORMAL STOP
+[$s999x-11:40:40] ====================================================
+[$s999x-11:40:40] TCP/IP PROGRAM
+[$s999x-11:40:40] ====================================================
+[$s999x-11:40:40] Log File OPEN(el0999sa)..
+[$s999x-11:40:40] MSG File OPEN(bmsgf99)..
+[$s999x-11:40:40] TCP/IP PROGRAM STARTING
+[$s999x-11:40:40] Data File OPEN(bgererv)..
+[$s999x-11:40:40] CNT File OPEN(bsqifsd)..
+[$s999x-11:40:40] Jang File OPEN(bmmjang)..
+[$s999x-11:40:40] Last Count : 22
+[$s999x-11:40:40] Proc Status : 2
+[$s999x-11:40:40] Link Status : 03
+[$s999x-11:40:40] Socket(NO = 9) Listening..
+[$s999x-11:40:57] TCP/IP Connected ( IP:127.0.0.1 port:51850 )
+[$s999x-11:40:57] Link 대기 중...
+[$s999x-11:40:57] RECV 0045 N 999 0800 001 00 190417141700 00 00000022 00.49
+[$s999x-11:40:57] SEND 0045 N 999 0810 001 00 190425114057 00 00000022 00.49
+[$s999x-11:40:57] Invalid Message Type..-1 (in message_set)
+[$s999x-11:40:57] Interface PROGRAM ABNORMAL STOP
+[$s999x-12:35:31] ====================================================
+[$s999x-12:35:31] TCP/IP PROGRAM
+[$s999x-12:35:31] ====================================================
+[$s999x-12:35:31] Log File OPEN(el0999sa)..
+[$s999x-12:35:31] MSG File OPEN(bmsgf99)..
+[$s999x-12:35:31] TCP/IP PROGRAM STARTING
+[$s999x-12:35:31] Data File OPEN(bgererv)..
+[$s999x-12:35:31] CNT File OPEN(bsqifsd)..
+[$s999x-12:35:31] Jang File OPEN(bmmjang)..
+[$s999x-12:35:31] Last Count : 22
+[$s999x-12:35:31] Proc Status : 2
+[$s999x-12:35:31] Link Status : 03
+[$s999x-12:35:31] Socket(NO = 9) Listening..
+[$s999x-12:35:33] TCP/IP Connected ( IP:127.0.0.1 port:51854 )
+[$s999x-12:35:33] Link 대기 중...
+[$s999x-12:35:33] RECV 0045 N 999 0800 001 00 190417141700 00 00000022 00.49
+[$s999x-12:35:33] Message Send Error To Socket..
+[$s999x-12:35:33] TRY TCP/IP RECONNECT..
+[$s999x-12:35:33] Socket(NO = 9) Listening..
+[$s999x-12:37:30] ====================================================
+[$s999x-12:37:30] TCP/IP PROGRAM
+[$s999x-12:37:30] ====================================================
+[$s999x-12:37:30] Log File OPEN(el0999sa)..
+[$s999x-12:37:30] MSG File OPEN(bmsgf99)..
+[$s999x-12:37:30] TCP/IP PROGRAM STARTING
+[$s999x-12:37:30] Data File OPEN(bgererv)..
+[$s999x-12:37:30] CNT File OPEN(bsqifsd)..
+[$s999x-12:37:30] Jang File OPEN(bmmjang)..
+[$s999x-12:37:31] Last Count : 22
+[$s999x-12:37:31] Proc Status : 1
+[$s999x-12:37:31] Link Status : 03
+[$s999x-12:37:53] Socket(NO = 9) Listening..
+[$s999x-12:37:58] TCP/IP Connected ( IP:127.0.0.1 port:51856 )
+[$s999x-12:37:58] Link 대기 중...
+[$s999x-12:38:01] RECV 0045 N 999 0800 001 00 190417141700 00 00000022 00.49
+[$s999x-12:43:46] ====================================================
+[$s999x-12:43:46] TCP/IP PROGRAM
+[$s999x-12:43:46] ====================================================
+[$s999x-12:43:46] Log File OPEN(el0999sa)..
+[$s999x-12:43:46] MSG File OPEN(bmsgf99)..
+[$s999x-12:43:46] TCP/IP PROGRAM STARTING
+[$s999x-12:43:46] Data File OPEN(bgererv)..
+[$s999x-12:43:46] CNT File OPEN(bsqifsd)..
+[$s999x-12:43:46] Jang File OPEN(bmmjang)..
+[$s999x-12:43:46] Last Count : 22
+[$s999x-12:43:46] Proc Status : 1
+[$s999x-12:43:46] Link Status : 03
+[$s999x-12:43:46] Socket(NO = 9) Listening..
+[$s999x-12:43:48] TCP/IP Connected ( IP:127.0.0.1 port:51858 )
+[$s999x-12:43:48] Link 대기 중...
+[$s999x-12:43:48] RECV 0045 N 999 0800 001 00 190417141700 00 00000022 00.49
+[$s999x-12:43:48] SEND 0045 N 999 0810 001 00 190425124348 00 00000022 00.49
+[$s999x-12:43:48] Invalid Message Type..-1 (in message_set)
+[$s999x-12:43:48] Interface PROGRAM ABNORMAL STOP
+[$s999x-12:46:43] ====================================================
+[$s999x-12:46:43] TCP/IP PROGRAM
+[$s999x-12:46:43] ====================================================
+[$s999x-12:46:43] Log File OPEN(el0999sa)..
+[$s999x-12:46:43] MSG File OPEN(bmsgf99)..
+[$s999x-12:46:43] TCP/IP PROGRAM STARTING
+[$s999x-12:46:43] Data File OPEN(bgererv)..
+[$s999x-12:46:43] CNT File OPEN(bsqifsd)..
+[$s999x-12:46:43] Jang File OPEN(bmmjang)..
+[$s999x-12:46:43] Last Count : 22
+[$s999x-12:46:43] Proc Status : 2
+[$s999x-12:46:43] Link Status : 03
+[$s999x-12:46:43] Socket(NO = 9) Listening..
+[$s999x-12:46:47] TCP/IP Connected ( IP:127.0.0.1 port:51860 )
+[$s999x-12:46:47] Link 대기 중...
+[$s999x-12:46:47] RECV 0045 N 999 0800 001 00 190417141700 00 00000022 00.49
+[$s999x-12:47:22] SEND 0045 N 999 0810 001 00 190425124705 00 00000022 00.49
+[$s999x-17:16:15] ====================================================
+[$s999x-17:16:15] TCP/IP PROGRAM
+[$s999x-17:16:15] ====================================================
+[$s999x-17:16:15] Log File OPEN(el0999sa)..
+[$s999x-17:16:15] MSG File OPEN(bmsgf99)..
+[$s999x-17:16:15] TCP/IP PROGRAM STARTING
+[$s999x-17:16:15] Data File OPEN(bgererv)..
+[$s999x-17:16:15] CNT File OPEN(bsqifsd)..
+[$s999x-17:16:15] Jang File OPEN(bmmjang)..
+[$s999x-17:16:15] Last Count : 22
+[$s999x-17:16:15] Proc Status : 1
+[$s999x-17:16:15] Link Status : 03
+[$s999x-17:16:15] Socket(NO = 9) Listening..
+[$s999x-17:16:17] TCP/IP Connected ( IP:127.0.0.1 port:51866 )
+[$s999x-17:16:17] Link 대기 중...
+[$s999x-17:16:17] RECV 0045 N 999 0800 001 00 190417141700 00 00000022 00.49
+[$s999x-17:16:17] SEND 0045 N 999 0810 001 00 190425171617 00 00000022 00.49
+[$s999x-17:16:17] Link Complete..
+[$s999x-17:16:22] RECV 0045 N 999 0800 301 00 190417141700 00 00000022 00.49
+[$s999x-17:16:22] Invalid Recv[S] MSG TYPE : 0800.301
+[$s999x-17:16:22] Interface Error Code..93
+[$s999x-17:16:22] SEND 0045 N 999 0800 301 00 190425171622 00 00000023 00.49
+[$s999x-17:16:22] Invalid Message Type..-1 (in message_set)
+[$s999x-17:16:22] Interface PROGRAM ABNORMAL STOP
+[$s999x-00:03:46] ====================================================
+[$s999x-00:03:46] TCP/IP PROGRAM
+[$s999x-00:03:46] ====================================================
+[$s999x-00:03:46] Log File OPEN(el0999sa)..
+[$s999x-00:03:46] MSG File OPEN(bmsgf99)..
+[$s999x-00:03:46] TCP/IP PROGRAM STARTING
+[$s999x-00:03:46] Data File OPEN(bgererv)..
+[$s999x-00:03:46] CNT File OPEN(bsqifsd)..
+[$s999x-00:03:46] Jang File OPEN(bmmjang)..
+[$s999x-00:03:46] Last Count : 22
+[$s999x-00:03:46] Proc Status : 2
+[$s999x-00:03:46] Link Status : 01
+[$s999x-00:03:46] Socket(NO = 10) Listening..
+[$s999x-00:03:48] TCP/IP Connected ( IP:127.0.0.1 port:51870 )
+[$s999x-00:03:48] Link 대기 중...
+[$s999x-00:03:48] RECV 0045 N 999 0800 001 00 190417141700 00 00000022 00.49
+[$s999x-00:03:48] SEND 0045 N 999 0810 001 00 190426000348 00 00000022 00.49
+[$s999x-00:03:48] Link Complete..
+[$s999x-00:03:53] RECV 0045 N 999 0800 301 00 190417141700 00 00000022 00.49
+[$s999x-00:03:53] Invalid Recv[S] MSG TYPE : 0800.301
+[$s999x-00:03:53] Interface Error Code..93
+[$s999x-00:03:53] SEND 0045 N 999 0800 301 00 190426000353 00 00000023 00.49
+[$s999x-00:03:53] Invalid Message Type..-1 (in message_set)
+[$s999x-00:03:53] Interface PROGRAM ABNORMAL STOP

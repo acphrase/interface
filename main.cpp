@@ -102,7 +102,7 @@ class C_main_handle
 				_msg.F_write_msg("TCP/IP PROGRAM STARTING");
 
 				/* 4. Data File Open */
-				_log.F_write_log(_data.F_open_data_file(_config.F_get_data_file_name()));
+				_log.F_write_log(_data.F_open_data_file(_config.F_get_data_file_name(), _config.F_get_communication_type()));
 
 				/* 5. CNT File Open */
 				_log.F_write_log(_cnt.F_open_cnt_file(_config.F_get_cnt_file_name(), _config.F_get_company_id(), _config.F_get_cnt_gubun()));
@@ -231,6 +231,7 @@ class C_main_handle
 				{
 					_log.F_write_log(r_message);
 					_msg.F_write_msg(r_message);
+					break;
 				}
 				catch(const int _fail)
 				{
@@ -318,6 +319,7 @@ class C_main_handle
 
 					/* Socket recreate */
 					F_start();
+					break;
 				}
 			}
 		}
@@ -422,7 +424,7 @@ int main(int argc, char *argv[])
 {
 	
 	argc = 3;
-	argv[1] = "999r1";
+	argv[1] = "999s1";
 	argv[2] = "tconfig";
 
 	/* Parameter Check */

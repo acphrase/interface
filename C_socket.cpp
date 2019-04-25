@@ -240,33 +240,33 @@ int C_socket::F_send_message()
 	/* 1. Variable Init */
 	int _send_length = 0;
 	int _send_message_length = 0;
-	_send_message_length = strlen(_send_message.message_length);
+	//_send_message_length = strlen(_send_message.message_length);
+	_send_message_length = 49;
 
 	/* 2. Send Message Setting */
 	F_set_message();
 
 	/* 3. Send Message from Buffer */
 	_send_length = F_write_socket();
-	return SUCCESS;
-	//if(_send_length == _send_message_length)
-	//{
-	//	return SUCCESS;
-	//}
-	//else
-	//{
-	//	/* Socket Close */
-	//	_link_status = DISCONNECT;
-	//	_connect_status = DISCONNECT;
-	//	epoll_ctl(_epfd, EPOLL_CTL_DEL, _server_socket, NULL);
-	//	epoll_ctl(_epfd, EPOLL_CTL_DEL, _client_socket, NULL);
-	//	close(_client_socket);
-	//	close(_server_socket);
-	//	int _retry_temp = 0;
-	//	_retry_temp = _retry_check;
-	//	F_put_retry_init();
+	if(_send_length == _send_message_length)
+	{
+		return SUCCESS;
+	}
+	else
+	{
+		/* Socket Close */
+		_link_status = DISCONNECT;
+		_connect_status = DISCONNECT;
+		epoll_ctl(_epfd, EPOLL_CTL_DEL, _server_socket, NULL);
+		epoll_ctl(_epfd, EPOLL_CTL_DEL, _client_socket, NULL);
+		close(_client_socket);
+		close(_server_socket);
+		int _retry_temp = 0;
+		_retry_temp = _retry_check;
+		F_put_retry_init();
 
-	//	throw	"Message Send Error To Socket..";
-	//}
+		throw	"Message Send Error To Socket..";
+	}
 }
 
 void C_socket::F_event_timeout()
@@ -720,10 +720,10 @@ int C_socket::F_set_message()
     	strncpy(_send_message.gigwan_id, _company_id, 3);
 
 		/* 7. 전문 type set */
-		switch(_send_message_type)
+		switch(_recv_message_type)
     	{
     	    case MSG_0800_001 :
-    	        strncpy(_send_message.msg_type, "0800", 4);
+    	        strncpy(_send_message.msg_type, "0810", 4);
     	        strncpy(_send_message.opr_type, "001", 3);
     	        break;
     	    case MSG_0800_301 :
@@ -746,9 +746,17 @@ int C_socket::F_set_message()
 
 		/* 8. Data 번호 및 갯수 */
 		char _temp_count[9];
-		sprintf(_temp_count, "%.8ld", _last_data_count + 1);
-    	strncpy(_send_message.data_no, _temp_count, 8);
-    	//strncpy(_send_message.data_cnt, _recv_message.data_cnt, 2);
+		if(_recv_message_type == MSG_0800_001)
+		{
+			strncpy(_send_message.data_no, _recv_message.data_no, 8);
+			strncpy(_send_message.data_cnt, _recv_message.data_cnt, 2);
+		}
+		else
+		{
+			sprintf(_temp_count, "%.8ld", _last_data_count + 1);
+			strncpy(_send_message.data_no, _temp_count, 8);
+			strncpy(_send_message.data_cnt, _recv_message.data_cnt, 2);
+		}
 	}
 
 	return SUCCESS;
@@ -851,12 +859,10 @@ int C_socket::F_get_error_code()
 
 int C_socket::F_get_message_type()
 {
+	if(_recv_message_type == MSG_0800_001)
+		return MSG_0810_001;
 	if(strncasecmp(_communicate_type, &_recv_gubun, 1) == 0)
-	{
-		if(_recv_message_type == MSG_0800_001)
-			return MSG_0810_001;
 		return _recv_message_type;
-	}
 	else
 		return _send_message_type;
 }

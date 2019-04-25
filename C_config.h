@@ -3,8 +3,6 @@
 
 #include"main.h"
 
-#define CONFIG_RECORD_LENGTH 267
-
 class C_config
 {
 	private :

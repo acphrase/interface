@@ -4,64 +4,6 @@
 #include"main.h"
 #include"C_time.h"
 
-/*----------------------------------------------------------------------------*/
-/*----------------------------- 1. Message 구분 ------------------------------*/
-/*----------------------------------------------------------------------------*/
-#define SND_RCV_CHK			500		/* 500: 송신시 recv 있음 */
-#define UNDEFINED			-1
-#define HEADER_LENGTH		4		/* 전문길이정보 */
-#define BLOCK_COUNT			1		/* 전문블록 갯수 */
-
-/*----------------------------------------------------------------------------*/
-/*----------------------------- 2. TIMEOUT 구분 ------------------------------*/
-/*----------------------------------------------------------------------------*/
-#define WAIT_TIMEOUT		-1
-#define RECV_TIMEOUT		30000
-#define SEND_TIMEOUT		30000
-#define CHECK_TIMEOUT		1
-//#define RECV_TIMEOUT		3000
-//#define SEND_TIMEOUT		3000
-
-/*----------------------------------------------------------------------------*/
-/*----------------------------- 3. ETC ---------------------------------------*/
-/*----------------------------------------------------------------------------*/
-#define HEADER_TR_CODE		'N'
-#define BUF_SIZE			4000
-#define EPOLL_SIZE			5
-
-struct RECV_MESSAGE_DEF
-{ /* 수신 메세지 definition */
-  char message_length           [4];
-  char tr_code                  [9];   /* TR-code : "N       " */
-  char gigwan_id                [3];   /* 기관 id : 999 */
-  char msg_type                 [4];   /* 전문 type : 0800,0810,0200,0210 */
-  char opr_type                 [3];   /* 운용 type : 000,001,002,040,301 */
-  char err_code                 [2];   /* 오류 code : 00:정상,기타:ERROR */
-  char time                     [12];  /* 날짜 및 시간 : yymmddhhmmss */
-  char retry_cnt                [2];   /* 재송횟수 */
-  char data_no                  [8];   /* (Header부)DATA 번호 */
-  char data_cnt                 [2];   /* DATA 갯수 */
-  char data_seq                 [8];   /* (Data부) DATA seq */
-  char data_tr_code             [2];   /* (Data부) TR code */
-  char data_sub_tr_code         [2];   /* (Data부) SUB TR code */
-  char rcv_data                 [3939];
-}; /* 수신 버퍼 총 4000 byte */
-
-struct SEND_MESSAGE_DEF
-{ /* 송신 메세지 definition */
-  char message_length           [4];
-  char tr_code                  [9];   /* TR-code : "N       " */
-  char gigwan_id                [3];   /* 기관 id : 999 */
-  char msg_type                 [4];   /* 전문 type : 0800,0810,0200,0210 */
-  char opr_type                 [3];   /* 운용 type : 000,001,002,040,301 */
-  char err_code                 [2];   /* 오류 code : 00:정상,기타:ERROR */
-  char time                     [12];  /* 날짜 및 시간 : yymmddhhmmss */
-  char retry_cnt                [2];   /* 재송횟수 */
-  char data_no                  [8];   /* DATA SEQ */
-  char data_cnt                 [2];   /* DATA 갯수 */
-  char snd_data					[3951];
-}; /* 송신 버퍼 총 4000 byte */
-
 class C_socket
 {
 	private :

@@ -84,7 +84,7 @@ class C_data
 			}
 		}
 
-		/* Data File Check */
+		/* Check Data File Status */
 		int F_check_data(int _time)
 		{
 			/* 1. Data 존재 여부 확인 */
@@ -112,7 +112,7 @@ class C_data
 			}
 		}
 
-		/* Data File Write */
+		/* Write Data To File */
 		char* F_write_data(const char* r_data)
 		{
 			/* 1. Mutual Exclosion Lock */
@@ -137,7 +137,7 @@ class C_data
 			lock_func.unlock();
 		}
 
-		/* Data File Read */
+		/* Read Data File */
 		char* F_read_data()
 		{
 			int _result = 0;

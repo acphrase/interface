@@ -23,6 +23,7 @@ class C_cnt
 		mutex lock_func;
 
 		/* 6. ETC */
+		char* _time;
 		char _cnt_key			[6];
 		char _data_count		[9];	/* 마지막 데이터 수신 및 송신 개수 (일련번호) */
 		long _data_count_num;
@@ -37,16 +38,36 @@ class C_cnt
 	public :
 		C_cnt();
 		~C_cnt();
+
+		/* Count File Open */
 		char* F_open_cnt_file(char* _cnt_file, char* r_company_id, char* r_cnt_gubun);
+		
+		/* Read Count File */
 		void F_read_cnt();
+
+		/* Write Count File */
 		void F_write_cnt();
-		long F_get_last_data_count();
-		char* F_get_last_data();
-		char* F_get_process();
-		char* F_get_link();
-		void F_setting_tcpip_error_code(int r_error_code);
+
+		/* Update Count File */
 		int F_update_cnt(int msg_type);
+
+		/* Update Process Stop Status To Count File */
 		int F_put_process_stop(int option);
+
+		/* Return Last Data Count Number */
+		long F_get_last_data_count();
+
+		/* Return Last Data Count String for Log */
+		char* F_get_last_data();
+
+		/* Return Process Status String for Log */
+		char* F_get_process();
+
+		/* Return Link Status String for Log */
+		char* F_get_link();
+
+		/* Get & Setting TCPIP Error Code */
+		void F_setting_tcpip_error_code(int r_error_code);
 };
 
 #endif

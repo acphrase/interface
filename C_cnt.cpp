@@ -19,6 +19,7 @@ C_cnt::~C_cnt()
 	_cnt.close();
 }
 
+/* Count File Open */
 char* C_cnt::F_open_cnt_file(char* _cnt_file, char* r_company_id, char* r_cnt_gubun)
 {
 	/* 1. Count File Open */
@@ -43,6 +44,7 @@ char* C_cnt::F_open_cnt_file(char* _cnt_file, char* r_company_id, char* r_cnt_gu
 	}
 }
 
+/* Read Count File */
 void C_cnt::F_read_cnt()
 {
 	/* 1. Get Record To Buffer */ 
@@ -77,6 +79,7 @@ void C_cnt::F_read_cnt()
 	}
 }
 
+/* Write Count File */
 void C_cnt::F_write_cnt()
 {
 	/* 1. Positioning */
@@ -90,6 +93,7 @@ void C_cnt::F_write_cnt()
 	_cnt << _cnt_record.company_id;
 	if(_cnt.sync() == -1)
 	{
+		lock_func.unlock();
 		memset(_write_message, 0x00, sizeof(_write_message));
 		sprintf(_write_message, "CNT File Write Error..%s", _cnt_key);
 		throw _write_message;
@@ -99,57 +103,22 @@ void C_cnt::F_write_cnt()
 	lock_func.unlock();
 }
 
-long C_cnt::F_get_last_data_count()
-{
-	/* Data Count(SEQ) 변수 Setting ("최종 수신 또는 송신 번호" -> "_data_count") */
-	/* 마지막 데이터 수신 및 송신 개수 (일련번호) */
-	strncpy(_data_count, _cnt_record.data_count, 8);
-	_data_count_num = atol(_data_count);
-	return _data_count_num;
-}
-
-char* C_cnt::F_get_last_data()
-{
-	memset(_write_message, 0x00, sizeof(_write_message));
-	sprintf(_write_message, "Last Count : %ld", F_get_last_data_count());
-	return _write_message;
-}
-
-char* C_cnt::F_get_process()
-{
-	memset(_write_message, 0x00, sizeof(_write_message));
-	sprintf(_write_message, "Proc Status : %.1s", _cnt_record.process_status);
-	return _write_message;
-}
-
-char* C_cnt::F_get_link()
-{
-	memset(_write_message, 0x00, sizeof(_write_message));
-	sprintf(_write_message, "Link Status : %.2s", _cnt_record.link_status);
-	return _write_message;
-}
-
-void C_cnt::F_setting_tcpip_error_code(int r_error_code)
-{
-	char temp[3];
-	sprintf(temp, "%.2d", r_error_code);
-	strncpy(_cnt_record.error_code, temp, 2); /* TCPIP Error Code Set */
-}
-
+/* Update Count File */
 int C_cnt::F_update_cnt(int msg_type)
 {
 	/* 1. Read Record */
 	F_read_cnt();
 
 	/* 2. Buffer Time Setting */
+	_time = _date_time.F_get_time();
 	strncpy(&_cnt_record.date[0], _date_time.F_get_date(), 8);
-	strncpy(&_cnt_record.time[0], _date_time.F_get_time(), 6);
+	strncpy(&_cnt_record.time[0], _time, 6);
 
 	/* 3. Update Variable Setting */
 	switch(msg_type)
 	{
 		case START :
-			strncpy(&_cnt_record.restart_time[0], _date_time.F_get_time(), 6); /* 재시작 시간 Set */
+			strncpy(&_cnt_record.restart_time[0], _time, 6); /* 재시작 시간 Set */
 			strncpy(&_cnt_record.process_status[0], "1", 1); /* "1"은 정상 기동 Set */
 			break;
 		case ERROR :
@@ -160,10 +129,10 @@ int C_cnt::F_update_cnt(int msg_type)
 			switch(msg_type)
 			{
 				case MSG_0810_001 :
-					strncpy(&_cnt_record.process_status[0], "1", 1);		/* 비정상 Stop 후 재기동 시 반영 */
-					strncpy(&_cnt_record.link_status[0], "01", 2);			/* 01은 link 됨 */
-					strncpy(&_cnt_record.link_time[0], _date_time.F_get_time(), 6);	/* link 시간 기재 */
-					strncpy(&_cnt_record.complete_yn[0], "0", 1);			/* 0 : 사용중, 1 : 사용완료 */
+					strncpy(&_cnt_record.process_status[0], "1", 1);	/* 비정상 Stop 후 재기동 시 반영 */
+					strncpy(&_cnt_record.link_status[0], "01", 2);		/* 01은 link 됨 */
+					strncpy(&_cnt_record.link_time[0], _time, 6);		/* link 시간 기재 */
+					strncpy(&_cnt_record.complete_yn[0], "0", 1);		/* 0 : 사용중, 1 : 사용완료 */
 					break;
 
 				case MSG_0800_301 :
@@ -211,15 +180,17 @@ int C_cnt::F_update_cnt(int msg_type)
 		return SUCCESS;
 }
 
+/* Update Process Stop Status To Count File */
 int C_cnt::F_put_process_stop(int option)
 {
 	/* 1. Read Record */
 	F_read_cnt();
 
 	/* 2. Buffer Time Setting */
+	_time = _date_time.F_get_time();
 	strncpy(_cnt_record.date, _date_time.F_get_date(), sizeof(_cnt_record.date));
-	strncpy(_cnt_record.time, _date_time.F_get_time(), sizeof(_cnt_record.time));
-	strncpy(_cnt_record.stop_time, _date_time.F_get_time(), sizeof(_cnt_record.time));
+	strncpy(_cnt_record.time, _time, sizeof(_cnt_record.time));
+	strncpy(_cnt_record.stop_time, _time, sizeof(_cnt_record.stop_time));
 
 	/* 3. Buffer Status Setting */
 	if(option == SUCCESS)
@@ -241,6 +212,46 @@ int C_cnt::F_put_process_stop(int option)
 		return SUCCESS;
 	else if(option == FAIL)
 		return FAIL;
-	else
-		throw "Process Stop Error";
+}
+
+/* Return Last Data Count Number */
+long C_cnt::F_get_last_data_count()
+{
+	/* Data Count(SEQ) 변수 Setting ("최종 수신 또는 송신 번호" -> "_data_count") */
+	/* 마지막 데이터 수신 및 송신 개수 (일련번호) */
+	strncpy(_data_count, _cnt_record.data_count, 8);
+	_data_count_num = atol(_data_count);
+	return _data_count_num;
+}
+
+/* Return Last Data Count String for Log */
+char* C_cnt::F_get_last_data()
+{
+	memset(_write_message, 0x00, sizeof(_write_message));
+	sprintf(_write_message, "Last Count : %ld", F_get_last_data_count());
+	return _write_message;
+}
+
+/* Return Process Status String for Log */
+char* C_cnt::F_get_process()
+{
+	memset(_write_message, 0x00, sizeof(_write_message));
+	sprintf(_write_message, "Proc Status : %.1s", _cnt_record.process_status);
+	return _write_message;
+}
+
+/* Return Link Status String for Log */
+char* C_cnt::F_get_link()
+{
+	memset(_write_message, 0x00, sizeof(_write_message));
+	sprintf(_write_message, "Link Status : %.2s", _cnt_record.link_status);
+	return _write_message;
+}
+
+/* Get & Setting TCPIP Error Code */
+void C_cnt::F_setting_tcpip_error_code(int r_error_code)
+{
+	char temp[3];
+	sprintf(temp, "%.2d", r_error_code);
+	strncpy(_cnt_record.error_code, temp, 2); /* TCPIP Error Code Set */
 }

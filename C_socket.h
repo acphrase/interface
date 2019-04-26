@@ -63,25 +63,68 @@ class C_socket
 	public :
 		C_socket();
 		~C_socket();
+
+		/* Setting Config from Config File */
 		int F_set_config_information(int r_data_length, char* r_ip_number, char* r_port_number, char* r_company_id, char* r_tr_code, char* r_communicate_type);
+
+		/* Socket Create, Bind, Listen */
 		char* F_create_socket();
+
+		/* Socket Accept */
 		char* F_accept_socket();
+
+		/* Init Retry Count */
 		void F_put_retry_init();
+
+		/* Receive Message */
 		int F_recv_message();
+
+		/* Send Message */
 		int F_send_message();
+
+		/* TimeOut Event */
 		void F_event_timeout();
+
+		/* Read Socket To Buffer */
         int F_read_socket(int _message_length);
+
+		/* Write Socket From Buffer */
 		int F_write_socket();
+
+		/* Check Receive Message Header */
 		int F_check_message(int r_jang_status, long r_last_data_count);
+
+		/* Setting Send Message */
 		int F_set_message();
+
+		/* Check Socket Status */
 		int F_check_socket(int _time);
+
+		/* Modify Socket Non Blocking Mode */
 		void F_set_non_blocking_mode(int _socket);
+
+		/* Setting Log Message for Receive Message */
 		char* F_put_log_recv_message();
+
+		/* Setting Log Message for Send Message */
 		char* F_put_log_send_message();
+
+		/* Return Link Status */
 		int F_link_status();
+		
+		/* Get Connect Status */
 		void F_set_connect_status();
+
+		/* Return Connect Status */
+		int F_get_connect_status();
+		
+		/* Get Setting Error Code */
 		void F_set_error_code(int r_error_code);
+
+		/* Return Error Code */
 		int F_get_error_code();
+
+		/* Return Message Type */
 		int F_get_message_type();
 };
 

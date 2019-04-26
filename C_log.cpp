@@ -10,11 +10,14 @@ C_log::~C_log()
 	_log.close();
 }
 
+/* Log File Open */
 void C_log::F_open_log_file(char* _process, char* _log_file)
 {
+	/* 1. Get Process Name */
 	_process_name = _process;
 	char _start_message[150];
 
+	/* 2. Open Log File */
 	_log.open(_log_file, ios::in | ios::app);
 	if(!_log.is_open())
 	{
@@ -37,16 +40,16 @@ void C_log::F_open_log_file(char* _process, char* _log_file)
 	}
 }
 
+/* Write Log */
 void C_log::F_write_log(const char* _message)
 {
 	/* 1. Write Buffer Init */
 	memset(_write_message, 0x00, sizeof(_write_message));
 
-	/* 2. Time Update */
-	_date_time.F_update_date_time();
+	/* 2. Time Setting */
 	_time = _date_time.F_get_time_edit();
 
-	/* 3. Write Message Setting */
+	/* 3. Write Log Setting */
 	sprintf(_write_message, "[%6.6s-%8.8s] %s", _process_name, _time, _message);
 
 	/* 4. Mutual Exclusion Lock */
@@ -54,10 +57,11 @@ void C_log::F_write_log(const char* _message)
 
 	/* 5. Write Log File */
 	_log.seekp(0, ios::end);		/* Log File의 맨 마지막에 위치 */
-	_log << _write_message << endl;	/* Log File에 Setting 한 Message Write */
+	_log << _write_message << endl;	/* Log File에 Setting 한 Log Write */
 	if(_log.sync() == -1)
 	{
-		sprintf(_write_message, "[%6.6s-%8.8s] Log File Write Error..", _process_name, _time);
+		lock_func.unlock();
+		sprintf(_write_message, "[%.6s-%.8s] Log File Write Error..", _process_name, _time);
 		cout << _write_message << endl;
 		exit(1);
 	}

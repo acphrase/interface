@@ -79,9 +79,8 @@ class C_main_handle
 			char* _port_number = _config.F_get_port_number();
 			char* _company_id = _config.F_get_company_id();
 			char* _tr_code = _config.F_get_tr_code();
-			char* _communicate_type = _config.F_get_communication_type();
 
-			if(_socket.F_set_config_information(_data_length, _ip_number, _port_number, _company_id, _tr_code, _communicate_type) != SUCCESS)
+			if(_socket.F_set_config_information(_data_length, _ip_number, _port_number, _company_id, _tr_code, F_get_communicate_type()) != SUCCESS)
 			{
 				throw "Check Socket Setting Error..";
 			}
@@ -102,7 +101,7 @@ class C_main_handle
 				_msg.F_write_msg("TCP/IP PROGRAM STARTING");
 
 				/* 4. Data File Open */
-				_log.F_write_log(_data.F_open_data_file(_config.F_get_data_file_name(), _config.F_get_communication_type()));
+				_log.F_write_log(_data.F_open_data_file(_config.F_get_data_file_name(), F_get_communicate_type()));
 
 				/* 5. CNT File Open */
 				_log.F_write_log(_cnt.F_open_cnt_file(_config.F_get_cnt_file_name(), _config.F_get_company_id(), _config.F_get_cnt_gubun()));
@@ -149,7 +148,6 @@ class C_main_handle
 		{
 			try
 			{
-				_jang.F_read_jang();
 				_jang_status = _jang.F_get_jang_status();
 			}
 			catch(const char* r_message)
@@ -195,6 +193,12 @@ class C_main_handle
 				_msg.F_write_msg(r_message);
 				F_stop_process(FAIL);
 			}
+		}
+
+		char* F_get_communicate_type()
+		{
+			char* _communicate_type = _config.F_get_communication_type();
+			return _communicate_type;
 		}
 
 		void F_read_message()
@@ -422,9 +426,11 @@ class C_main_handle
 
 int main(int argc, char *argv[])
 {
+	char* _communicate_type;
+	char _recv_gubun = RECV_GUBUN;
 	
 	argc = 3;
-	argv[1] = "999s1";
+	argv[1] = "999r1";
 	argv[2] = "tconfig";
 
 	/* Parameter Check */
@@ -435,24 +441,30 @@ int main(int argc, char *argv[])
 	_control.F_open_file();				/* CONFIG에서 가져 온 정보로 관련파일들 Open */
 	_control.F_get_cnt();				/* Process상태, Link여부, 마지막 데이터 개수 */
 	_control.F_get_jang();				/* JANG File을 읽어와서 Variable Setting */
-	//_control.F_stop_process(FAIL);
-	//_control.F_stop_process(SUCCESS);
 	_control.F_update_cnt(START);
 	
-    while(1)
-    {
-        /* 1. Socket Create, Bind, Listen, Accept */
-        _control.F_start();
+			
+	_communicate_type = _control.F_get_communicate_type();
+	if(strncasecmp(_communicate_type, &_recv_gubun, 1) == 0)
+	{
+		while(1)
+    	{
+    	    /* 1. Socket Create, Bind, Listen, Accept */
+    	    _control.F_start();
 
-        /* 2. Recv Message */
-		_control.F_read_message();
+    	    /* 2. Recv Message */
+			_control.F_read_message();
 
-        /* 3. Message Check & Message Set */
-		_control.F_check_message();
+    	    /* 3. Message Check & Message Set */
+			_control.F_check_message();
 
-		/* 4. Send Message */
-		_control.F_send_message();
-    }
+			/* 4. Send Message */
+			_control.F_send_message();
+    	}
+	}
+	else
+	{
+	}
 
 	return 0;
 }

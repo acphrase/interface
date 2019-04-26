@@ -34,6 +34,7 @@ C_socket::~C_socket()
 	close(_client_socket);
 }
 
+/* Setting Config from Config File */
 int C_socket::F_set_config_information(int r_data_length, char* r_ip_number, char* r_port_number, char* r_company_id, char* r_tr_code, char* r_communicate_type)
 {
 	_data_length = r_data_length;
@@ -46,6 +47,7 @@ int C_socket::F_set_config_information(int r_data_length, char* r_ip_number, cha
 	return SUCCESS;
 }
 
+/* Socket Create, Bind, Listen */
 char* C_socket::F_create_socket()
 {
 	int state = 0;
@@ -121,6 +123,7 @@ char* C_socket::F_create_socket()
 	}
 }
 
+/* Socket Accept */
 char* C_socket::F_accept_socket()
 {
 	/* 1. Accept Socket */
@@ -143,11 +146,13 @@ char* C_socket::F_accept_socket()
 	}
 }
 
+/* Init Retry Count */
 void C_socket::F_put_retry_init()
 {
 	_retry_check = 0;
 }
 
+/* Receive Message */
 int C_socket::F_recv_message()
 {
 	while(1)
@@ -235,6 +240,7 @@ int C_socket::F_recv_message()
 	}
 }
 
+/* Send Message */
 int C_socket::F_send_message()
 {
 	/* 1. Variable Init */
@@ -269,6 +275,7 @@ int C_socket::F_send_message()
 	}
 }
 
+/* TimeOut Event */
 void C_socket::F_event_timeout()
 {
 	if(strncasecmp(_communicate_type, &_send_gubun, 1) == 0)
@@ -279,7 +286,7 @@ void C_socket::F_event_timeout()
 
 		/* 2. Retry Setting to Buffer */
 		char temp[3];
-		sprintf(temp, "%2.2d", _retry_check); 
+		sprintf(temp, "%.2d", _retry_check); 
 		strncpy(_send_message.retry_cnt, temp, 2);
 		
 		/* 3. Send Message */
@@ -300,6 +307,7 @@ void C_socket::F_event_timeout()
 	}
 }
 
+/* Read Socket To Buffer */
 int C_socket::F_read_socket(int _message_length)
 {
 	/* 1. Buffer Init */
@@ -322,6 +330,7 @@ int C_socket::F_read_socket(int _message_length)
 	return _recv_length;
 }
 
+/* Write Socket From Buffer */
 int C_socket::F_write_socket()
 {
 	/* 1. Buffer Init */
@@ -345,10 +354,11 @@ int C_socket::F_write_socket()
 				break;
 	}
 
-	/* 3. Send Message Length Return */
+	/* 4. Send Message Length Return */
 	return _send_length;
 }
 
+/* Check Receive Message Header */
 int C_socket::F_check_message(int r_jang_status, long r_last_data_count)
 {
 	/* 1. 장시간 확인 및 마지막 수신 데이터 확인 */
@@ -611,6 +621,7 @@ int C_socket::F_check_message(int r_jang_status, long r_last_data_count)
 	return SUCCESS;
 }
 
+/* Setting Send Message */
 int C_socket::F_set_message()
 {
 	/* 1. Message_length */
@@ -762,6 +773,7 @@ int C_socket::F_set_message()
 	return SUCCESS;
 }
 
+/* Check Socket Status */
 int C_socket::F_check_socket(int _time)
 {
 	/* Buffer status 확인 */
@@ -810,12 +822,14 @@ int C_socket::F_check_socket(int _time)
 	}
 }
 
+/* Modify Socket Non Blocking Mode */
 void C_socket::F_set_non_blocking_mode(int _socket)
 {
 	int flag = fcntl(_socket, F_GETFL, 0);
 	fcntl(_socket, F_SETFL, flag | O_NONBLOCK);
 }
 
+/* Setting Log Message for Receive Message */
 char* C_socket::F_put_log_recv_message()
 {
 	memset(_message, 0x00, sizeof(_message));
@@ -825,6 +839,7 @@ char* C_socket::F_put_log_recv_message()
 	return _message;
 }			
 
+/* Setting Log Message for Send Message */
 char* C_socket::F_put_log_send_message()
 {
 	memset(_message, 0x00, sizeof(_message));
@@ -834,21 +849,31 @@ char* C_socket::F_put_log_send_message()
 	return _message;
 }
 
+/* Return Link Status */
 int C_socket::F_link_status()
 {
 	return _link_status;
 }
 
+/* Get Connect Status */
 void C_socket::F_set_connect_status()
 {
 	_connect_status = CONNECT;
 }
 
+/* Return Connect Status */
+int C_socket::F_get_connect_status()
+{
+	return _connect_status;
+}
+
+/* Get Error Code from Control Class */
 void C_socket::F_set_error_code(int r_error_code)
 {
 	_error_code = r_error_code;
 }
 
+/* Return Error Code */
 int C_socket::F_get_error_code()
 {
 	if(_error_code == NO_ERROR)
@@ -857,6 +882,7 @@ int C_socket::F_get_error_code()
 		return _error_code;
 }
 
+/* Return Message Type */
 int C_socket::F_get_message_type()
 {
 	if(_recv_message_type == MSG_0800_001)

@@ -15,6 +15,7 @@ C_jang::~C_jang()
 	_jang.close();
 }
 
+/* Jang File Open */
 char* C_jang::F_open_jang_file(char* _jang_file)
 {
 	_jang.open(_jang_file, ios::in);
@@ -34,6 +35,7 @@ char* C_jang::F_open_jang_file(char* _jang_file)
 	}
 }
 
+/* Read Jang File */
 void C_jang::F_read_jang()
 {
 	/* 1. Jang File Positioning */
@@ -62,7 +64,6 @@ void C_jang::F_read_jang()
 		_jang_status_num = atoi(_jang_status);
 		if(_jang_status_num < 0)
 		{
-			cout << "JANG Status atoi() Error.." << endl;
 			throw "JANG Status atoi() Error..";
 		}
 		strncpy(_lastmarket_start_time, _jang_bnd.lastmarket_start_time, 6);
@@ -71,7 +72,6 @@ void C_jang::F_read_jang()
 		_lastmarket_status_num = atoi(_lastmarket_status);
 		if(_lastmarket_status_num < 0)
 		{
-			cout << "Lastmarket Status atoi() Error.." << endl;
 			throw "Lastmarket Status atoi() Error..";
 		}
 	}
@@ -83,19 +83,22 @@ void C_jang::F_read_jang()
 		_jang_status_num = atoi(_jang_status);
 		if(_jang_status_num < 0)
 		{
-			cout << "JANG Status atoi() Error.." << endl;
 			throw "JANG Status atoi() Error..";
 		}
 	}
 }
 
+/* Return Jang Status */
 int C_jang::F_get_jang_status()
-{ /* B-TRIS 일 경우 (From BMMJANG) */
-  /* (전일장) 0:접수 전, 1:접수 중, 9:종료 */
-  /* (당일장) 0:접수 전, 1:접수 중, 9:종료 */
-	/* Status Check & Setting */
+{ 
+	/* 1. Jang File Read */
+	F_read_jang();
+
+	/* 2. Status Check & Setting */
 	if(_upmu_gubun == UPMU_GUBUN)
-	{
+	{ /* B-TRIS 일 경우 (From BMMJANG) */
+		/* (전일장) 0:접수 전, 1:접수 중, 9:종료 */
+		/* (당일장) 0:접수 전, 1:접수 중, 9:종료 */
 		if(_lastmarket_status_num == 0 && _jang_status_num == 0)
 			return JANG_BEFORE; /* B-TRIS(장외채권공시) 접수 전 */
 		else if(_lastmarket_status_num == 1 && _jang_status_num == 0)
@@ -110,7 +113,7 @@ int C_jang::F_get_jang_status()
 		{
 		    memset(_write_message,0x00,sizeof(_write_message));
 		    sprintf(_write_message,"BOND Jang Status error..%d, %d", _lastmarket_status_num, _jang_status_num);
-				throw _write_message;
+			throw _write_message;
 		}
 	}
 	else

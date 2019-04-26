@@ -96,9 +96,9 @@ class C_data
 				sprintf(_write_message, "Data EPOLL Error : %s", strerror(errno));
 				throw _write_message;
 			}
-			else if(_event_cnt == 0) /* Time Out */
+			else if(_event_cnt == 0) /* DATA NONE */
 			{
-				return TIMEOUT;
+				return NONE;
 			}
 			else if(_event_cnt > 0) /* Data File Event */
 			{

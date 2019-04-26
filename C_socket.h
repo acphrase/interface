@@ -109,16 +109,19 @@ class C_socket
 		/* Setting Log Message for Send Message */
 		char* F_put_log_send_message();
 
+		/* Setting Link Status */
+		void F_set_link_status(int _status);
+
 		/* Return Link Status */
-		int F_link_status();
+		int F_get_link_status();
 		
-		/* Get Connect Status */
-		void F_set_connect_status();
+		/* Setting Connect Status */
+		void F_set_connect_status(int _status);
 
 		/* Return Connect Status */
 		int F_get_connect_status();
 		
-		/* Get Setting Error Code */
+		/* Setting Error Code */
 		void F_set_error_code(int r_error_code);
 
 		/* Return Error Code */
@@ -126,6 +129,9 @@ class C_socket
 
 		/* Return Message Type */
 		int F_get_message_type();
+
+		/* Setting _send_message_type */
+		void F_set_send_message_type(int _type);
 };
 
 #endif

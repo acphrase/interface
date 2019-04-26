@@ -624,6 +624,8 @@ int C_socket::F_check_message(int r_jang_status, long r_last_data_count)
 /* Setting Send Message */
 int C_socket::F_set_message()
 {
+	char _temp_count[9];
+
 	/* 1. Message_length */
 	strncpy(_send_message.message_length, _recv_message.message_length, 4);
 
@@ -694,33 +696,33 @@ int C_socket::F_set_message()
     	strncpy(_send_message.gigwan_id, _recv_message.gigwan_id, 3);
 
 		/* 7. 전문 type set */
-		switch(_recv_message_type)
-    	{
-    	    case MSG_0800_001 :
-    	        strncpy(_send_message.msg_type, "0810", 4);
-    	        strncpy(_send_message.opr_type, "001", 3);
-    	        break;
-    	    case MSG_0800_301 :
-    	        strncpy(_send_message.msg_type, "0810", 4);
-    	        strncpy(_send_message.opr_type, "301", 3);
-    	        break;
-    	    case MSG_0800_040 :
-    	        strncpy(_send_message.msg_type, "0810", 4);
-    	        strncpy(_send_message.opr_type, "040", 3);
-    	        break;
-    	    case MSG_0200_000 :
-    	        strncpy(_send_message.msg_type, "0210", 4);
-    	        strncpy(_send_message.opr_type, "000", 3);
-    	        break ;
-    	    default :
-				memset(_message, 0x00, sizeof(_message));
-				sprintf(_message, "Invalid Message Type..%d (In Message Set)", _recv_message_type);
-				throw _message;
-    	}
-
-		/* 8. Data 번호 및 갯수 */
-    	strncpy(_send_message.data_no, _recv_message.data_no, 8);
-    	strncpy(_send_message.data_cnt, _recv_message.data_cnt, 2);
+		if(_recv_message_type == MSG_0800_001)
+		{
+			strncpy(_send_message.msg_type, "0810", 4);
+			strncpy(_send_message.opr_type, "001", 3);
+		}
+		else
+		{
+			switch(_recv_message_type)
+    		{
+    		    case MSG_0800_301 :
+    		        strncpy(_send_message.msg_type, "0810", 4);
+    		        strncpy(_send_message.opr_type, "301", 3);
+    		        break;
+    		    case MSG_0800_040 :
+    		        strncpy(_send_message.msg_type, "0810", 4);
+    		        strncpy(_send_message.opr_type, "040", 3);
+    		        break;
+    		    case MSG_0200_000 :
+    		        strncpy(_send_message.msg_type, "0210", 4);
+    		        strncpy(_send_message.opr_type, "000", 3);
+    		        break ;
+    		    default :
+					memset(_message, 0x00, sizeof(_message));
+					sprintf(_message, "Invalid Message Type..%d (In Message Set)", _recv_message_type);
+					throw _message;
+    		}
+		}
 	}
 	else
 	{
@@ -731,44 +733,47 @@ int C_socket::F_set_message()
     	strncpy(_send_message.gigwan_id, _company_id, 3);
 
 		/* 7. 전문 type set */
-		switch(_recv_message_type)
-    	{
-    	    case MSG_0800_001 :
-    	        strncpy(_send_message.msg_type, "0810", 4);
-    	        strncpy(_send_message.opr_type, "001", 3);
-    	        break;
-    	    case MSG_0800_301 :
-    	        strncpy(_send_message.msg_type, "0800", 4);
-    	        strncpy(_send_message.opr_type, "301", 3);
-    	        break;
-    	    case MSG_0800_040 :
-    	        strncpy(_send_message.msg_type, "0800", 4);
-    	        strncpy(_send_message.opr_type, "040", 3);
-    	        break;
-    	    case MSG_0200_000 :
-    	        strncpy(_send_message.msg_type, "0200", 4);
-    	        strncpy(_send_message.opr_type, "000", 3);
-    	        break ;
-    	    default :
-				memset(_message, 0x00, sizeof(_message));
-				sprintf(_message, "Invalid Message Type..%d (In Message Set)", _recv_message_type);
-				throw _message;
-    	}
-
-		/* 8. Data 번호 및 갯수 */
-		char _temp_count[9];
-		if(_recv_message_type == MSG_0800_001)
+		if(_send_message_type == MSG_0810_001)
 		{
-			strncpy(_send_message.data_no, _recv_message.data_no, 8);
-			strncpy(_send_message.data_cnt, _recv_message.data_cnt, 2);
+			strncpy(_send_message.msg_type, "0810", 4);
+			strncpy(_send_message.opr_type, "001", 3);
 		}
 		else
 		{
-			sprintf(_temp_count, "%.8ld", _last_data_count + 1);
-			strncpy(_send_message.data_no, _temp_count, 8);
-			strncpy(_send_message.data_cnt, _recv_message.data_cnt, 2);
+			switch(_send_message_type)
+    		{
+    		    case MSG_0800_301 :
+    		        strncpy(_send_message.msg_type, "0800", 4);
+    		        strncpy(_send_message.opr_type, "301", 3);
+    		        break;
+    		    case MSG_0800_040 :
+    		        strncpy(_send_message.msg_type, "0800", 4);
+    		        strncpy(_send_message.opr_type, "040", 3);
+    		        break;
+    		    case MSG_0200_000 :
+    		        strncpy(_send_message.msg_type, "0200", 4);
+    		        strncpy(_send_message.opr_type, "000", 3);
+    		        break ;
+    		    default :
+					memset(_message, 0x00, sizeof(_message));
+					sprintf(_message, "Invalid Message Type..%d (In Message Set)", _send_message_type);
+					throw _message;
+    		}
 		}
 	}
+		
+	/* 8. Data 번호 및 갯수 */
+	if(	_send_message_type == MSG_0200_000 || _recv_message_type == MSG_0200_000)
+	{
+		sprintf(_temp_count, "%.8ld", _last_data_count + 1);
+		strncpy(_send_message.data_cnt, "01", 2);
+	}
+	else
+	{
+		sprintf(_temp_count, "%.8ld", _last_data_count);
+		strncpy(_send_message.data_cnt, "00", 2);
+	}
+	strncpy(_send_message.data_no, _temp_count, 8);
 
 	return SUCCESS;
 }
@@ -849,16 +854,22 @@ char* C_socket::F_put_log_send_message()
 	return _message;
 }
 
+/* Setting Link Status */
+void C_socket::F_set_link_status(int _status)
+{
+	_link_status = _status;
+}
+
 /* Return Link Status */
-int C_socket::F_link_status()
+int C_socket::F_get_link_status()
 {
 	return _link_status;
 }
 
-/* Get Connect Status */
-void C_socket::F_set_connect_status()
+/* Setting Connect Status */
+void C_socket::F_set_connect_status(int _status)
 {
-	_connect_status = CONNECT;
+	_connect_status = _status;
 }
 
 /* Return Connect Status */
@@ -867,7 +878,7 @@ int C_socket::F_get_connect_status()
 	return _connect_status;
 }
 
-/* Get Error Code from Control Class */
+/* Setting Error Code */
 void C_socket::F_set_error_code(int r_error_code)
 {
 	_error_code = r_error_code;
@@ -887,8 +898,17 @@ int C_socket::F_get_message_type()
 {
 	if(_recv_message_type == MSG_0800_001)
 		return MSG_0810_001;
+
 	if(strncasecmp(_communicate_type, &_recv_gubun, 1) == 0)
 		return _recv_message_type;
 	else
 		return _send_message_type;
+}
+
+/* Setting _send_message_type */
+void C_socket::F_set_send_message_type(int _type)
+{
+	_send_message_type = _type;
+	if(_recv_message_type == MSG_0800_001)
+		_recv_message_type = 0;
 }

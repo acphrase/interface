@@ -336,14 +336,13 @@ struct KRJT_DEF
 #define CONNECT			1
 #define DISCONNECT		0
 #define TIMEOUT			2
+#define NONE			3
 
 /*----------------------------- TIMEOUT 구분 ---------------------------------*/
 #define WAIT_TIMEOUT	-1
 #define RECV_TIMEOUT	30000
 #define SEND_TIMEOUT	30000
-#define CHECK_TIMEOUT	1
-//#define RECV_TIMEOUT	3000
-//#define SEND_TIMEOUT	3000
+#define CHECK_DATA		1
 
 /*----------------------------------------------------------------------------*/
 /*----------------------------------- END ------------------------------------*/

@@ -11,39 +11,31 @@
 class C_main_handle
 {
 	private :
-		struct sockaddr_in s_add;
-		char **_key;
-		char **_config_path;
+		/* 1. Status Message Variable */
 		char _message[150];
+
+		/* 2. Class Variable */
 		C_config _config;
 		C_log _log;
 		C_msg _msg;
 		C_data _data;
 		C_cnt _cnt;
 		C_jang _jang;
-		int _data_fd;
-		int _jang_status;
 		C_socket _socket;
+
+		/* 3. ETC */
+		char **_key;
+		char **_config_path;
+		int _jang_status;
 		int _error_code;
 
 	public :
-		C_main_handle( int *argc, char *argv[]) : _key(&argv[1]), _config_path(&argv[2])
-		{
-			/* Argument Read, Check and Display */
-			if(*argc != 3)
-			{
-				cout << "Parameter 수가 맞지 않는군요." << endl;
-				cout << "Usage : " << *argv << " <WhisaCode+TR> <Config File>" << endl;
-				exit(1);
-			}
-		}
-
-		void F_get_config()
+		C_main_handle(char *argv[]) : _key(&argv[1]), _config_path(&argv[2])
 		{
 			try
 			{
 				/* 1. read config */
-				_config.F_read_config(*_key, *_config_path);
+				_config.F_read_config(*_key, *_config_path);		/* CONFIG에서 정보 가져오기 */
 				//cout << _config.F_get_company_id() << endl; 
 				//cout << _config.F_get_tr_code() << endl; 
 				//cout << _config.F_get_communication_type() << endl;
@@ -69,6 +61,12 @@ class C_main_handle
 				cout << _message << endl;
 				exit(1);
 			}
+
+			/* 사전 처리 */
+			F_open_file();				/* CONFIG에서 가져 온 정보로 관련파일들 Open */
+			F_get_cnt();				/* Process상태, Link여부, 마지막 데이터 개수 */
+			F_get_jang();				/* JANG File을 읽어와서 Variable Setting */
+			F_update_cnt(START);		/* Count File에 Process Status 정상기동으로 수정 */
 		}
 
 		void F_set_check_socket_information()
@@ -161,9 +159,9 @@ class C_main_handle
 
         void F_start()
         {
-            if(!_socket.F_link_status())
+            if(!F_get_link_status())
             {
-                while(!_socket.F_link_status())
+                while(!F_get_link_status())
 					F_create_socket();
             }
         }
@@ -193,12 +191,6 @@ class C_main_handle
 				_msg.F_write_msg(r_message);
 				F_stop_process(FAIL);
 			}
-		}
-
-		char* F_get_communicate_type()
-		{
-			char* _communicate_type = _config.F_get_communication_type();
-			return _communicate_type;
 		}
 
 		void F_read_message()
@@ -328,12 +320,30 @@ class C_main_handle
 			}
 		}
 
-		void F_set_message()
+		void F_set_send_message_type()
 		{
 			try
 			{
-				_socket.F_set_message();
-				_log.F_write_log(_socket.F_put_log_send_message());
+				if(_socket.F_get_connect_status() == DISCONNECT)
+				{
+					if(_socket.F_get_message_type() == MSG_0810_001)
+						_socket.F_set_send_message_type(MSG_0810_001);
+
+					F_send_message();
+					F_set_send_message_type();
+				}
+				else
+				{
+					int _check_result;
+					_check_result = _data.F_check_data(CHECK_DATA);
+
+					if(_check_result == NONE)
+						_socket.F_set_send_message_type(MSG_0800_301);
+					else if(_check_result == SUCCESS)
+						_socket.F_set_send_message_type(MSG_0200_000);
+					else if(_jang.F_get_jang_status() == JANG_CLOSE)
+						_socket.F_set_send_message_type(MSG_0800_040);
+				}
 			}
 			catch(const char* r_message)
 			{
@@ -371,7 +381,7 @@ class C_main_handle
 				{
 					if(_update_result == MSG_0810_001)
 					{
-						_socket.F_set_connect_status();
+						_socket.F_set_connect_status(CONNECT);
 
 						_log.F_write_log("Link Complete..");
 						_msg.F_write_msg("Link Complete..");
@@ -392,10 +402,25 @@ class C_main_handle
 			}
 		}
 
+		char* F_get_communicate_type()
+		{
+			char* _communicate_type = _config.F_get_communication_type();
+			return _communicate_type;
+		}
+
+		int F_get_link_status()
+		{
+			int _link_status = _socket.F_get_link_status();
+			return _link_status;
+		}
+		
 		void F_stop_process(int option)
 		{
 			try
 			{
+				_socket.F_set_link_status(DISCONNECT);
+				_socket.F_set_connect_status(DISCONNECT);
+
 				if(_cnt.F_put_process_stop(option) == SUCCESS)
 				{
 					F_update_cnt(NORMAL);
@@ -426,45 +451,44 @@ class C_main_handle
 
 int main(int argc, char *argv[])
 {
-	char* _communicate_type;
-	char _recv_gubun = RECV_GUBUN;
-	
+
 	argc = 3;
 	argv[1] = "999r1";
 	argv[2] = "tconfig";
 
 	/* Parameter Check */
-	C_main_handle _control(&argc, argv);
+	if(argc != 3)
+	{
+		cout << "Parameter 수가 맞지 않는군요." << endl;
+		cout << "Usage : " << argv[0] << " <WhisaCode+TR> <Config File>" << endl;
+		exit(1);
+	}
 
-	/* 사전 처리 */
-	_control.F_get_config();			/* CONFIG에서 정보 가져오기 */ 
-	_control.F_open_file();				/* CONFIG에서 가져 온 정보로 관련파일들 Open */
-	_control.F_get_cnt();				/* Process상태, Link여부, 마지막 데이터 개수 */
-	_control.F_get_jang();				/* JANG File을 읽어와서 Variable Setting */
-	_control.F_update_cnt(START);
-	
+	char* _communicate_type;
+	char _send_gubun = SEND_GUBUN;
+	C_main_handle _control(argv);
 			
 	_communicate_type = _control.F_get_communicate_type();
-	if(strncasecmp(_communicate_type, &_recv_gubun, 1) == 0)
-	{
-		while(1)
-    	{
-    	    /* 1. Socket Create, Bind, Listen, Accept */
-    	    _control.F_start();
+	while(1)
+    {
+        /* 1. Socket Create, Bind, Listen, Accept */
+        _control.F_start();
 
-    	    /* 2. Recv Message */
-			_control.F_read_message();
+		/* 2. Recv Message */
+		_control.F_read_message();
+		
+        /* 3. Message Check & Message Set */
+		_control.F_check_message();
 
-    	    /* 3. Message Check & Message Set */
-			_control.F_check_message();
+		if(strncasecmp(_communicate_type, &_send_gubun, 1) == 0)
+		{
+			/* 4. Setting Send Message Type */
+			_control.F_set_send_message_type();
+		}
 
-			/* 4. Send Message */
-			_control.F_send_message();
-    	}
-	}
-	else
-	{
-	}
+		/* 5. Send Message */
+		_control.F_send_message();
+    }
 
 	return 0;
 }

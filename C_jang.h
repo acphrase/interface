@@ -1,7 +1,7 @@
 #ifndef __JANG_HEADER__
 #define __JANG_HEADER__
 
-#include"main.h"
+#include"common.h"
 
 class C_jang
 {

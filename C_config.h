@@ -1,7 +1,7 @@
 #ifndef __OPEN_CONFIG_HEADER__
 #define __OPEN_CONFIG_HEADER__
 
-#include"main.h"
+#include"common.h"
 
 class C_config
 {

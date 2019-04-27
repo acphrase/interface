@@ -1,7 +1,7 @@
 #ifndef __SOCKET_HEADER__
 #define __SOCKET_HEADER__
 
-#include"main.h"
+#include"common.h"
 #include"C_time.h"
 
 class C_socket

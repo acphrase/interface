@@ -1,5 +1,5 @@
-#ifndef __MAIN_HEADER__
-#define __MAIN_HEADER__
+#ifndef __COMMON_HEADER__
+#define __COMMON_HEADER__
 
 #include<iostream>
 #include<ctime>

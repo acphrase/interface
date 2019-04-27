@@ -1,7 +1,7 @@
 #ifndef __CNT_HEADER__
 #define __CNT_HEADER__
 
-#include"main.h"
+#include"common.h"
 #include"C_time.h"
 
 class C_cnt

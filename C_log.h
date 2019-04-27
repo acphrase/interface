@@ -1,7 +1,7 @@
 #ifndef __LOG_HEADER__
 #define __LOG_HEADER__
 
-#include"main.h"
+#include"common.h"
 #include"C_time.h"
 
 class C_log

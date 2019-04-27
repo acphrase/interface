@@ -1,7 +1,7 @@
 #ifndef __MSG_HEADER__
 #define __MSG_HEADER__
 
-#include"main.h"
+#include"common.h"
 #include"C_time.h"
 
 class C_msg

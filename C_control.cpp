@@ -1,6 +1,6 @@
 #include"C_control.h"
 
-C_main_handle::C_main_handle(char *argv[]) : _key(&argv[1]), _config_path(&argv[2])
+C_control::C_control(char *argv[]) : _key(&argv[1]), _config_path(&argv[2])
 {
 	try
 	{
@@ -23,7 +23,7 @@ C_main_handle::C_main_handle(char *argv[]) : _key(&argv[1]), _config_path(&argv[
 	F_update_cnt(START);		/* Count File에 Process Status 정상기동으로 수정 */
 }
 
-void C_main_handle::F_set_check_socket_information()
+void C_control::F_set_check_socket_information()
 {
 	int _data_length = 0;
 	_data_length = atoi(_config.F_get_message_length());
@@ -38,7 +38,7 @@ void C_main_handle::F_set_check_socket_information()
 	}
 }
 
-void C_main_handle::F_open_file()
+void C_control::F_open_file()
 {
 	try
 	{
@@ -69,7 +69,7 @@ void C_main_handle::F_open_file()
 	}
 }
 
-void C_main_handle::F_get_cnt()
+void C_control::F_get_cnt()
 {
 	try
 	{
@@ -96,7 +96,7 @@ void C_main_handle::F_get_cnt()
 	}
 }
 
-void C_main_handle::F_get_jang()
+void C_control::F_get_jang()
 {
 	try
 	{
@@ -111,7 +111,7 @@ void C_main_handle::F_get_jang()
 
 }
 
-void C_main_handle::F_start()
+void C_control::F_start()
 {
     if(!F_get_link_status())
     {
@@ -120,7 +120,7 @@ void C_main_handle::F_start()
     }
 }
 
-int C_main_handle::F_create_socket()
+int C_control::F_create_socket()
 {
 	try
 	{
@@ -147,7 +147,7 @@ int C_main_handle::F_create_socket()
 	}
 }
 
-void C_main_handle::F_read_message()
+void C_control::F_read_message()
 {
 	/* Variable Init */
 	int _result = FAIL;
@@ -192,7 +192,7 @@ void C_main_handle::F_read_message()
 	}
 }
 
-void C_main_handle::F_check_message()
+void C_control::F_check_message()
 {
 	try
 	{
@@ -233,7 +233,7 @@ void C_main_handle::F_check_message()
 	}
 }
 
-void C_main_handle::F_send_message()
+void C_control::F_send_message()
 {
 	/* Variable Init */
 	int _result = FAIL;
@@ -274,7 +274,7 @@ void C_main_handle::F_send_message()
 	}
 }
 
-void C_main_handle::F_set_send_message_type()
+void C_control::F_set_send_message_type()
 {
 	try
 	{
@@ -306,7 +306,7 @@ void C_main_handle::F_set_send_message_type()
 	}
 }
 
-void C_main_handle::F_update_cnt(int msg_type)
+void C_control::F_update_cnt(int msg_type)
 {
 	int _update_result;
 	try
@@ -356,19 +356,19 @@ void C_main_handle::F_update_cnt(int msg_type)
 	}
 }
 
-char* C_main_handle::F_get_communicate_type()
+char* C_control::F_get_communicate_type()
 {
 	char* _communicate_type = _config.F_get_communication_type();
 	return _communicate_type;
 }
 
-int C_main_handle::F_get_link_status()
+int C_control::F_get_link_status()
 {
 	int _link_status = _socket.F_get_link_status();
 	return _link_status;
 }
 
-void C_main_handle::F_stop_process(int option)
+void C_control::F_stop_process(int option)
 {
 	try
 	{

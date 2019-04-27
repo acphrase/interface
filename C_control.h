@@ -10,7 +10,7 @@
 #include"C_jang.h"
 #include"C_socket.h"
 
-class C_main_handle
+class C_control
 {
 	private :
 		/* 1. Status Message Variable */
@@ -32,7 +32,7 @@ class C_main_handle
 		int _error_code;
 
 	public :
-		C_main_handle(char *argv[]);
+		C_control(char *argv[]);
 
 		void F_set_check_socket_information();
 

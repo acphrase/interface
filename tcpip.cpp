@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 
 	char* _communicate_type;
 	char _send_gubun = SEND_GUBUN;
-	C_main_handle _control(argv);
+	C_control _control(argv);
 			
 	_communicate_type = _control.F_get_communicate_type();
 	while(1)

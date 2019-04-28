@@ -147,7 +147,7 @@ char* C_socket::F_accept_socket()
 }
 
 /* Init Retry Count */
-void C_socket::F_put_retry_init()
+void C_socket::F_setting_retry_init()
 {
 	_retry_check = 0;
 }
@@ -233,7 +233,7 @@ int C_socket::F_recv_message()
 			close(_server_socket);
 			int _retry_temp = 0;
 			_retry_temp = _retry_check;
-			F_put_retry_init();
+			F_setting_retry_init();
 
 			return _retry_temp;
 		}
@@ -269,7 +269,7 @@ int C_socket::F_send_message()
 		close(_server_socket);
 		int _retry_temp = 0;
 		_retry_temp = _retry_check;
-		F_put_retry_init();
+		F_setting_retry_init();
 
 		throw	"Message Send Error To Socket..";
 	}
@@ -571,7 +571,7 @@ int C_socket::F_check_message(int r_jang_status, long r_last_data_count)
 		{
 			memset(_message, 0x00, sizeof(_message));
 			sprintf(_message, "RCV Data Block Cnt Error : %d..", _recv_data_cnt);
-			F_set_error_code(DATA_CNT_INVALID);
+			F_set_error_code(DATA_COUNT_INVALID);
 			throw _message;
 		}
 	}
@@ -581,7 +581,7 @@ int C_socket::F_check_message(int r_jang_status, long r_last_data_count)
 		{
 			memset(_message, 0x00, sizeof(_message));
 			sprintf(_message, "RCV Data Block Cnt Error : %d..", _recv_data_cnt);
-			F_set_error_code(DATA_CNT_INVALID);
+			F_set_error_code(DATA_COUNT_INVALID);
 			throw _message;
 		}
 	}
@@ -599,8 +599,8 @@ int C_socket::F_check_message(int r_jang_status, long r_last_data_count)
 		if(_recv_data_no != _recv_data_seq)
 		{
 			memset(_message, 0x00, sizeof(_message));
-			sprintf(_message, "RCV [Data] Data SEQ Error : %ld, %ld", _recv_data_no, _recv_data_seq);
-			F_set_error_code(SEQ_ERROR);
+			sprintf(_message, "RCV [Data] Data SEQUENCE Error : %ld, %ld", _recv_data_no, _recv_data_seq);
+			F_set_error_code(SEQUENCE_ERROR);
 			throw _message;
 		}
 	}
@@ -653,10 +653,10 @@ int C_socket::F_set_message()
     	    case NO_ERROR :
     	        strncpy(_send_message.err_code, "00", 2);
     	        break;
-    	    case SEQ_ERROR : /* DATA SEQ Error */
+    	    case SEQUENCE_ERROR : /* DATA SEQUENCE Error */
     	        strncpy(_send_message.err_code, "01", 2);
     	        break;
-    	    case CNT_ERROR : /* DATA 건수 Error */
+    	    case COUNT_ERROR : /* DATA 건수 Error */
     	        strncpy(_send_message.err_code, "02", 2);
     	        break;
     	    case MARKET_BEF_ERROR : /* 장개시 전 Error */
@@ -683,7 +683,7 @@ int C_socket::F_set_message()
     	    case DATA_NO_INVALID : /* DATA Number Error */
     	        strncpy(_send_message.err_code, "98", 2);
     	        break; 
-    	    case DATA_CNT_INVALID : /* DATA 개수 Error */
+    	    case DATA_COUNT_INVALID : /* DATA 개수 Error */
     	        strncpy(_send_message.err_code, "99", 2);
     	        break; 
     	    default :
@@ -835,7 +835,7 @@ void C_socket::F_set_non_blocking_mode(int _socket)
 }
 
 /* Setting Log Message for Receive Message */
-char* C_socket::F_put_log_recv_message()
+char* C_socket::F_setting_log_recv_message()
 {
 	memset(_message, 0x00, sizeof(_message));
 
@@ -845,7 +845,7 @@ char* C_socket::F_put_log_recv_message()
 }			
 
 /* Setting Log Message for Send Message */
-char* C_socket::F_put_log_send_message()
+char* C_socket::F_setting_log_send_message()
 {
 	memset(_message, 0x00, sizeof(_message));
 	

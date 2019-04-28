@@ -6,7 +6,7 @@
 #include"C_log.h"
 #include"C_msg.h"
 #include"C_data.h"
-#include"C_cnt.h"
+#include"C_status.h"
 #include"C_jang.h"
 #include"C_socket.h"
 
@@ -21,7 +21,7 @@ class C_control
 		C_log _log;
 		C_msg _msg;
 		C_data _data;
-		C_cnt _cnt;
+		C_status _status;
 		C_jang _jang;
 		C_socket _socket;
 
@@ -38,7 +38,7 @@ class C_control
 
 		void F_open_file();
 
-		void F_get_cnt();
+		void F_get_status();
 
 		void F_get_jang();
 
@@ -54,7 +54,7 @@ class C_control
 
 		void F_set_send_message_type();
 
-		void F_update_cnt(int msg_type);
+		void F_update_status(int msg_type);
 
 		char* F_get_communicate_type();
 

@@ -74,7 +74,7 @@ class C_socket
 		char* F_accept_socket();
 
 		/* Init Retry Count */
-		void F_put_retry_init();
+		void F_setting_retry_init();
 
 		/* Receive Message */
 		int F_recv_message();
@@ -104,10 +104,10 @@ class C_socket
 		void F_set_non_blocking_mode(int _socket);
 
 		/* Setting Log Message for Receive Message */
-		char* F_put_log_recv_message();
+		char* F_setting_log_recv_message();
 
 		/* Setting Log Message for Send Message */
-		char* F_put_log_send_message();
+		char* F_setting_log_send_message();
 
 		/* Setting Link Status */
 		void F_set_link_status(int _status);

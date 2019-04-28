@@ -13,9 +13,9 @@ C_config::C_config()
 	memset(tcp_process_name, 0x00, sizeof(tcp_process_name));
 	memset(data_file_name, 0x00, sizeof(data_file_name));
 	memset(log_file_name, 0x00, sizeof(log_file_name));
-	memset(cnt_file_name, 0x00, sizeof(cnt_file_name));
+	memset(status_file_name, 0x00, sizeof(status_file_name));
 	memset(jang_file_name, 0x00, sizeof(jang_file_name));
-	memset(cnt_gubun, 0x00, sizeof(cnt_gubun));
+	memset(status_gubun, 0x00, sizeof(status_gubun));
 	memset(message_length, 0x00, sizeof(message_length));
 	memset(msg_file_name, 0x00, sizeof(msg_file_name));
 	memset(header_tr_code, 0x00, sizeof(header_tr_code));
@@ -146,12 +146,12 @@ char* C_config::F_get_log_file_name()
 	return log_file_name;
 }
 
-/* Return (11) CNT File Name (SEQ 파일) */
-char* C_config::F_get_cnt_file_name()
+/* Return (11) STATUS File Name (SEQ 파일) */
+char* C_config::F_get_status_file_name()
 {
 	memset(_temp_length, 0x00, sizeof(_temp_length));
-	strncpy(cnt_file_name, &_config_temp[175], atoi(strncpy(_temp_length, &_config_temp[172], 2)));
-	return cnt_file_name;
+	strncpy(status_file_name, &_config_temp[175], atoi(strncpy(_temp_length, &_config_temp[172], 2)));
+	return status_file_name;
 }
 
 /* Return (12) JANG File Name */
@@ -163,10 +163,10 @@ char* C_config::F_get_jang_file_name()
 }
 
 /* Return (13) 업무 구분 번호 */
-char* C_config::F_get_cnt_gubun()
+char* C_config::F_get_status_gubun()
 {
-	strncpy(cnt_gubun, &_config_temp[232], 2);
-	return cnt_gubun;
+	strncpy(status_gubun, &_config_temp[232], 2);
+	return status_gubun;
 }
 
 /* Return (14) Message Length */

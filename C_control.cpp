@@ -18,9 +18,9 @@ C_control::C_control(char *argv[]) : _key(&argv[1]), _config_path(&argv[2])
 
 	/* 사전 처리 */
 	F_open_file();				/* CONFIG에서 가져 온 정보로 관련파일들 Open */
-	F_get_cnt();				/* Process상태, Link여부, 마지막 데이터 개수 */
+	F_get_status();				/* Process상태, Link여부, 마지막 데이터 개수 */
 	F_get_jang();				/* JANG File을 읽어와서 Variable Setting */
-	F_update_cnt(START);		/* Count File에 Process Status 정상기동으로 수정 */
+	F_update_status(START);		/* Count File에 Process Status 정상기동으로 수정 */
 }
 
 void C_control::F_set_check_socket_information()
@@ -55,8 +55,8 @@ void C_control::F_open_file()
 		/* 4. Data File Open */
 		_log.F_write_log(_data.F_open_data_file(_config.F_get_data_file_name(), F_get_communicate_type()));
 
-		/* 5. CNT File Open */
-		_log.F_write_log(_cnt.F_open_cnt_file(_config.F_get_cnt_file_name(), _config.F_get_company_id(), _config.F_get_cnt_gubun()));
+		/* 5. STATUS File Open */
+		_log.F_write_log(_status.F_open_status_file(_config.F_get_status_file_name(), _config.F_get_company_id(), _config.F_get_status_gubun()));
 
 		/* 6. Jang File Open */
 		_log.F_write_log(_jang.F_open_jang_file(_config.F_get_jang_file_name()));
@@ -69,24 +69,24 @@ void C_control::F_open_file()
 	}
 }
 
-void C_control::F_get_cnt()
+void C_control::F_get_status()
 {
 	try
 	{
 		/* 1. 해당 회원사 Record Read */
-		_cnt.F_read_cnt();
+		_status.F_read_status();
 
 		/* 2. Last Data Count Status Check */
 		memset(_message, 0x00, sizeof(_message));
-		_log.F_write_log(_cnt.F_get_last_data());
+		_log.F_write_log(_status.F_get_last_data());
 
 		/* 3. Process Status Check */
 		memset(_message, 0x00, sizeof(_message));
-		_log.F_write_log(_cnt.F_get_process());
+		_log.F_write_log(_status.F_get_process());
 
 		/* 4. Link Status Check */
 		memset(_message, 0x00, sizeof(_message));
-		_log.F_write_log(_cnt.F_get_link());
+		_log.F_write_log(_status.F_get_link());
 	}
 	catch(const char* r_message)
 	{
@@ -151,7 +151,7 @@ void C_control::F_read_message()
 {
 	/* Variable Init */
 	int _result = FAIL;
-	_socket.F_put_retry_init();
+	_socket.F_setting_retry_init();
 
 	while(1)
 	{
@@ -163,7 +163,7 @@ void C_control::F_read_message()
 			/* 2. Message Status Check */
 			if(_result == SUCCESS) 
 			{ /* 정상 수신 */
-				_log.F_write_log(_socket.F_put_log_recv_message());
+				_log.F_write_log(_socket.F_setting_log_recv_message());
 				break;
 			}
 			else
@@ -198,7 +198,7 @@ void C_control::F_check_message()
 	{
 		/* 1. 마지막 데이터 갯수 확인 */
 		long _last_data_count = 0;
-		_last_data_count = _cnt.F_get_last_data_count();
+		_last_data_count = _status.F_get_last_data_count();
 
 		/* 2. 장 상태 확인 */
 		F_get_jang();
@@ -218,12 +218,12 @@ void C_control::F_check_message()
 		_error_code = _socket.F_get_error_code();
 		if(_error_code != FAIL)
 		{
-			_cnt.F_setting_tcpip_error_code(_error_code);
+			_status.F_setting_tcpip_error_code(_error_code);
 			memset(_message, 0x00, sizeof(_message));
 			sprintf(_message, "Interface Error Code..%d", _error_code);
 			_log.F_write_log(_message);
 			_msg.F_write_msg(_message);
-			F_update_cnt(ERROR);
+			F_update_status(ERROR);
 		}
 		else
 		{
@@ -248,8 +248,8 @@ void C_control::F_send_message()
 			/* 2. Message Status Check */
 			if(_result == SUCCESS) 
 			{ /* 정상 송신 */
-				_log.F_write_log(_socket.F_put_log_send_message());
-				F_update_cnt(NORMAL);
+				_log.F_write_log(_socket.F_setting_log_send_message());
+				F_update_status(NORMAL);
 				break;
 			}
 			else
@@ -306,7 +306,7 @@ void C_control::F_set_send_message_type()
 	}
 }
 
-void C_control::F_update_cnt(int msg_type)
+void C_control::F_update_status(int msg_type)
 {
 	int _update_result;
 	try
@@ -314,13 +314,13 @@ void C_control::F_update_cnt(int msg_type)
 		switch(msg_type)
 		{
 			case START :
-				_update_result = _cnt.F_update_cnt(START);
+				_update_result = _status.F_update_status(START);
 				break;
 			case ERROR :
-				_update_result = _cnt.F_update_cnt(ERROR);
+				_update_result = _status.F_update_status(ERROR);
 				break;
 			case NORMAL :
-				_update_result = _cnt.F_update_cnt(_socket.F_get_message_type());
+				_update_result = _status.F_update_status(_socket.F_get_message_type());
 				break;
 			default :
 				memset(_message, 0x00, sizeof(_message));
@@ -342,8 +342,8 @@ void C_control::F_update_cnt(int msg_type)
 			}
 			else
 			{
-				_log.F_write_log("CNT File Update Error..");
-				_msg.F_write_msg("CNT File Update Error..");
+				_log.F_write_log("STATUS File Update Error..");
+				_msg.F_write_msg("STATUS File Update Error..");
 				F_stop_process(FAIL);
 			}
 		}
@@ -375,9 +375,9 @@ void C_control::F_stop_process(int option)
 		_socket.F_set_link_status(DISCONNECT);
 		_socket.F_set_connect_status(DISCONNECT);
 
-		if(_cnt.F_put_process_stop(option) == SUCCESS)
+		if(_status.F_process_stop(option) == SUCCESS)
 		{
-			F_update_cnt(NORMAL);
+			F_update_status(NORMAL);
 			memset(_message, 0x00, sizeof(_message));
 			sprintf(_message, "Interface PROGRAM NORMAL STOP");
 			_log.F_write_log(_message);
@@ -386,7 +386,7 @@ void C_control::F_stop_process(int option)
 		}
 		else
 		{
-			F_update_cnt(ERROR);
+			F_update_status(ERROR);
 			memset(_message, 0x00, sizeof(_message));
 			sprintf(_message, "Interface PROGRAM ABNORMAL STOP");
 			_log.F_write_log(_message);

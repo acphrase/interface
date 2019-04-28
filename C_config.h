@@ -20,9 +20,9 @@ class C_config
 		char tcp_process_name 	[11];
 		char data_file_name		[30];
 		char log_file_name 		[30];
-		char cnt_file_name 		[30];
+		char status_file_name	[30];
 		char jang_file_name		[30];
-		char cnt_gubun     		[3];		/* 업무 구분 코드 */
+		char status_gubun 		[3];		/* 업무 구분 코드 */
 		char message_length		[5];
 		char msg_file_name 		[26];
 		char header_tr_code 	[10];
@@ -68,13 +68,13 @@ class C_config
 		char* F_get_log_file_name();
 
 		/* Return (11) CNT File Name (SEQ 파일) */
-		char* F_get_cnt_file_name();
+		char* F_get_status_file_name();
 
 		/* Return (12) JANG File Name */
 		char* F_get_jang_file_name();
 
 		/* Return (13) 업무 구분 번호 */
-		char* F_get_cnt_gubun();
+		char* F_get_status_gubun();
 
 		/* Return (14) Message Length */
 		char* F_get_message_length();

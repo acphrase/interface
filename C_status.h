@@ -1,20 +1,20 @@
-#ifndef __CNT_HEADER__
-#define __CNT_HEADER__
+#ifndef __STATUS_HEADER__
+#define __STATUS_HEADER__
 
 #include"common.h"
 #include"C_time.h"
 
-class C_cnt
+class C_status
 {
 	private :
 		/* 1. Status Message Variable */
 		char _write_message[150];
 
 		/* 2. File Stream Variable */
-		fstream _cnt;
+		fstream _status;
 
 		/* 3. Buffer Variable */
-		CNT_DEF _cnt_record;
+		STATUS_DEF _status_record;
 
 		/* 4. Time Class */
 		C_time _date_time;
@@ -24,7 +24,7 @@ class C_cnt
 
 		/* 6. ETC */
 		char* _time;
-		char _cnt_key			[6];
+		char _status_key		[6];
 		char _data_count		[9];	/* 마지막 데이터 수신 및 송신 개수 (일련번호) */
 		long _data_count_num;
 		char _process_status	[2];	/* Main Process 상태 (0:미기동, 1:정상기동, 2:비정상STOP, 3:정상STOP) */
@@ -33,26 +33,26 @@ class C_cnt
 		int _link_status_num;
 		long _line_temp;				/* 위치 지정자 임시 저장 */
 		char* _company_id;
-		char* _cnt_gubun;
+		char* _status_gubun;
 
 	public :
-		C_cnt();
-		~C_cnt();
+		C_status();
+		~C_status();
 
-		/* Count File Open */
-		char* F_open_cnt_file(char* _cnt_file, char* r_company_id, char* r_cnt_gubun);
+		/* Status File Open */
+		char* F_open_status_file(char* _status_file, char* r_company_id, char* r_status_gubun);
 		
-		/* Read Count File */
-		void F_read_cnt();
+		/* Read Status File */
+		void F_read_status();
 
-		/* Write Count File */
-		void F_write_cnt();
+		/* Write Status File */
+		void F_write_status();
 
-		/* Update Count File */
-		int F_update_cnt(int msg_type);
+		/* Update Status File */
+		int F_update_status(int msg_type);
 
-		/* Update Process Stop Status To Count File */
-		int F_put_process_stop(int option);
+		/* Update Process Stop To Status File */
+		int F_process_stop(int option);
 
 		/* Return Last Data Count Number */
 		long F_get_last_data_count();

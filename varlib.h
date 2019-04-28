@@ -29,19 +29,19 @@
 #define SND_RCV_CHK		500		/* 500: 송신시 recv 있음 */
 
 /*----------------------------- Message error 구분 ---------------------------*/
-#define   NO_ERROR			0
-#define   SEQ_ERROR			1
-#define   CNT_ERROR			2
-#define   MARKET_BEF_ERROR	3
-#define   MARKET_AFT_ERROR	4
-#define   FORMAT_ERROR		14
-#define   PARSING_ERROR		18
-#define   TR_CODE_INVALID	91
-#define   GIGWAN_ID_INVALID	92
-#define   MSG_TYPE_INVALID	93     /* AnyLink에서 처리 */
-#define   OPR_TYPE_INVALID	94     /* AnyLink에서 처리 */
-#define   DATA_NO_INVALID	98
-#define   DATA_CNT_INVALID	99
+#define   NO_ERROR				0
+#define   SEQUENCE_ERROR		1
+#define   COUNT_ERROR			2
+#define   MARKET_BEF_ERROR		3
+#define   MARKET_AFT_ERROR		4
+#define   FORMAT_ERROR			14
+#define   PARSING_ERROR			18
+#define   TR_CODE_INVALID		91
+#define   GIGWAN_ID_INVALID		92
+#define   MSG_TYPE_INVALID		93     /* AnyLink에서 처리 */
+#define   OPR_TYPE_INVALID		94     /* AnyLink에서 처리 */
+#define   DATA_NO_INVALID		98
+#define   DATA_COUNT_INVALID	99
 
 /*----------------------------------------------------------------------------*/
 /*----------------------------- 3. JANG --------------------------------------*/
@@ -100,9 +100,9 @@ struct KOPRMGT_DEF{
 };
 
 /*----------------------------------------------------------------------------*/
-/*----------------------------- 4. COUNT(SEQUENCE) ---------------------------*/
+/*----------------------------- 4. STATUS ------------------------------------*/
 /*----------------------------------------------------------------------------*/
-#define CNT_RECORD_LENGTH	100
+#define STATUS_RECORD_LENGTH	100
 #define INCOMPLETE			"0"
 #define COMPLETE			"1"
 #define ABNORMAL_STATUS		"2"
@@ -113,7 +113,7 @@ struct KOPRMGT_DEF{
 #define NORMAL_STOP			"9"
 
 /*----------------------------- Count File 관련 변수 -------------------------*/
-struct CNT_DEF
+struct STATUS_DEF
 { /* 수신, 송신 File definition */
 	char company_id		[3];   /* 회원사 코드 */
 	char cnt_gubun		[2];   /* 업무 구분 코드 */
@@ -170,7 +170,7 @@ struct SEND_MESSAGE_DEF
 	char err_code			[2];   /* 오류 code : 00:정상,기타:ERROR */
 	char time				[12];  /* 날짜 및 시간 : yymmddhhmmss */
 	char retry_cnt			[2];   /* 재송횟수 */
-	char data_no			[8];   /* DATA SEQ */
+	char data_no			[8];   /* DATA SEQUENCE */
 	char data_cnt			[2];   /* DATA 갯수 */
 	char snd_data			[3951];
 }; /* 송신 버퍼 총 4000 byte */
